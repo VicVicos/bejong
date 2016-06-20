@@ -49,6 +49,16 @@ nav {
     background: linear-gradient(to right, rgba(80,164,210,0.8) 0%, rgba(80,164,210,0) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcb747', endColorstr='#fcb747', GradientType=1 );
 }
+.types > div:nth-child(3) > div, .services > div:nth-child(3) > div {
+    background: rgba(80,164,210,1);
+    background: -moz-linear-gradient(left, rgba(80,164,210,0.8) 0%, rgba(80,164,210,0) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(80,164,210,0.8)), color-stop(100%, rgba(80,164,210,0)));
+    background: -webkit-linear-gradient(left, rgba(80,164,210,0.8) 0%, rgba(80,164,210,0) 100%);
+    background: -o-linear-gradient(left, rgba(80,164,210,0.8) 0%, rgba(80,164,210,0) 100%);
+    background: -ms-linear-gradient(left, rgba(80,164,210,0.8) 0%, rgba(80,164,210,0) 100%);
+    background: linear-gradient(to right, rgba(80,164,210,0.8) 0%, rgba(80,164,210,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcb747', endColorstr='#fcb747', GradientType=1 );
+}
 .types > div:nth-child(4) > div {
     background: rgba(80,192,192,1);
     background: -moz-linear-gradient(left, rgba(80,192,192,0.8) 0%, rgba(80,192,192,0) 100%);

@@ -1,23 +1,32 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]> <html class="no-js" lang=""> <![endif]-->
+<?php
+
+/* @var $this \yii\web\View */
+/* @var $content string */
+
+use yii\helpers\Html;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
+use yii\widgets\Breadcrumbs;
+use app\assets\AppAsset;
+
+AppAsset::register($this);
+?>
+<?php $this->beginPage() ?>
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Личный кабинет</title>
-    <meta name="description" content="">
+    <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/slick.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="assets/css/styles.min.css">
-    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-    <script src="assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
 </head>
 <body>
+<?php $this->beginBody() ?>
 <!--[if lt IE 8]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
@@ -28,7 +37,7 @@
         <div class="row">
             <div class="col-md-3 logo">
                 <a href="/html/index.html" title="title">
-                    <img src="assets/img/logo.png" alt="Title">
+                    <img src="img/logo.png" alt="Title">
                 </a>
             </div>
             <!-- Tools -->
@@ -49,7 +58,7 @@
             </nav>
         </div>
     </header>
-    <!-- Slider -->
+
     <section class="container">
         <h1>Личный кабинет</h1>
     </section>
@@ -86,6 +95,10 @@
     </div>
     <!-- lk row -->
     <div class="row lk">
+        <?php echo $content; ?>
+    </div>
+
+    <div class="row lk">
         <a class="link link-default" href="#back">Вернуться назад</a>
         <div class="col-md-6">
             <p class="title">Личные данные клиента</p>
@@ -105,7 +118,7 @@
             <p><span>87494ASD</span>Доставлено</p>
         </div>
     </div>
-    <!-- lk row -->
+
     <div class="row lk">
         <div class="col-md-12">
             <button class="btn btn-lk" type="submit">Загрузить накладную</button>
@@ -141,7 +154,7 @@
             </table>
         </div>
     </div>
-    <!-- lk row -->
+
     <div class="row lk">
         <div class="col-md-6">
             <p class="title">Напомнить произвести оплату</p>
@@ -161,7 +174,7 @@
             </form>
         </div>
     </div>
-    <!-- lk row -->
+
     <div class="row lk">
         <div class="col-md-6">
             <p class="title">Алексей</p>
@@ -215,22 +228,7 @@
     </div>
 </footer>
 <!-- End Body -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-
-<script src="assets/js/vendor/bootstrap.min.js"></script>
-<script src="assets/js/vendor/slick.min.js"></script>
-
-<!-- <script src="assets/js/plugins.js"></script> -->
-<script src="assets/js/script.min.js"></script>
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-<script>
-    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-    e.src='//www.google-analytics.com/analytics.js';
-    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-</script>
+<?php $this->endBody() ?>
 </body>
 </html>
+<?php $this->endPage() ?>
