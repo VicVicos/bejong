@@ -1,14 +1,18 @@
 <?php
-
+// FIXME: Изменить интро и excerpt на varchar
+// TODO: Страница регистрации
+// TODO: Пункт меню Услуги - выпадашка
 namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\filters\VerbFilter;
+use app\models\LoginForm;
+use app\models\ContactForm;
 
 class SiteController extends Controller
 {
-    // public $layout = 'page';
     public function behaviors()
     {
         return [

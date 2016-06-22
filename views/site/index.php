@@ -4,50 +4,36 @@
 
 $this->title = 'My Yii Application';
 ?>
-<div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+<section class="wrp-services">
+    <div class="container">
+        <div class="row services">
+            <div class="col-md-4">
+                <p class="titleh2">Наш сервис</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod voluptate modi provident tenetur at maiores ipsa nulla ducimus laudantium sunt architecto, quisquam rem delectus cum totam porro, velit nemo nobis!</p>
+                <ul class="elems">
+                    <li class="active"><a href="#tab1" data-toggle="tab">Логистика</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Упаковка</a></li>
+                    <li><a href="#tab3" data-toggle="tab">Материал</a></li>
+                </ul>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="col-md-8">
+                <div class="tab-content">
+                  <div class="tab-pane active" id="tab1"><p>1Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, qui    a molestiae. Quo numquam molestiae maxime alias deleniti obcaeca    ti? Vitae soluta temporibus incidunt, perspiciatis odio a vero minus molestias blanditiis commodi.</p></div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                  <div class="tab-pane" id="tab2"><p>2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit velit facere aliquid magni quaerat nulla ratione quia hic debitis at praesentium, provident veniam quasi cupiditate ad quae, doloremque nemo illo?</p></div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                  <div class="tab-pane" id="tab3"><p>3Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem soluta fugit alias rem iure amet odio nemo, quo possimus asperiores voluptatem quia neque, eveniet enim nihil dignissimos dolor sit sapiente.</p></div>
+                </div>
+                <div class="pilles">
+                    <div><i class="icon icon-avia"></i><p>Воздушные перевозки</p></div>
+                    <div><i class="icon icon-water"></i><p>Морские перевозки</p></div>
+                    <div><i class="icon icon-avto"></i><p>Наземные перевозки</p></div>
+                    <div><i class="icon icon-gruz"></i><p>Контейнеры</p></div>
+                    <div><i class="icon icon-manager"></i><p>Услуги экспедитора</p></div>
+                </div>
             </div>
         </div>
-
+        <i class="icon icon-bouble-bottom"></i>
+        <i class="icon icon-bouble-top"></i>
     </div>
-</div>
+</section>

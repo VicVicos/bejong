@@ -53,6 +53,11 @@ class LoginForm extends Model
         }
     }
 
+    public function validatePassword2($password)
+    {
+        return $this->password === Yii::$app->security->generatePasswordHash ($password);
+    }
+
     /**
      * Logs in a user using the provided username and password.
      * @return boolean whether the user is logged in successfully

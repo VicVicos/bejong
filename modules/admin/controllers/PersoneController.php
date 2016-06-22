@@ -1,18 +1,18 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\Article;
-use app\models\SearchArticle;
+use app\models\Persone;
+use app\models\SearchPersone;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AdminArticleController implements the CRUD actions for Article model.
+ * PersoneController implements the CRUD actions for Persone model.
  */
-class AdminArticleController extends Controller
+class PersoneController extends Controller
 {
     public $layout = 'admin';
     /**
@@ -31,12 +31,12 @@ class AdminArticleController extends Controller
     }
 
     /**
-     * Lists all Article models.
+     * Lists all Persone models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SearchArticle();
+        $searchModel = new SearchPersone();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,27 +46,25 @@ class AdminArticleController extends Controller
     }
 
     /**
-     * Displays a single Article model.
+     * Displays a single Persone model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        $this->layout = 'admin';
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Article model.
+     * Creates a new Persone model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Article();
-        $this->layout = 'admin';
+        $model = new Persone();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -78,7 +76,7 @@ class AdminArticleController extends Controller
     }
 
     /**
-     * Updates an existing Article model.
+     * Updates an existing Persone model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -86,7 +84,6 @@ class AdminArticleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $this->layout = 'admin';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -98,7 +95,7 @@ class AdminArticleController extends Controller
     }
 
     /**
-     * Deletes an existing Article model.
+     * Deletes an existing Persone model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -111,15 +108,15 @@ class AdminArticleController extends Controller
     }
 
     /**
-     * Finds the Article model based on its primary key value.
+     * Finds the Persone model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Article the loaded model
+     * @return Persone the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Article::findOne($id)) !== null) {
+        if (($model = Persone::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

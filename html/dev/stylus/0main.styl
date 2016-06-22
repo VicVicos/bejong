@@ -5,7 +5,7 @@ html, body
     font-size: 16px;
     background-color: #fff;
 *
-    outline: 0;
+    outline: 0 !important;
 .container
     width: 1200px;
 a, button, input
@@ -131,6 +131,7 @@ h1
     position: absolute;
     right: 0;
     text-decoration: underline;
+    z-index: 99;
     &::before
         content: '←';
         display: inline-block;

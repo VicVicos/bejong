@@ -7,6 +7,9 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+
+use app\components\Menu;
+use app\components\Blocks;
 use app\assets\AppAsset;
 use app\models\Article;
 
@@ -49,122 +52,22 @@ AppAsset::register($this);
             </div>
             <!-- Menu -->
             <nav class="col-md-9">
-                <ul class="nav-menu">
-                    <li><a href="#">Item menu 1</a></li>
-                    <li><a href="#">Item menu 2</a></li>
-                    <li><a href="#">Item menu 3</a></li>
-                    <li><a href="#">Item menu 4</a></li>
-                    <li><a href="#">Item menu 5</a></li>
-                </ul>
+                <?= Menu::widget(); ?>
             </nav>
         </div>
     </header>
     <!-- Slider -->
     <section class="container">
-        <div class="row slider">
-            <div class="col-md-12 slick-elem">
-                <div class="slick-content">
-                    <p class="title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam odit necessitatibus praesentium, sit eos amet molestias, facilis voluptatem eligendi ratione vitae voluptatibus architecto quas non ipsam nostrum harum deserunt nemo. Lorem ipsum dolor sit amet, consectetur adipisicing elitLorem ipsum dolor sit amet, consectetur adipisicing elitLorem ipsum dolor sit amet, consectetur adipisicing elitLorem ipsum dolor sit amet, consectetur adipisicing elitLorem ipsum dolor sit amet, consectetur adipisicing elitLorem ipsum dolor sit amet, consectetur adipisicing elitLorem ipsum dolor sit amet, consectetur adipisicing elitLorem ipsum dolor sit amet, consectetur adipisicing elitLorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    <a href="#" class="btn btn-default-1">Подробнее</a>
-                </div>
-                <div class="slick-img">
-                    <img src="img/slide.png" alt="Slide" title="Slide">
-                </div>
-            </div>
-            <div class="col-md-12 slick-elem">
-                <div class="slick-content">
-                    <p class="title">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam odit necessitatibus praesentium, sit eos amet molestias, facilis voluptatem eligendi ratione vitae voluptatibus architecto quas non ipsam nostrum harum deserunt nemo.</p>
-                    <a href="#" class="btn btn-default-1">Подробнее</a>
-                </div>
-                <div class="slick-img">
-                    <img src="http://fakeimg.pl/1050x600/?text=Hello" alt="fakeimg">
-                </div>
-            </div>
-        </div>
+        <?= Blocks::widget(['id' => 'slide']); ?>
     </section>
 </div>
 <!-- Типы перевозки -->
 <section class="container">
-    <div class="row types">
-        <div class="col-md-6">
-            <img src="img/img_01.jpg" alt="img" title="img">
-            <div>
-                <p class="title first-bold">Воздушные перевозки</p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium quidem libero ipsam voluptatibus quod optio at, ducimus totam, minima enim eius soluta obcaecati sunt aliquid. Pariatur, architecto, maxime! Ratione, libero?
-                </p>
-                <a href="#" class="btn btn-default-1">Подробнее</a>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <img src="img/img_02.jpg" alt="img" title="img">
-            <div>
-                <p class="title first-bold">Морские перевозки</p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium quidem libero ipsam voluptatibus quod optio at, ducimus totam, minima enim eius soluta obcaecati sunt aliquid. Pariatur, architecto, maxime! Ratione, libero?
-                </p>
-                <a href="#" class="btn btn-default-1">Подробнее</a>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <img src="img/img_03.jpg" alt="img" title="img">
-            <div>
-                <p class="title first-bold">Наземные перевозки</p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium quidem libero ipsam voluptatibus quod optio at, ducimus totam, minima enim eius soluta obcaecati sunt aliquid. Pariatur, architecto, maxime! Ratione, libero?
-                </p>
-                <a href="#" class="btn btn-default-1">Подробнее</a>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <img src="img/img_04.jpg" alt="img" title="img">
-            <div>
-                <p class="title first-bold">&laquo;Таобао&raquo;</p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium quidem libero ipsam voluptatibus quod optio at, ducimus totam, minima enim eius soluta obcaecati sunt aliquid. Pariatur, architecto, maxime! Ratione, libero?
-                </p>
-                <a href="#" class="btn btn-default-1">Подробнее</a>
-            </div>
-        </div>
-    </div>
+    <?= Blocks::widget(['id' => 'block']); ?>
 </section>
 <!-- ************** -->
 <!-- Services2 -->
-<section class="wrp-services">
-    <div class="container">
-        <div class="row services">
-            <div class="col-md-4">
-                <p class="titleh2">Наш сервис</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod voluptate modi provident tenetur at maiores ipsa nulla ducimus laudantium sunt architecto, quisquam rem delectus cum totam porro, velit nemo nobis!</p>
-                <ul class="elems">
-                    <li class="active"><a href="#tab1" data-toggle="tab">Логистика</a></li>
-                    <li><a href="#tab2" data-toggle="tab">Упаковка</a></li>
-                    <li><a href="#tab3" data-toggle="tab">Материал</a></li>
-                </ul>
-            </div>
-            <div class="col-md-8">
-                <div class="tab-content">
-                  <div class="tab-pane active" id="tab1"><p>1Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, qui    a molestiae. Quo numquam molestiae maxime alias deleniti obcaeca    ti? Vitae soluta temporibus incidunt, perspiciatis odio a vero minus molestias blanditiis commodi.</p></div>
-
-                  <div class="tab-pane" id="tab2"><p>2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit velit facere aliquid magni quaerat nulla ratione quia hic debitis at praesentium, provident veniam quasi cupiditate ad quae, doloremque nemo illo?</p></div>
-
-                  <div class="tab-pane" id="tab3"><p>3Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem soluta fugit alias rem iure amet odio nemo, quo possimus asperiores voluptatem quia neque, eveniet enim nihil dignissimos dolor sit sapiente.</p></div>
-                </div>
-                <div class="pilles">
-                    <div><i class="icon icon-avia"></i><p>Воздушные перевозки</p></div>
-                    <div><i class="icon icon-water"></i><p>Морские перевозки</p></div>
-                    <div><i class="icon icon-avto"></i><p>Наземные перевозки</p></div>
-                    <div><i class="icon icon-gruz"></i><p>Контейнеры</p></div>
-                    <div><i class="icon icon-manager"></i><p>Услуги экспедитора</p></div>
-                </div>
-            </div>
-        </div>
-        <i class="icon icon-bouble-bottom"></i>
-        <i class="icon icon-bouble-top"></i>
-    </div>
-</section>
+<?= $content ?>
 <!-- ********* -->
 <!-- Delivery -->
 <section class="container delivery">
@@ -274,7 +177,8 @@ AppAsset::register($this);
             <div class="col-md-12">
                 <p class="titleh2">Что люди говорят о нас</p>
                 <a href="#" class="btn btn-default-3">Написать отзыв</a>
-                <div class="slick-reviews">
+                <?= Blocks::widget(['id' => 'review']); ?>
+                <!-- <div class="slick-reviews">
                     <div class="review row">
                         <div class="col-md-3">
                             <div class="img-circle">
@@ -299,7 +203,7 @@ AppAsset::register($this);
                             <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam itaque corporis illum veniam expedita alias, quia praesentium consectetur consequuntur officiis eligendi saepe voluptatem, maiores quos, ipsa minus, possimus illo architecto!</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

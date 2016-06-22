@@ -47,7 +47,17 @@ $config = [
         ],
         */
     ],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Admin',
+        ],
+        'lk' => [
+            'class' => 'app\modules\lk\Lk',
+        ],
+    ],
     'params' => $params,
+    'language'=>'ru',
+    'sourceLanguage'=>'ru',
 ];
 
 if (YII_ENV_DEV) {

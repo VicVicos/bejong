@@ -36,7 +36,7 @@ AppAsset::register($this);
     <header class="container">
         <div class="row">
             <div class="col-md-3 logo">
-                <a href="/html/index.html" title="title">
+                <a href="/web/index.php" title="title">
                     <img src="img/logo.png" alt="Title">
                 </a>
             </div>
@@ -49,7 +49,7 @@ AppAsset::register($this);
             <!-- Menu -->
             <nav class="col-md-9">
                 <ul class="nav-menu">
-                    <li><a href="#">Item menu 1</a></li>
+                    <li><a href="<?=Yii::$app->urlManager->createUrl(["admin/article"])?>">Статьи</a></li>
                     <li><a href="#">Item menu 2</a></li>
                     <li><a href="#">Item menu 3</a></li>
                     <li><a href="#">Item menu 4</a></li>

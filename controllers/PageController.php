@@ -6,10 +6,13 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+
 use app\models\LoginForm;
+use app\models\Article;
+use app\models\Persone;
 use app\models\ContactForm;
 
-class SiteController extends Controller
+class PageController extends Controller
 {
     public $layout = 'page';
     public function behaviors()
@@ -47,10 +50,80 @@ class SiteController extends Controller
             ],
         ];
     }
-
     public function actionIndex()
     {
         return $this->render('index');
+    }
+    /**
+     * Статьи
+     * @method actionPage
+     * @return [type]     [description]
+     */
+    public function actionPage()
+    {
+        $idPage = Yii::$app->request->get('id');
+        $model = Article::findOne(['id' => $idPage]);
+        return $this->render('page', [
+            'model' => $model,
+        ]);
+    }
+    /**
+     * About
+     * @method actionAbout
+     * @return [type]      [description]
+     */
+    public function actionAbout()
+    {
+        $model = Article::findOne(['id' => 9]);
+        return $this->render('about', [
+            'model' => $model,
+        ]);
+    }
+    /**
+     * Contacts
+     * @method action
+     * @return [type]     [description]
+     */
+    public function actionContacts()
+    {
+        $idPage = Yii::$app->request->get('id');
+        $model = Article::findOne(['id' => 10]);
+        return $this->render('contacts', [
+            'model' => $model,
+        ]);
+    }
+    /**
+     * Services
+     * @method actionServices
+     * @return [type]         [description]
+     */
+    public function actionServices()
+    {
+        $idPage = Yii::$app->request->get('id');
+        $model = Article::findOne(['id' => 11]);
+        return $this->render('services', [
+            'model' => $model,
+        ]);
+    }
+    public function actionTeam()
+    {
+        $model = Persone::find()->all();
+        return $this->render('team', [
+            'model' => $model,
+        ]);
+    }
+    /**
+     * Uslugi
+     * @method actionUslugi
+     * @return [type]       [description]
+     */
+    public function actionUslugi()
+    {
+        $idPage = Yii::$app->request->get('id');
+        $model = Article::findOne(['id' => 12]);
+        return $this->render('uslugi', [
+            'model' => $model,
+        ]);
     }
 
     public function actionLogin()
@@ -88,8 +161,4 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
 }

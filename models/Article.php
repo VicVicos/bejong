@@ -11,6 +11,7 @@ use Yii;
  * @property string $title
  * @property string $alias
  * @property string $type
+ * @property string $link
  * @property string $intro
  * @property string $text
  * @property string $img
@@ -33,7 +34,8 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             [['text'], 'string'],
-            [['title', 'alias', 'intro', 'img', 'excerpt'], 'string', 'max' => 255],
+            [['title', 'alias', 'intro', 'link', 'img', 'excerpt'], 'string', 'max' => 255],
+            [['type', 'status'], 'string'],
         ];
     }
 
@@ -44,13 +46,45 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
+            'title' => 'Заголовок',
             'alias' => 'Alias',
-            'type' => 'Type',
-            'intro' => 'Intro',
-            'text' => 'Text',
-            'img' => 'Img',
-            'excerpt' => 'Excerpt',
+            'link' => 'Ссылка',
+            'type' => 'Тип',
+            'status' => 'Статус',
+            'intro' => 'Интро текст',
+            'text' => 'Статья',
+            'img' => 'Картинка',
+            'excerpt' => 'Особое описание',
         ];
+    }
+    // Методы работы со статьями
+
+    /**
+     * TODO: Получать список из базы
+     * Получаем типы статей
+     * @method getType
+     * @return array  Типы статей
+     */
+    public function getType()
+    {
+        // SHOW COLUMNS FROM bj_article
+
+    }
+    /**
+     * Дела перед сохранением статьи
+     * @method beforeSave
+     * @param  [type]     $insert [description]
+     * @return [type]             [description]
+     */
+    public function beforeSave($insert)
+    {
+        $art = Yii::$app->request->post('Article');
+        $this->type = $art['type'];
+        if (parent::beforeSave($insert)) {
+            // ...custom code here...
+            return true;
+        } else {
+            return false;
+        }
     }
 }
