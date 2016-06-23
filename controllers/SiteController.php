@@ -21,9 +21,9 @@ class SiteController extends Controller
                 'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['manager'],
                     ],
                 ],
             ],
@@ -51,6 +51,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        var_dump(Yii::$app->user->can('admin', ['user' => $this->user]));
         return $this->render('index');
     }
 
@@ -72,7 +73,6 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 }

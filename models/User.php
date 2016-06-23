@@ -5,6 +5,10 @@ namespace app\models;
 // class User extends \yii\base\Object implements \yii\web\IdentityInterface
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+    private $group = '';
+    const ROLE_MEMBER = 1;
+    const ROLE_MANAGER = 5;
+    const ROLE_ADMIN = 10;
     /**
      * @inheritdoc
      */
@@ -43,9 +47,24 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findByEmail($email)
     {
-        return static::findOne(['email' => $email]);
+        $user = self::findOne(['email' => $email]);
+        return $user;
     }
-
+    public function getUser()
+    {
+        if ($this->user === false) {
+            //Находим пользователя в БД по логину или эл.почте
+            $this->user = User::find()
+                ->andWhere(['email' => $this->email])
+                ->one();
+            //Проверяем права доступа, если нет, то делаем вид,
+            //что пользователь не найден.
+            if (!Yii::$app->user->can('admin', ['user' => $this->user])) {
+                $this->user = null;
+            }
+        }
+        return $this->user;
+    }
     /**
      * @inheritdoc
      */

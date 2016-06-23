@@ -1,7 +1,5 @@
 <?php
-
 $params = require(__DIR__ . '/params.php');
-
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
@@ -46,6 +44,13 @@ $config = [
             ],
         ],
         */
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+            'defaultRoles' => ['member','manager','admin'],
+            'itemFile' => '@app/rbac/items.php',
+            'assignmentFile' => '@app/rbac/assignments.php',
+            'ruleFile' => '@app/rbac/rules.php',
+        ],
     ],
     'modules' => [
         'admin' => [
@@ -54,29 +59,20 @@ $config = [
         'lk' => [
             'class' => 'app\modules\lk\Lk',
         ],
-        'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
-        ],
-        'authManager' => [
-            'class' => 'yii\rbac\DbManager',
-        ],
     ],
     'params' => $params,
     'language'=>'ru',
     'sourceLanguage'=>'ru',
 ];
-
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
     ];
-
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
     ];
 }
-
 return $config;
