@@ -54,6 +54,12 @@ $config = [
         'lk' => [
             'class' => 'app\modules\lk\Lk',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
     ],
     'params' => $params,
     'language'=>'ru',

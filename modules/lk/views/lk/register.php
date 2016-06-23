@@ -8,6 +8,7 @@ use app\models\RegisterUser;
 /* @var $this yii\web\View */
 /* @var $model app\models\RegisterUser */
 /* @var $form ActiveForm */
+
 ?>
 <section class="container">
     <h1>Регистрация нового пользователя</h1>
@@ -36,16 +37,6 @@ use app\models\RegisterUser;
                 <?= Html::submitButton('Зарегестрироваться', ['class' => 'btn btn-primary']) ?>
             </div>
         </div>
-        <!-- <div class="form-group">
-                <label class="col-sm-3 control-label">Повторите пароль</label>
-                <div class="col-sm-9">
-                <? Html::passwordInput('RegisterUser[vpass]', null, ['class' => 'form-control']); ?>
-            </div>
-            <div class="col-sm-9">
-            <div class="help-block">
-            </div>
-            </div>
-        </div> -->
         <?php ActiveForm::end(); ?>
     </div>
 </div>

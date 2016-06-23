@@ -4,7 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
-
+use app\models\User;
 /**
  * LoginForm is the model behind the login form.
  *
@@ -13,12 +13,11 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
-    public $username;
+    public $email;
     public $password;
     public $rememberMe = true;
 
     private $_user = false;
-
 
     /**
      * @return array the validation rules.
@@ -27,7 +26,7 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['email', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -46,16 +45,34 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
+            $data = Yii::$app->request->post('LoginForm');
+            $hashPass = $this->getHash($data['password'], $user->password);
 
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+            if (!$hashPass) {
+                $this->addError($attribute, 'Неверное имя или пароль.');
             }
         }
     }
-
+    /**
+     * Проверка пароля
+     * @method getHash
+     * @param  str  $password password post
+     * @param  str  $hash hash пароля
+     * @return bool
+     */
+    public function getHash ($password, $hash)
+    {
+        return password_verify($password, $hash);
+    }
+    /**
+     * tempFunc
+     * @method validatePassword2
+     * @param  [type]            $password [description]
+     * @return [type]                      [description]
+     */
     public function validatePassword2($password)
     {
-        return $this->password === Yii::$app->security->generatePasswordHash ($password);
+        return $this->password === Yii::$app->security->generatePasswordHash($password);
     }
 
     /**
@@ -66,19 +83,20 @@ class LoginForm extends Model
     {
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+        } else {
         }
         return false;
     }
 
     /**
-     * Finds user by [[username]]
+     * Finds user by [[useremail]]
      *
      * @return User|null
      */
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findByEmail($this->email);
         }
 
         return $this->_user;

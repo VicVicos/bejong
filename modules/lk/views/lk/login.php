@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]); ?>
                 <p>Если вы впервые в личном кабинете - <a href="<?= Url::to(['lk/register']); ?>">Зарегистрируйтесь</a></p>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => 'Ваш email']); ?>
+                <?= $form->field($model, 'email')->textInput(['autofocus' => true, 'placeholder' => 'Ваш email']); ?>
 
                 <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Введите пароль']) ?>
 

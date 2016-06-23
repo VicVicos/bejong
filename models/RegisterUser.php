@@ -66,6 +66,28 @@ class RegisterUser extends \yii\db\ActiveRecord
         ];
     }
     /**
+     * Регистрируем пользователя
+     * @method registerUser
+     * @param  array       $model Данные формы
+     * @return [type]              [description]
+     */
+    public function registerUser ($user)
+    {
+        $options = [
+            'cost' => 12,
+            'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+        ];
+        $hash = password_hash($user['pass'], PASSWORD_BCRYPT);
+
+        return Yii::$app->db->createCommand()->insert('{{%user}}', [
+            'name' => $user['name'],
+            'password' => $hash,
+            'email' => $user['email'],
+            'contact' => $user['contact'],
+            'address' => $user['address']
+        ])->execute();
+    }
+    /**
      * [beforeSave description]
      * @method beforeSave
      * @param  [type]     $insert [description]
@@ -82,4 +104,5 @@ class RegisterUser extends \yii\db\ActiveRecord
             return false;
         }
     }
+
 }

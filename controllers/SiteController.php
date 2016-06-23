@@ -1,7 +1,7 @@
 <?php
 // FIXME: Изменить интро и excerpt на varchar
-// TODO: Страница регистрации
 // TODO: Пункт меню Услуги - выпадашка
+// TODO: layots для ошибок
 namespace app\controllers;
 
 use Yii;

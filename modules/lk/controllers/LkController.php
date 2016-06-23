@@ -4,6 +4,10 @@ namespace app\modules\lk\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\helpers\Html;
+use yii\filters\AccessControl;
+
+use app\models\User;
 use app\models\LoginForm;
 use app\models\RegisterUser;
 /**
@@ -12,16 +16,51 @@ use app\models\RegisterUser;
 class LkController extends Controller
 {
     public $layout = 'lk';
-    public $vpass2 = '';
+    public $vpass = '';
+    public $user = '';
+    /**
+     * ? - гость @ - Авторизованный
+     * @method behaviors
+     * @return [type]    [description]
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['login', 'logout', 'signup'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['login', 'signup'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['manager', 'index'],
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
+        ];
+    }
     /**
      * Главная страница личного кабинета
      * @return string
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        if (Yii::$app->user->identity) {
+            return $this->render('index');
+        } else {
+            return $this->redirect('?r=lk/lk/login',302);
+        }
     }
     //
+    public function getRole ()
+    {
+        return $this->user->role;
+    }
     /**
      * Страница менеджера
      * @method actionManager
@@ -76,10 +115,28 @@ class LkController extends Controller
     public function actionRegister()
     {
         $model = new RegisterUser();
+        $user = [];
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 if ($model->password === $model->vpass) {
-                    # code...
+                    $user['email'] = Html::encode($model->email);
+                    $user['pass'] = Html::encode($model->password);
+                    $user['name'] = Html::encode($model->name);
+                    $user['contact'] = Html::encode($model->contact);
+                    $user['address'] = Html::encode($model->address);
+                    $res = RegisterUser::registerUser($user);
+                    // Отправить письмо при регистрации
+                    if (is_int($res)) {
+                        Yii::$app->session->setFlash('success', 'Регистрация прошла успешно.', false);
+                        // Авторизуем
+                        $user = new User();
+                        Yii::$app->user->login($user->findByEmail($model->email), true ? 3600*24*30 : 0);
+                        return $this->redirect('?r=lk/lk/index',302);
+                    } else {
+                        Yii::$app->getSession()->setFlash('error', 'Ошибка регистрации');
+                    }
+                    // var_dump($res);
+                    //
                 } else {
                     $model->addError('vpass', 'Пароли должны совпадать');
                 }
@@ -102,7 +159,12 @@ class LkController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
+    public function beforeAction()
+    {
+        $this->user = Yii::$app->user->identity;
+        return true;
+    }
+
 }
