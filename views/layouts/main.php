@@ -7,11 +7,7 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-
-use app\components\Menu;
-use app\components\Blocks;
 use app\assets\AppAsset;
-use app\models\Article;
 
 AppAsset::register($this);
 ?>
@@ -35,180 +31,36 @@ AppAsset::register($this);
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 <!-- Body -->
-<div class="wrp-header">
+<div class="wrp-header-lk">
     <!-- Шапка -->
     <header class="container">
         <div class="row">
             <div class="col-md-3 logo">
-                <a href="<?=Yii::$app->urlManager->createUrl(["site/index"])?>" title="title">
+                <a href="/web/index.php" title="title">
                     <img src="img/logo.png" alt="Title">
                 </a>
             </div>
             <!-- Tools -->
             <div class="col-md-9 tools">
-                <a href="<?= Yii::$app->urlManager->createUrl(["lk/lk/index"]) ?>" class="btn btn-custom"><i class="icon icon-arrow-btn"></i>Личный кабинет</a>
+                <a href="/html/lk.html" class="btn btn-custom"><i class="icon icon-arrow-btn"></i>Личный кабинет</a>
                 <a href="#" class="btn btn-default-3">Оставить заявку</a>
                 <a href="#" class="btn btn-default-2">Состояние заказа</a>
             </div>
             <!-- Menu -->
             <nav class="col-md-9">
-                <?= Menu::widget(); ?>
+                <ul class="nav-menu">
+                    <li><a href="<?=Yii::$app->urlManager->createUrl(["admin/article"])?>">Статьи</a></li>
+                    <li><a href="#">Item menu 2</a></li>
+                    <li><a href="#">Item menu 3</a></li>
+                    <li><a href="#">Item menu 4</a></li>
+                    <li><a href="#">Item menu 5</a></li>
+                </ul>
             </nav>
         </div>
     </header>
-    <!-- Slider -->
-    <section class="container">
-        <?= Blocks::widget(['id' => 'slide']); ?>
-    </section>
-</div>
-<!-- Типы перевозки -->
-<section class="container">
-    <?= Blocks::widget(['id' => 'block']); ?>
-</section>
-<!-- ************** -->
-<!-- Services2 -->
-<?= $content ?>
-<!-- ********* -->
-<!-- Delivery -->
-<section class="container delivery">
-    <div class="row">
-        <a href="#" class="btn btn-default-3">Вопрос-ответ</a>
-        <div class="col-md-12 jd">
-            <p class="titleh2">Ж/д доставка</p>
-            <img src="img/jd.png" alt="avia">
-            <div><p class="sroki">Сроки поставки 5-8 дней</p></div>
-            <div class="row">
-                <div class="col-md-12 d-item">
-                    <div>
-                        <img src="img/container.png" alt="alt">
-                        <span data-day="2" data-count="дня"></span>
-                        <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
-                        </div>
-                    </div>
-                    <div>
-                        <img src="img/f-paravoz.png" alt="alt">
-                        <span data-day="3-5" data-count="дней"></span>
-                        <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
-                        </div>
-                    </div>
-                    <div>
-                        <img src="img/ycik.png" alt="alt">
-                        <span data-day="1" data-count="день"></span>
-                        <div class="item-content">
-                            <p class="title">Таможня КНР</p>
-                            <p>Небльшой текст описания пункта</p>
-                            <i class="flag flag-kndr"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <img src="img/ycik.png" alt="alt">
-                        <span data-day="2" data-count="дня"></span>
-                        <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
-                            <i class="flag flag-kz"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <img src="img/cremle.png" alt="alt">
-                        <span data-day="2" data-count="дня"></span>
-                        <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12 avia">
-            <p class="titleh2">Авиа доставка</p>
-            <img src="img/avia.png" alt="avia">
-            <div><p class="sroki">Сроки поставки 5-8 дней</p></div>
-            <div class="row">
-                <div class="col-md-12 d-item">
-                    <div>
-                        <img src="img/container.png" alt="alt">
-                        <span data-day="2" data-count="дня"></span>
-                        <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
-                        </div>
-                    </div>
-                    <div>
-                        <img src="img/f-avia.png" alt="alt">
-                        <span data-day="2" data-count="дня"></span>
-                        <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
-                            <i class="flag flag-kndr"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <img src="img/f-avia.png" alt="alt">
-                        <span data-day="2" data-count="дня"></span>
-                        <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
-                            <i class="flag flag-rus"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <img src="img/cremle.png" alt="alt">
-                        <span data-day="2" data-count="дня"></span>
-                        <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ******** -->
-<!-- Rewies -->
-<section class="wrp-reviews">
-    <div class="container">
-        <div class="row reviews">
-            <div class="col-md-12">
-                <p class="titleh2">Что люди говорят о нас</p>
-                <a href="#" class="btn btn-default-3">Написать отзыв</a>
-                <?= Blocks::widget(['id' => 'review']); ?>
-                <!-- <div class="slick-reviews">
-                    <div class="review row">
-                        <div class="col-md-3">
-                            <div class="img-circle">
-                                <img src="img/tablo.jpg" alt="face">
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <p class="title">Член партии</p>
-                            <p class="position">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non dolor earum hic, consequuntur eaque totam.</p>
-                            <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam itaque corporis illum veniam expedita alias, quia praesentium consectetur consequuntur officiis eligendi saepe voluptatem, maiores quos, ipsa minus, possimus illo architecto!</p>
-                        </div>
-                    </div>
-                    <div class="review row">
-                        <div class="col-md-3">
-                            <div class="img-circle">
-                                <img src="img/tablo.jpg" alt="face">
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <p class="title">Член партии</p>
-                            <p class="position">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non dolor earum hic, consequuntur eaque totam.</p>
-                            <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam itaque corporis illum veniam expedita alias, quia praesentium consectetur consequuntur officiis eligendi saepe voluptatem, maiores quos, ipsa minus, possimus illo architecto!</p>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ****** -->
+
+        <?php echo $content; ?>
+
 <!-- Footer -->
 <footer>
     <div class="container">

@@ -13,28 +13,19 @@ use app\models\ContactForm;
 
 class SiteController extends Controller
 {
-    public $layout = 'single';
     public function behaviors()
     {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['page'],
+                'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['index'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                        'matchCallback' => function () {
-                            return true;
-                        }
-                    ],
-                    [
-                        'actions' => ['index'],
+                        'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function () {
-                            return true;
+                            return false;
                         }
                     ],
                 ],
@@ -63,6 +54,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        // var_dump(Yii::$app->user);
         return $this->render('index');
     }
 
@@ -76,12 +68,15 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
-        return $this->redirect('?r=lk/lk/index',302);
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 
     public function actionLogout()
     {
         Yii::$app->user->logout();
+
         return $this->goHome();
     }
 }

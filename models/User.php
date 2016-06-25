@@ -45,7 +45,21 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return static::findOne(['email' => $email]);
     }
-
+    public function getUser()
+    {
+        if ($this->user === false) {
+            //Находим пользователя в БД по логину или эл.почте
+            $this->user = User::find()
+                ->andWhere(['email' => $this->email])
+                ->one();
+            //Проверяем права доступа, если нет, то делаем вид,
+            //что пользователь не найден.
+            if (!Yii::$app->user->can('admin', ['user' => $this->user])) {
+                $this->user = null;
+            }
+        }
+        return $this->user;
+    }
     /**
      * @inheritdoc
      */
