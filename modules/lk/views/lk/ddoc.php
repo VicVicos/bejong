@@ -1,3 +1,6 @@
+<?php
+use yii\helpers\Html;
+?>
 <section class="container">
     <h1>Личный кабинет</h1>
 </section>
@@ -6,6 +9,8 @@
 <div class="container">
 
     <div class="row lk">
+        <a class="link link-default" href="#back">Вернуться назад</a>
+        <?= Html::a("Выйти", ['/lk/lk/logout'], ['data' => ['method' => 'post'],'class' => 'link link-default']);?>
         <div class="col-md-12">
             <button class="btn btn-lk" type="submit">Скачать накладную</button>
             <table class="table">

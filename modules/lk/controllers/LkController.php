@@ -1,13 +1,17 @@
 <?php
-
+// TODO:: Страница с накладными для менеджера
 namespace app\modules\lk\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\db\Query;
 use yii\helpers\Html;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use yii\components\excel\Excel;
 
+use app\models\File;
 use app\models\User;
 use app\models\LoginForm;
 use app\models\RegisterUser;
@@ -32,7 +36,7 @@ class LkController extends Controller
                 'only' => ['index', 'manager', 'ddoc', 'updoc', 'register', 'login', 'logout'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'manager', 'ddoc', 'updoc', 'register', 'login', 'logout'],
+                        'actions' => ['manager', 'ddoc', 'updoc', 'register', 'login', 'logout'],
                         'allow' => true,
                         'roles' => ['?'],
                         'matchCallback' => function () {
@@ -40,7 +44,7 @@ class LkController extends Controller
                         }
                     ],
                     [
-                        'actions' => ['register', 'login'],
+                        'actions' => ['index', 'register', 'login'],
                         'allow' => true,
                         'roles' => ['?'],
                         'matchCallback' => function () {
@@ -48,7 +52,7 @@ class LkController extends Controller
                         }
                     ],
                     [
-                        'actions' => ['index', 'manager', 'ddoc', 'updoc', 'logout'],
+                        'actions' => ['index', 'manager', 'ddoc', 'updoc', 'logout', 'login'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function () {
@@ -73,23 +77,60 @@ class LkController extends Controller
             ],
         ];
     }
+    public function actionUpload ()
+    {
+        $model = new File();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->xlsxFile = UploadedFile::getInstance($model, 'xlsxFile');
+            if ($resUpFile = $model->upload(Yii::$app->request->post('File'))) {
+                // File upload
+                var_dump($resUpFile);
+                $path = Yii::$app->params['basePath'];
+                $data = Excel::import($path, $config); // $config is an optional
+            }
+            // if ($model->validate()) {
+            //     // form inputs are valid, do something here
+            //     return;
+            // }
+        }
+
+        return $this->render('upload', [
+            'model' => $model,
+        ]);
+    }
     /**
      * Главная страница личного кабинета
      * @return string
      */
     public function actionIndex()
     {
-        echo Yii::$app->urlManager->createUrl([$this->goBack()]);
         $role = $this->getRole();
-        switch ($role) {
+        $model = $this->getUser();
+        $member = $this->getMember($model->id);
+        if ($role == 'member') {
+            $route = 'member';
+        } elseif ($role == 'manager' || $role == 'admin') {
+            $route = 'manager';
+        } else {
+            $route = 'other';
+        }
+        switch ($route) {
             case 'manager':
-                return $this->render('manager');
-                break;
-            case 'admin':
-                return $this->render('manager');
+                if ($idUser = Yii::$app->request->get('user')) {
+                    $userChild = $this->getUserById($idUser);
+                    return $this->render('index', [
+                        'model' => $userChild[0],
+                        'manager' => true
+                    ]);
+                } else {
+                    return $this->render('manager', [
+                        'model' => $model,
+                        'member' => $member
+                    ]);
+                }
                 break;
             case 'member':
-                return $this->render('index');
+                return $this->render('index', ['model' => $model]);
                 break;
             default:
                 return $this->redirect('?r=lk/lk/login',302);
@@ -97,9 +138,31 @@ class LkController extends Controller
         }
     }
     //
+    public function getUser()
+    {
+        return Yii::$app->user->identity;
+    }
+    public function getUserById($id)
+    {
+        return (new Query())
+            ->select('*')
+            ->from('{{%user}}')
+            ->where('id=:id', [':id' => $id])
+            ->all();
+    }
     public function getRole()
     {
         return Yii::$app->user->identity->role;
+    }
+
+    public function getMember ($id)
+    {
+        $user = new User();
+        return (new Query())
+            ->select('id')
+            ->from('{{%user}}')
+            ->where('id_manager=:id', [':id' => $id])
+            ->all();
     }
     /**
      * Если пользователь управленец
@@ -143,7 +206,12 @@ class LkController extends Controller
      */
     public function actionManager()
     {
-        return $this->render('manager');
+        $model = $this->getUser();
+        $member = $this->getMember($model->id);
+        return $this->render('manager', [
+            'model' => $model,
+            'member' => $member
+        ]);
     }
     /**
      * Страница загрузки накладных - для менеджера?

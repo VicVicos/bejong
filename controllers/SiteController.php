@@ -26,7 +26,7 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['?'],
                         'matchCallback' => function () {
-                            return false;
+                            return true;
                         }
                     ],
                     [
@@ -34,7 +34,7 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function () {
-                            return false;
+                            return true;
                         }
                     ],
                 ],
