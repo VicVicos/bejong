@@ -19,14 +19,14 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['page'],
+                'only' => ['index'],
                 'rules' => [
                     [
                         'actions' => ['index'],
                         'allow' => true,
                         'roles' => ['?'],
                         'matchCallback' => function () {
-                            return true;
+                            return false;
                         }
                     ],
                     [
@@ -34,7 +34,7 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function () {
-                            return true;
+                            return false;
                         }
                     ],
                 ],

@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -37,7 +38,11 @@ class DefaultController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback' => function () {
-                            return true;
+                            if (Yii::$app->user->identity->role === 'admin') {
+                                return true;
+                            } else {
+                                return false;
+                            }
                         }
                     ],
                 ],

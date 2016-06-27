@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\helpers\Html;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 use app\models\User;
 use app\models\LoginForm;
@@ -23,23 +24,51 @@ class LkController extends Controller
      * @method behaviors
      * @return [type]    [description]
      */
-    public function behaviors()
+     public function behaviors()
     {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['login', 'logout', 'signup'],
+                'only' => ['index', 'manager', 'ddoc', 'updoc', 'register', 'login', 'logout'],
                 'rules' => [
                     [
+                        'actions' => ['index', 'manager', 'ddoc', 'updoc', 'register', 'login', 'logout'],
                         'allow' => true,
-                        'actions' => ['login', 'signup'],
                         'roles' => ['?'],
+                        'matchCallback' => function () {
+                            return false;
+                        }
                     ],
                     [
+                        'actions' => ['register', 'login'],
                         'allow' => true,
-                        'actions' => ['manager', 'index'],
-                        'roles' => ['admin'],
+                        'roles' => ['?'],
+                        'matchCallback' => function () {
+                            return true;
+                        }
                     ],
+                    [
+                        'actions' => ['index', 'manager', 'ddoc', 'updoc', 'logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function () {
+                            return $this->isManager();
+                        }
+                    ],
+                    [
+                        'actions' => ['index', 'ddoc', 'logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function () {
+                            return $this->isMember();
+                        }
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -50,16 +79,62 @@ class LkController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->identity) {
-            return $this->render('index');
-        } else {
-            return $this->redirect('?r=lk/lk/login',302);
+        echo Yii::$app->urlManager->createUrl([$this->goBack()]);
+        $role = $this->getRole();
+        switch ($role) {
+            case 'manager':
+                return $this->render('manager');
+                break;
+            case 'admin':
+                return $this->render('manager');
+                break;
+            case 'member':
+                return $this->render('index');
+                break;
+            default:
+                return $this->redirect('?r=lk/lk/login',302);
+                break;
         }
     }
     //
-    public function getRole ()
+    public function getRole()
     {
-        return $this->user->role;
+        return Yii::$app->user->identity->role;
+    }
+    /**
+     * Если пользователь управленец
+     * @return boolean [description]
+     */
+    public function isManager ()
+    {
+        $role = $this->getRole();
+        switch ($role) {
+            case 'admin':
+                return true;
+                break;
+            case 'manager':
+                return true;
+                break;
+            default:
+                return false;
+                break;
+        }
+    }
+    /**
+     * Если пользователь просто пользователь
+     * @return boolean [description]
+     */
+    public function isMember ()
+    {
+        $role = $this->getRole();
+        switch ($role) {
+            case 'member':
+                return true;
+                break;
+            default:
+                return false;
+                break;
+        }
     }
     /**
      * Страница менеджера
@@ -161,10 +236,4 @@ class LkController extends Controller
         Yii::$app->user->logout();
         return $this->goHome();
     }
-    public function beforeAction()
-    {
-        $this->user = Yii::$app->user->identity;
-        return true;
-    }
-
 }

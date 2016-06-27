@@ -28,7 +28,7 @@ class ArticleController extends Controller
                  'only' => ['index', 'create', 'update', 'view'],
                  'rules' => [
                      [
-                         'actions' => ['index'],
+                         'actions' => ['index', 'create', 'view', 'update'],
                          'allow' => true,
                          'roles' => ['?'],
                          'matchCallback' => function () {
@@ -36,12 +36,16 @@ class ArticleController extends Controller
                          }
                      ],
                      [
-                         'actions' => ['index'],
+                         'actions' => ['index', 'create', 'view', 'update'],
                          'allow' => true,
                          'roles' => ['@'],
                          'matchCallback' => function () {
-                             return true;
-                         },
+                             if (Yii::$app->user->identity->role === 'admin') {
+                                 return true;
+                             } else {
+                                 return false;
+                             }
+                         }
                      ],
                  ],
              ],
