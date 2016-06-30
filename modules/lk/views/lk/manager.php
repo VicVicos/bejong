@@ -18,9 +18,15 @@ use yii\helpers\Url;
         </div>
         <div class="col-md-6">
             <p class="title">Пользователь</p>
-            <?php foreach ($member[0] as $key => $item): ?>
-                <p><?= Html::a($item, Url::to(['/lk/lk/index', 'user' => $item], true));?></p>
-            <?php endforeach; ?>
+            <?php if (!empty($member)) : ?>
+                <?php foreach ($member[0] as $key => $item): ?>
+                    <p><?= Html::a($item, Url::to(['/lk/lk/index', 'user' => $item], true));?></p>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p>
+                    У вас нет участников. Вы можете их добавить.
+                </p>
+            <?php endif; ?>
         </div>
     </div>
 </div>

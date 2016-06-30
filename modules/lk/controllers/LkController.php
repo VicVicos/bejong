@@ -271,9 +271,11 @@ class LkController extends Controller
                     // Отправить письмо при регистрации
                     if (is_int($res)) {
                         Yii::$app->session->setFlash('success', 'Регистрация прошла успешно.', false);
+                        $this->sendMail($user['email']);
                         // Авторизуем
                         $user = new User();
                         Yii::$app->user->login($user->findByEmail($model->email), true ? 3600*24*30 : 0);
+                        // Отправить письмо при регистрации
                         return $this->redirect('?r=lk/lk/index',302);
                     } else {
                         Yii::$app->getSession()->setFlash('error', 'Ошибка регистрации');
@@ -303,5 +305,17 @@ class LkController extends Controller
     {
         Yii::$app->user->logout();
         return $this->goHome();
+    }
+    /**
+     * Отправка письма при регистрации
+     * @return [type] [description]
+     */
+    public function sendMail ($to)
+    {
+        Yii::$app->mailer->compose('body')
+            ->setFrom('developitb@yandex.ru')
+            ->setTo($to)
+            ->setSubject('Регистрация пользователя')
+            ->send();
     }
 }
