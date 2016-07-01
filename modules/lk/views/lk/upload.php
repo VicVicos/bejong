@@ -1,11 +1,13 @@
 <?php
 
-use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\File */
 /* @var $form ActiveForm */
+$id = Yii::$app->request->get('user');
 ?>
     <section class="container">
         <h1>Загрузить накладную</h1>
@@ -13,15 +15,24 @@ use yii\widgets\ActiveForm;
 </div>
 <!-- lk row -->
 <div class="container">
+    <?php
+        foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+            echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
+        }
+    ?>
     <div class="row lk">
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
+        <a class="link link-default" href="<?= Url::to(['/lk/lk/index', 'user' => $id]) ?>">Вернуться назад</a>
+        <?= Html::a("Выйти", ['/lk/lk/logout'], ['data' => ['method' => 'post'],'class' => 'link link-default']);?>
+        <div class="col-md-4">
+            <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
-        <?= $form->field($model, 'id_user') ?>
-        <?= $form->field($model, 'xlsxFile')->fileInput() ?>
-        <?= $form->field($model, 'userId')->hiddenInput(['value' => '15']) ?>
-        <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+            <?= $form->field($model, 'id_user')->input('text', ['value'=> $id, 'disabled' => 'disabled']) ?>
+            <?= $form->field($model, 'xlsxFile')->fileInput() ?>
+            <?= $form->field($model, 'userId')->hiddenInput(['value' => $id]) ?>
+            <div class="form-group">
+                <?= Html::submitButton('Загрузить', ['class' => 'btn btn-primary']) ?>
+            </div>
+            <?php ActiveForm::end(); ?>
         </div>
-    <?php ActiveForm::end(); ?>
     </div>
 </div>

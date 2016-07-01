@@ -39,13 +39,13 @@ $user = Yii::$app->user->identity;
         <div class="col-md-6">
             <?php if ($manager) : ?>
                 <?= Html::a('Загрузить накладную', Url::to(['/lk/lk/upload', 'user' => $model['id']]), ['class' => 'btn btn-lk']);?>
+            <?php else : ?>
             <?php endif; ?>
-            <!-- <button class="btn btn-lk" type="submit">Загрузить накладную</button> -->
             <p class="title">Номера накладных</p>
-            <p><a href="#">87494ASD</a>Отправлено</p>
-            <p><a href="#">87494ASD</a>Отправлено</p>
-            <p><span>87494ASD</span>Доставлено</p>
-            <p><span>87494ASD</span>Доставлено</p>
+            <?php foreach ($cargo as $key => $item) : ?>
+                <p><span><?= $item->id_cargo ?></span>Неотправлено</p>
+                <p><a href="#"><?= $item->id_cargo ?></a>Отправлено</p>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>

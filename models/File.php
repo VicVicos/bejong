@@ -1,5 +1,5 @@
 <?php
-
+// TODO: Update file name
 namespace app\models;
 
 use Yii;
@@ -59,5 +59,28 @@ class File extends \yii\db\ActiveRecord
         } else {
             return false;
         }
+    }
+    /**
+     * Добавляем новую накладную
+     * @method setFile
+     * @param  [type]  $id       [description]
+     * @param  [type]  $fileName [description]
+     */
+    public function setFile($id, $fileName)
+    {
+        return Yii::$app->db->createCommand()->insert('{{%file}}', [
+            'id_user' => $id,
+            'file_name' => $fileName,
+        ])->execute();
+    }
+    /**
+     * Поиск файла
+     * @method findFile
+     * @param  [type]   $email [description]
+     * @return [type]          [description]
+     */
+    public static function findFile($email)
+    {
+        return static::findOne(['id_user' => $id, 'file_name' => $fileName]);
     }
 }

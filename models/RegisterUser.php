@@ -93,16 +93,15 @@ class RegisterUser extends \yii\db\ActiveRecord
      * @param  [type]     $insert [description]
      * @return [type]             [description]
      */
-    public function beforeSave($insert)
-    {
-        $user = Yii::$app->request->post();
-        var_dump($user);
-        if (parent::beforeSave($insert)) {
-            // ...custom code here...
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // public function beforeSave($insert)
+    // {
+    //     $user = Yii::$app->request->post();
+    //     if (parent::beforeSave($insert)) {
+    //         // ...custom code here...
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
 }

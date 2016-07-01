@@ -3,14 +3,17 @@
 namespace app\modules\lk\controllers;
 
 use Yii;
+use yii\phpoffice\phpexcel;
 use yii\web\Controller;
 use yii\db\Query;
 use yii\helpers\Html;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use yii\components\excel\Excel;
 
+use app\components\pclzip\pclzip;
+
+use app\models\Cargo;
 use app\models\File;
 use app\models\User;
 use app\models\LoginForm;
@@ -80,18 +83,43 @@ class LkController extends Controller
     public function actionUpload ()
     {
         $model = new File();
+        $cargo = new Cargo();
         if ($model->load(Yii::$app->request->post())) {
             $model->xlsxFile = UploadedFile::getInstance($model, 'xlsxFile');
-            if ($resUpFile = $model->upload(Yii::$app->request->post('File'))) {
+            $postData = Yii::$app->request->post('File');
+            if ($model->upload($postData)) {
                 // File upload
-                var_dump($resUpFile);
-                $path = Yii::$app->params['basePath'];
-                $data = Excel::import($path, $config); // $config is an optional
+                $path = Yii::$app->params['basePath'] . '/web/xlsxfile/' . $postData['userId'] . '/';
+                $fileName = $model->xlsxFile->name;
+
+                $objPHPExcel = new \PHPExcel();
+                $excel = \PHPExcel_IOFactory::load($path . $fileName);
+                $data = $this->parseXlsx($excel, $postData['userId']);
+                $find = $cargo->findCargo($data['id_user'], $data['id_cargo']);
+                if (is_null($find)) {
+                    // Добавляем новые
+                    $idInsertFile = $model->setFile($postData['userId'], $fileName);
+                    $idInsertCargo = $cargo->setCargo($data);
+                    if ($idInsertFile && $idInsertCargo) {
+                        Yii::$app->session->setFlash('success', 'Накладная успешно добавлена.', false);
+                        return $this->redirect('?r=lk/lk/index&user=' . $data['id_user'], 302);
+                    } else {
+                        Yii::$app->session->setFlash('danger', 'Ошибка добавления накладной.', false);
+                    }
+                } else {
+                    // Обновляем
+                    if ($res = $cargo->updateCargo($data, $data['id_user'], $data['id_cargo'])) {
+                        Yii::$app->session->setFlash('success', 'Накладная обновлена.', false);
+                        return $this->redirect('?r=lk/lk/index&user=' . $data['id_user'], 302);
+                    } else {
+                        Yii::$app->session->setFlash('danger', 'Ошибка обновления накладной или не чего обновлять.', false);
+                    }
+                }
+            } else {
+                Yii::$app->session->setFlash('success', 'Ошибка загрузки файла.', false);
+                return $this->redirect('?r=lk/lk/index&user=' . $postData['userId'], 302);
             }
-            // if ($model->validate()) {
-            //     // form inputs are valid, do something here
-            //     return;
-            // }
+
         }
 
         return $this->render('upload', [
@@ -117,9 +145,11 @@ class LkController extends Controller
         switch ($route) {
             case 'manager':
                 if ($idUser = Yii::$app->request->get('user')) {
-                    $userChild = $this->getUserById($idUser);
+                    $userChild = User::findById($idUser);
+                    $cargo = Cargo::findById($userChild->id);
                     return $this->render('index', [
-                        'model' => $userChild[0],
+                        'model' => $userChild,
+                        'cargo' => $cargo,
                         'manager' => true
                     ]);
                 } else {
@@ -142,13 +172,12 @@ class LkController extends Controller
     {
         return Yii::$app->user->identity;
     }
-    public function getUserById($id)
+    public static function getUserById($id)
     {
         return (new Query())
             ->select('*')
             ->from('{{%user}}')
-            ->where('id=:id', [':id' => $id])
-            ->all();
+            ->where('id=:id', [':id' => $id])->one();
     }
     public function getRole()
     {
@@ -278,9 +307,8 @@ class LkController extends Controller
                         // Отправить письмо при регистрации
                         return $this->redirect('?r=lk/lk/index',302);
                     } else {
-                        Yii::$app->getSession()->setFlash('error', 'Ошибка регистрации');
+                        Yii::$app->getSession()->setFlash('danger', 'Ошибка регистрации');
                     }
-                    // var_dump($res);
                     //
                 } else {
                     $model->addError('vpass', 'Пароли должны совпадать');
@@ -318,4 +346,70 @@ class LkController extends Controller
             ->setSubject('Регистрация пользователя')
             ->send();
     }
+    public function parseXlsx ($excel, $id)
+    {
+        $data = [];
+        $data['id_user'] = $id;
+        $cell = $excel->getActiveSheet()->getCell('H6');
+        $data['id_cargo'] = $cell->getValue();
+        $cell = $excel->getActiveSheet()->getCell('E12');
+        $data['destination'] = $cell->getValue();
+        $cell = $excel->getActiveSheet()->getCell('Q11');
+        $InvDate = $cell->getValue();
+        $data['date_depart'] = date('d.m.Y', \PHPExcel_Shared_Date::ExcelToPHP($InvDate));
+        $cell = $excel->getActiveSheet()->getCell('Q12');
+        $InvDate = $cell->getValue();
+        $data['date_arrival'] = date('d.m.Y', \PHPExcel_Shared_Date::ExcelToPHP($InvDate));
+        $cell = $excel->getActiveSheet()->getCell('M14');
+        $data['weight'] = $cell->getValue();
+        $cell = $excel->getActiveSheet()->getCell('K14');
+        $data['amount'] = $cell->getValue();
+        $cell = $excel->getActiveSheet()->getCell('E14');
+        $data['places'] = $cell->getValue();
+        $cell = $excel->getActiveSheet()->getCell('O14');
+        $data['rate'] = $cell->getValue();
+        $cell = $excel->getActiveSheet()->getCell('F31');
+        $data['cost'] = $cell->getCalculatedValue();
+        return $data;
+    }
+    /**
+     * depricated
+     * Распаковываем и читаем xlsx
+     * @method extractZip
+     * @param  str     $fileName  путь и имя файла
+     * @return array              Данные
+     */
+    public static function extractZip ($dir, $fileName, $id)
+	{
+        $path = $dir . $fileName;
+
+		$archive = new PclZip($path);
+		if ($archive->extract(PCLZIP_OPT_PATH, 'xlsxfile/'. $id .'/extract') == 0) {
+			die("Error : ".$archive->errorInfo(true));
+		}
+		$file = file_get_contents($dir . 'extract/xl/sharedStrings.xml');
+		$xml = (array)simplexml_load_string($file);
+		$sst = array();
+		foreach ($xml['si'] as $item => $val) {
+            $sst[] = (string)$val->t;
+        }
+		$file = file_get_contents($dir . 'extract/xl/worksheets/sheet1.xml');
+		$xml = simplexml_load_string($file);
+		$data1 = array();
+		foreach ($xml->sheetData->row as $row){
+			$currow = array();
+			foreach ($row->c as $c){
+				$value = (string)$c->v;
+				$attrs = $c->attributes();
+				if ($attrs['t'] == 's'){
+					$currow[] = $sst[$value];
+				}else{
+					$currow[] = $value;
+				}
+			}
+			$data1[] = $currow;
+		}
+		$line = $data1;
+		return $line;
+	}
 }
