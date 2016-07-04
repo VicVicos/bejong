@@ -79,8 +79,18 @@ class File extends \yii\db\ActiveRecord
      * @param  [type]   $email [description]
      * @return [type]          [description]
      */
-    public static function findFile($email)
+    public static function findFile($id_user, $id_cargo)
     {
-        return static::findOne(['id_user' => $id, 'file_name' => $fileName]);
+        return static::findOne(['id_user' => $id_user, 'id_cargo' => $id_cargo]);
+    }
+    /**
+     * Поиск файлов
+     * @method findFile
+     * @param  [type]   $email [description]
+     * @return [type]          [description]
+     */
+    public static function findFiles($id_cargo, $id_user)
+    {
+        return static::findAll(['id_user' => $id_user, 'id_cargo' => $id_cargo]);
     }
 }

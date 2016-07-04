@@ -1,5 +1,5 @@
 <?php
-// TODO:: Страница с накладными для менеджера
+// TODO: Напоминание об оплате
 namespace app\modules\lk\controllers;
 
 use Yii;
@@ -52,6 +52,14 @@ class LkController extends Controller
                         'roles' => ['?'],
                         'matchCallback' => function () {
                             return true;
+                        }
+                    ],
+                    [
+                        'actions' => ['register'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function () {
+                            return $this->isNewUser();
                         }
                     ],
                     [
@@ -150,6 +158,7 @@ class LkController extends Controller
                     return $this->render('index', [
                         'model' => $userChild,
                         'cargo' => $cargo,
+                        'file' => $file,
                         'manager' => true
                     ]);
                 } else {
@@ -160,12 +169,69 @@ class LkController extends Controller
                 }
                 break;
             case 'member':
-                return $this->render('index', ['model' => $model]);
+                $cargo = Cargo::findById(Yii::$app->user->identity->id);
+                return $this->render('index', [
+                    'model' => $model,
+                    'cargo' => $cargo
+                ]);
                 break;
             default:
                 return $this->redirect('?r=lk/lk/login',302);
                 break;
         }
+    }
+    /**
+     * Страница менеджера
+     * @method actionManager
+     * @return [type]        [description]
+     */
+    public function actionManager()
+    {
+        $model = $this->getUser();
+        $member = $this->getMember($model->id);
+        return $this->render('manager', [
+            'model' => $model,
+            'member' => $member
+        ]);
+    }
+    /**
+     * Страница загрузки накладных - для менеджера?
+     * @method actionDdoc
+     * @return [type]    html
+     */
+    public function actionCargo()
+    {
+        // $model = new app\models\Cargo();
+        $file = File::findFile(Yii::$app->request->get('user'), Yii::$app->request->get('cargo'));
+        $model = Cargo::findCargoById(Yii::$app->request->get('cargo'));
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                $data = Yii::$app->request->post('Cargo');
+                $order = Html::encode($data['order_status']);
+                $payment = Html::encode($data['payment_cond']);
+                if (Cargo::setStatus($order, $payment, $model)) {
+                    Yii::$app->session->setFlash('success', 'Статус накладной успешно изменнёт.', false);
+                }
+                return $this->render('cargo',[
+                    'model' => $model,
+                    'file' => $file
+                ]);
+            }
+        }
+        return $this->render('cargo',[
+            'model' => $model,
+            'file' => $file
+        ]);
+    }
+    /**
+     * Выход из сервиса
+     * @method actionLogout
+     * @return [type]       [description]
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+        return $this->goHome();
     }
     //
     public function getUser()
@@ -212,6 +278,12 @@ class LkController extends Controller
                 break;
         }
     }
+    public function isNewUser ()
+    {
+        if (Yii::$app->request->get('add-user') && Yii::$app->user->identity->id) {
+            return true;
+        }
+    }
     /**
      * Если пользователь просто пользователь
      * @return boolean [description]
@@ -228,38 +300,7 @@ class LkController extends Controller
                 break;
         }
     }
-    /**
-     * Страница менеджера
-     * @method actionManager
-     * @return [type]        [description]
-     */
-    public function actionManager()
-    {
-        $model = $this->getUser();
-        $member = $this->getMember($model->id);
-        return $this->render('manager', [
-            'model' => $model,
-            'member' => $member
-        ]);
-    }
-    /**
-     * Страница загрузки накладных - для менеджера?
-     * @method actionDdoc
-     * @return [type]     [description]
-     */
-    public function actionDdoc()
-    {
-        return $this->render('ddoc');
-    }
-    /**
-     * Страница скачивания накладных - для клиента?
-     * @method actionUpdoc
-     * @return [type]      [description]
-     */
-    public function actionUpdoc()
-    {
-        return $this->render('Updoc');
-    }
+
     /**
      * Авторизация
      * @method actionLogin
@@ -296,14 +337,17 @@ class LkController extends Controller
                     $user['name'] = Html::encode($model->name);
                     $user['contact'] = Html::encode($model->contact);
                     $user['address'] = Html::encode($model->address);
+                    $user['id_manager'] = Html::encode($model->id_manager);
                     $res = RegisterUser::registerUser($user);
                     // Отправить письмо при регистрации
                     if (is_int($res)) {
                         Yii::$app->session->setFlash('success', 'Регистрация прошла успешно.', false);
                         $this->sendMail($user['email']);
-                        // Авторизуем
-                        $user = new User();
-                        Yii::$app->user->login($user->findByEmail($model->email), true ? 3600*24*30 : 0);
+                        // Авторизуем если не менеджер
+                        if (!Yii::$app->user->identity) {
+                            $user = new User();
+                            Yii::$app->user->login($user->findByEmail($model->email), true ? 3600*24*30 : 0);
+                        }
                         // Отправить письмо при регистрации
                         return $this->redirect('?r=lk/lk/index',302);
                     } else {
@@ -324,16 +368,7 @@ class LkController extends Controller
             'model' => $model,
         ]);
     }
-    /**
-     * Выход из сервиса
-     * @method actionLogout
-     * @return [type]       [description]
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-        return $this->goHome();
-    }
+
     /**
      * Отправка письма при регистрации
      * @return [type] [description]

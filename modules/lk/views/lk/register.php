@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\captcha\Captcha;
 
@@ -8,6 +9,14 @@ use app\models\RegisterUser;
 /* @var $this yii\web\View */
 /* @var $model app\models\RegisterUser */
 /* @var $form ActiveForm */
+
+if (isset(Yii::$app->user->identity->id)) {
+    $id_manager = Yii::$app->user->identity->id;
+    $add = 'Добавить пользователя';
+} else {
+    $id_manager = 0;
+    $add = 'Зарегестрироваться';
+}
 
 ?>
 <section class="container">
@@ -17,6 +26,11 @@ use app\models\RegisterUser;
 <!-- lk row -->
 <div class="container">
     <div class="row lk">
+        <?php if ($id_manager) : ?>
+            <a class="link link-default back-link" href="<?= Url::to(['/lk/lk/manager']) ?>">Вернуться назад</a>
+        <?php else : ?>
+            <a class="link link-default back-link" href="<?= Url::to(['index.php']) ?>">Вернуться назад</a>
+        <?php endif; ?>
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
             'options' => ['class' => 'form-horizontal'],
@@ -32,9 +46,10 @@ use app\models\RegisterUser;
         <?= $form->field($model, 'name') ?>
         <?= $form->field($model, 'contact') ?>
         <?= $form->field($model, 'address') ?>
+        <?= $form->field($model, 'id_manager')->input('hidden', ['value' => $id_manager])->label('') ?>
         <div class="form-group">
             <div class="col-sm-offset-3">
-                <?= Html::submitButton('Зарегестрироваться', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton($add, ['class' => 'btn btn-primary']) ?>
             </div>
         </div>
         <?php ActiveForm::end(); ?>

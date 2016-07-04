@@ -135,12 +135,6 @@ h1
     right: 100px;
     text-decoration: underline;
     z-index: 99;
-    &::before
-        content: '←';
-        display: inline-block;
-        position: relative;
-        left: -10px;
-        font-size: 24px;
     + .link
         right: 0;
         &::before
@@ -148,6 +142,13 @@ h1
             height: 26px;
             width: 1px;
             font-size: 24px;
+.back-link
+    &::before
+        content: '←';
+        display: inline-block;
+        position: relative;
+        left: -10px;
+        font-size: 24px;
 .v-text
     text-align: center;
     *
@@ -159,3 +160,19 @@ h1
         min-height: inherit;
         height: 100%;
         vertical-align: middle;
+.form-control.nake-input
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+.form-control.drop-dl
+    padding-left: 0;
+    padding-right: 0;
+    border: 0;
+    background-color: transparent;
+.min-input
+    width: 5%;
+.mid-input
+    width: 7%;
+.big-input
+    width: 12%;

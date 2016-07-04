@@ -2,6 +2,8 @@
 // FIXME: Изменить интро и excerpt на varchar
 // TODO: Пункт меню Услуги - выпадашка
 // TODO: layots для ошибок
+// TODO: Оставить заявку
+// TODO: Состояние заказа
 namespace app\controllers;
 
 use Yii;

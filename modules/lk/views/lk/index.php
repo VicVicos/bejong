@@ -3,6 +3,7 @@ use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
 $user = Yii::$app->user->identity;
+$i = 0;
 ?>
 <section class="container">
     <h1>Личный кабинет</h1>
@@ -16,7 +17,9 @@ $user = Yii::$app->user->identity;
         }
     ?>
     <div class="row lk">
-        <a class="link link-default" href="<?= Url::to(['/lk/lk/manager']) ?>">Вернуться назад</a>
+        <?php if ($manager) : ?>
+            <a class="link link-default back-link" href="<?= Url::to(['/lk/lk/manager']) ?>">Вернуться назад</a>
+        <?php endif; ?>
         <?= Html::a("Выйти", ['/lk/lk/logout'], ['data' => ['method' => 'post'],'class' => 'link link-default']);?>
         <div class="col-md-6">
             <p class="title">Личные данные клиента</p>
@@ -43,8 +46,8 @@ $user = Yii::$app->user->identity;
             <?php endif; ?>
             <p class="title">Номера накладных</p>
             <?php foreach ($cargo as $key => $item) : ?>
-                <p><span><?= $item->id_cargo ?></span>Неотправлено</p>
-                <p><a href="#"><?= $item->id_cargo ?></a>Отправлено</p>
+                <p><?= Html::a($item->id_cargo, Url::to(['/lk/lk/cargo', 'user' => $model['id'], 'cargo' => $cargo[$i]->id]));?><?= ($item->payment_cond === 'Y') ? 'Отправлено' : 'Не отправлено' ?></p>
+                <?php $i++; ?>
             <?php endforeach; ?>
         </div>
     </div>

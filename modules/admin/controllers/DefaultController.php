@@ -7,6 +7,9 @@ use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
+// TODO: Прикрутить редактор к textarea
+// TODO: Упарвление менеджерами
+// FIXME: Обрезать превью к статьям и очистить от html
 /**
  * Default controller for the `admin` module
  */

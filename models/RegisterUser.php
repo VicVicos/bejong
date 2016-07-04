@@ -21,6 +21,7 @@ use Yii;
 class RegisterUser extends \yii\db\ActiveRecord
 {
     public $vpass = '';
+    public $id_manager = 0;
     /**
      * @inheritdoc
      */
@@ -84,7 +85,8 @@ class RegisterUser extends \yii\db\ActiveRecord
             'password' => $hash,
             'email' => $user['email'],
             'contact' => $user['contact'],
-            'address' => $user['address']
+            'address' => $user['address'],
+            'id_manager' => $user['id_manager']
         ])->execute();
     }
     /**

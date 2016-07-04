@@ -10,7 +10,24 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return '{{%user}}';
     }
-
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Имя',
+            'contact' => 'Телефон',
+            'email' => 'Email',
+            'address' => 'Адрес',
+            'password' => 'Пароль',
+            'status' => 'Статус',
+            'created' => 'Зарегестрирован',
+            'role' => 'Права',
+            'id_manager' => 'Менеджер'
+        ];
+    }
     /**
      * @inheritdoc
      */

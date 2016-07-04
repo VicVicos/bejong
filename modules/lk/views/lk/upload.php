@@ -21,7 +21,7 @@ $id = Yii::$app->request->get('user');
         }
     ?>
     <div class="row lk">
-        <a class="link link-default" href="<?= Url::to(['/lk/lk/index', 'user' => $id]) ?>">Вернуться назад</a>
+        <a class="link link-default back-link" href="<?= Url::to(['/lk/lk/index', 'user' => $id]) ?>">Вернуться назад</a>
         <?= Html::a("Выйти", ['/lk/lk/logout'], ['data' => ['method' => 'post'],'class' => 'link link-default']);?>
         <div class="col-md-4">
             <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>

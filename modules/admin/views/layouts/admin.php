@@ -52,7 +52,7 @@ AppAsset::register($this);
                     <li><a href="<?=Yii::$app->urlManager->createUrl(["admin"])?>">Админка</a></li>
                     <li><a href="<?=Yii::$app->urlManager->createUrl(["admin/article"])?>">Статьи</a></li>
                     <li><a href="<?=Yii::$app->urlManager->createUrl(["admin/persone"])?>">Команда</a></li>
-                    <li><a href="#">Item menu 4</a></li>
+                    <li><a href="<?=Yii::$app->urlManager->createUrl(["admin/user"])?>">Назначить менеджеров</a></li>
                     <li><a href="#">Item menu 5</a></li>
                 </ul>
             </nav>

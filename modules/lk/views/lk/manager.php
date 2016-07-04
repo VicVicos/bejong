@@ -1,20 +1,20 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
-
+$this->title = "Управление участниками";
 ?>
 <section class="container">
-    <h1>Личный кабинет</h1>
+    <h1><?= $this->title ?></h1>
 </section>
 </div>
 <!-- lk row -->
 <div class="container">
     <div class="row lk">
-        <a class="link link-default" href="<?= Url::to(['/lk/lk/index']) ?>">Вернуться назад</a>
+        <a class="link link-default back-link" href="<?= Url::to(['/lk/lk/index']) ?>">Вернуться назад</a>
         <?= Html::a("Выйти", ['/lk/lk/logout'], ['data' => ['method' => 'post'],'class' => 'link link-default']);?>
         <div class="col-md-6">
             <p class="title"><?= $model->name ?></p>
-            <button class="btn btn-default-4" type="submit">Добавить клиента</button>
+            <a class="btn btn-default-4" href="<?= Url::to(['/lk/lk/register', 'add-user' => Yii::$app->user->identity->id]) ?>">Добавить клиента</a>
         </div>
         <div class="col-md-6">
             <p class="title">Пользователь</p>

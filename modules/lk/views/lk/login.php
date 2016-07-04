@@ -8,11 +8,11 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Login';
+$this->title = 'Вход в личный кабинет';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <section class="container">
-    <h1>Вход в личный кабинет</h1>
+    <h1><?= $this->title ?></h1>
 </section>
 </div>
 <!-- lk row -->
