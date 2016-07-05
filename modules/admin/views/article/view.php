@@ -9,6 +9,7 @@ use yii\widgets\DetailView;
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+// var_dump($model);
 ?>
     <section class="container">
         <h1><?= Html::encode($this->title) ?></h1>
@@ -40,8 +41,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'status',
                 'link',
                 'intro',
-                'text:ntext',
-                'img',
+                'text:html',
+                [
+                    'label' => 'Картинка',
+                    'value' => Html::img('@web/img/' . $model->img,[
+                        'alt'=>$model->title,
+                        'style' => 'width:250px;'
+                    ]),
+                    'format' => 'html',
+                ],
                 'excerpt',
             ],
         ]) ?>

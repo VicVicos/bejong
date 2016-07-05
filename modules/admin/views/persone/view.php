@@ -18,8 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row lk">
         <p>
             <?= Html::a('Вся команда', ['index'], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+            <?= Html::a('Обновить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => 'Are you sure you want to delete this item?',
@@ -34,8 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'id',
                 'name',
                 'position',
-                'text',
-                'img',
+                'text:html',
+                [
+                    'label' => 'Картинка',
+                    'value' => Html::img('@web/img/' . $model->img,[
+                        'alt'=>$model->name,
+                        'style' => 'width:150px;'
+                    ]),
+                    'format' => 'html',
+                ],
             ],
         ]) ?>
     </div>

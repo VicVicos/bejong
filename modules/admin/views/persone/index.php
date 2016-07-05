@@ -26,11 +26,31 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    'id',
+                    [
+                        'label' => 'ID',
+                        'attribute' => 'id',
+                        'options' => ['width' => '50px'],
+                    ],
                     'name',
                     'position',
-                    'text',
-                    'img',
+                    [
+                        'label' => 'Статья',
+                        'attribute' => 'text',
+                        'value' => function ($data) {
+                            return substr(strip_tags($data->text), 0, 250);
+                        }
+                    ],
+                    [
+                        'label' => 'Картинка',
+                        'attribute' => 'img',
+                        'format' => 'raw',
+                        'value' => function ($data) {
+                            return Html::img('@web/img/' . $data->img,[
+                                'alt'=>$data->name,
+                                'style' => 'width:125px;'
+                            ]);
+                        }
+                    ],
                     ['class' => 'yii\grid\ActionColumn'],
                 ],
             ]); ?>
