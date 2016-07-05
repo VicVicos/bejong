@@ -58,18 +58,7 @@ AppAsset::register($this);
             </nav>
         </div>
     </header>
-
-    <!-- <section class="container">
-        <h1>Личный кабинет</h1>
-    </section>
-</div>
-<div class="container">
-
-    <div class="row lk"> -->
-        <?php echo $content; ?>
-    <!-- </div>
-
-</div> -->
+    <?php echo $content; ?>
 <!-- Footer -->
 <footer>
     <div class="container">

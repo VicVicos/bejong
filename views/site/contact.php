@@ -5,64 +5,89 @@
 /* @var $model app\models\ContactForm */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 
-$this->title = 'Contact';
+if ($mode === 'application') {
+    $this->title = 'Оставить заявку';
+} elseif ($mode === 'cargo') {
+    $this->title = 'Проверить состояние груза';
+} else {
+    $this->title = 'Обртаная связь';
+}
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
-<div class="site-contact">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
-
-        <div class="alert alert-success">
-            Thank you for contacting us. We will respond to you as soon as possible.
-        </div>
-
-        <p>
-            Note that if you turn on the Yii debugger, you should be able
-            to view the mail message on the mail panel of the debugger.
-            <?php if (Yii::$app->mailer->useFileTransport): ?>
-                Because the application is in development mode, the email is not sent but saved as
-                a file under <code><?= Yii::getAlias(Yii::$app->mailer->fileTransportPath) ?></code>.
-                Please configure the <code>useFileTransport</code> property of the <code>mail</code>
-                application component to be false to enable email sending.
+<div class="modal-content site-contact">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4><?= Html::encode($this->title) ?></h4>
+    </div>
+    <div class="modal-body">
+        <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')) : ?>
+            <?php if ($mode === 'cargo') : ?>
+                <div class="alert alert-success">
+                    Результат проверки.
+                </div>
+                Груз: <?= ($status->payment_cond === 'Y') ? 'отправлен' : 'не отправлен' ?><br>
+                Зайдите в <a href="<?= Url::to(['lk/lk/index']) ?>">личный кабинет</a> для подробностей.
+            <?php elseif ($mode === 'application') : ?>
+                <div class="alert alert-success">
+                    Спасибо! Ваша заявка принята.
+                </div>
             <?php endif; ?>
-        </p>
+        <?php else: ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+                        <?php if ($mode === 'application') : ?>
+                            <!-- Заявка -->
+                            <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+                            <?= $form->field($model, 'contact') ?>
+                            <?= $form->field($model, 'email') ?>
+                            <?= $form->field($model, 'address') ?>
+                            <?= $form->field($model, 'body')->textArea(['rows' => 6]) ?>
 
-    <?php else: ?>
-
-        <p>
-            If you have business inquiries or other questions, please fill out the following form to contact us.
-            Thank you.
-        </p>
-
-        <div class="row">
-            <div class="col-lg-5">
-
-                <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
-
-                    <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-
-                    <?= $form->field($model, 'email') ?>
-
-                    <?= $form->field($model, 'subject') ?>
-
-                    <?= $form->field($model, 'body')->textArea(['rows' => 6]) ?>
-
+                        <?php elseif ($mode === 'cargo') : ?>
+                            <!-- Проверка состояния груза -->
+                            <!-- Заявка -->
+                            <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+                            <?= $form->field($model, 'email') ?>
+                            <?= $form->field($model, 'idCargo') ?>
+                        <?php endif; ?>
                     <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
-                        'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
+                      'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
                     ]) ?>
-
                     <div class="form-group">
-                        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                        <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary pull-right', 'name' => 'contact-button'])  ?>
                     </div>
-
-                <?php ActiveForm::end(); ?>
-
+                    <?php ActiveForm::end(); ?>
+                </div>
             </div>
-        </div>
-
-    <?php endif; ?>
-</div>
+        <?php endif; ?>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+    </div>
+</div><!-- /.modal-content -->
+<?php
+$js = <<<JS
+jQuery('#contact-form').on('beforeSubmit', function(){
+    var form = jQuery(this);
+    jQuery.post(
+        form.attr("action"),
+        form.serialize()
+    )
+    .done(function(result) {
+        form.parents('.site-contact').replaceWith(result);
+        console.log("server success");
+    })
+    .fail(function() {
+        console.log("server error");
+    });
+    return false;
+})
+JS;
+$this->registerJs($js);
+?>

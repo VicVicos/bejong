@@ -4,8 +4,10 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\bootstrap\Modal;
 use yii\widgets\Breadcrumbs;
 
 use app\components\Menu;
@@ -47,8 +49,40 @@ AppAsset::register($this);
             <!-- Tools -->
             <div class="col-md-9 tools">
                 <a href="<?= Yii::$app->urlManager->createUrl(["lk/lk/index"]) ?>" class="btn btn-custom"><i class="icon icon-arrow-btn"></i>Личный кабинет</a>
-                <a href="#" class="btn btn-default-3">Оставить заявку</a>
-                <a href="#" class="btn btn-default-2">Состояние заказа</a>
+                <!-- <a href="#" class="btn btn-default-3" data-toggle="modal" data-target="#application">Оставить заявку</a> -->
+                <!-- <a href="#" class="btn btn-default-2" data-toggle="modal" data-target="#status_cargo">Состояние</a> -->
+                <?php
+                    Modal::begin([
+                        'id' => 'application',
+                        'header' => '<h4>Оставить заявку</h4>',
+                        'toggleButton' => [
+                            'label' => 'Оставить заявку',
+                            'tag' => 'a',
+                            'class' => 'btn btn-default-3',
+                            'data-target' => '#application',
+                            'href' => Url::toRoute(['site/contact', 'mode' => 'application']),
+                        ],
+                        'clientOptions' => false
+                    ]);
+                        echo "Loading...";
+                    Modal::end();
+                ?>
+                <?php
+                    Modal::begin([
+                    'id' => 'status-cargo',
+                    'header' => '<h4>Проверить состояние груза</h4>',
+                    'toggleButton' => [
+                        'label' => 'Состояние заказа',
+                        'tag' => 'a',
+                        'class' => 'btn btn-default-2',
+                        'data-target' => '#status-cargo',
+                        'href' => Url::toRoute(['/site/contact', 'mode' => 'cargo']),
+                    ],
+                    'clientOptions' => false,
+                    ]);
+                        echo "Loading...";
+                    Modal::end();
+                ?>
             </div>
             <!-- Menu -->
             <nav class="col-md-9">
@@ -178,32 +212,6 @@ AppAsset::register($this);
                 <p class="titleh2">Что люди говорят о нас</p>
                 <a href="#" class="btn btn-default-3">Написать отзыв</a>
                 <?= Blocks::widget(['id' => 'review']); ?>
-                <!-- <div class="slick-reviews">
-                    <div class="review row">
-                        <div class="col-md-3">
-                            <div class="img-circle">
-                                <img src="img/tablo.jpg" alt="face">
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <p class="title">Член партии</p>
-                            <p class="position">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non dolor earum hic, consequuntur eaque totam.</p>
-                            <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam itaque corporis illum veniam expedita alias, quia praesentium consectetur consequuntur officiis eligendi saepe voluptatem, maiores quos, ipsa minus, possimus illo architecto!</p>
-                        </div>
-                    </div>
-                    <div class="review row">
-                        <div class="col-md-3">
-                            <div class="img-circle">
-                                <img src="img/tablo.jpg" alt="face">
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <p class="title">Член партии</p>
-                            <p class="position">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non dolor earum hic, consequuntur eaque totam.</p>
-                            <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam itaque corporis illum veniam expedita alias, quia praesentium consectetur consequuntur officiis eligendi saepe voluptatem, maiores quos, ipsa minus, possimus illo architecto!</p>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>

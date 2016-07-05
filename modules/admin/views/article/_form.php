@@ -29,7 +29,6 @@ $paramsStatus = ['prompt' => 'Статус...'];
 
     <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
 
-
     <?= $form->field($model, 'img')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>

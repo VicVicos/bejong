@@ -6,6 +6,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\bootstrap\Modal;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -43,8 +44,8 @@ AppAsset::register($this);
             <!-- Tools -->
             <div class="col-md-9 tools">
                 <a href="/html/lk.html" class="btn btn-custom"><i class="icon icon-arrow-btn"></i>Личный кабинет</a>
-                <a href="#" class="btn btn-default-3">Оставить заявку</a>
-                <a href="#" class="btn btn-default-2">Состояние заказа</a>
+                <a href="#" class="btn btn-default-3" data-toggle="modal" data-target="#application">Оставить заявку</a>
+                <a href="#" class="btn btn-default-2" data-toggle="modal" data-target="#status_cargo">Состояние</a>
             </div>
             <!-- Menu -->
             <nav class="col-md-9">

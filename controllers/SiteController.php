@@ -1,5 +1,4 @@
 <?php
-// FIXME: Изменить интро и excerpt на varchar
 // TODO: Пункт меню Услуги - выпадашка
 // TODO: layots для ошибок
 // TODO: Оставить заявку
@@ -12,6 +11,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\CargoForm;
+use app\models\Cargo;
 
 class SiteController extends Controller
 {
@@ -80,7 +81,24 @@ class SiteController extends Controller
         }
         return $this->redirect('?r=lk/lk/index',302);
     }
-
+    public function actionContact()
+    {
+        $mode = Yii::$app->request->get('mode');
+        if ($mode === 'application') {
+            $model = new ContactForm();
+        } elseif ($mode === 'cargo') {
+            $model = new CargoForm();
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            Yii::$app->session->setFlash('contactFormSubmitted', 'Письмо отправлено.', false);
+            $result = $model->contact();
+        }
+        return $this->renderAjax('contact', [
+            'model' => $model,
+            'mode' => $mode,
+            'result' => $result
+        ]);
+    }
     public function actionLogout()
     {
         Yii::$app->user->logout();
