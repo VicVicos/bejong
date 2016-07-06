@@ -3,6 +3,8 @@
 // TODO: layots для ошибок
 // TODO: Оставить заявку
 // TODO: Состояние заказа
+// FIXME: Ошибка в личном кабинете
+// FIXME: Нужные поля для Оставить заявку, см. в ТЗ
 namespace app\controllers;
 
 use Yii;
