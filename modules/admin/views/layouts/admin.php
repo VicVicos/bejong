@@ -4,8 +4,10 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\bootstrap\Modal;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -43,8 +45,40 @@ AppAsset::register($this);
             <!-- Tools -->
             <div class="col-md-9 tools">
                 <a href="<?= Yii::$app->urlManager->createUrl(['lk/lk/index']) ?>" class="btn btn-custom"><i class="icon icon-arrow-btn"></i>Личный кабинет</a>
-                <a href="#" class="btn btn-default-3">Оставить заявку</a>
-                <a href="#" class="btn btn-default-2">Состояние заказа</a>
+                <!-- <a href="#" class="btn btn-default-3">Оставить заявку</a>
+                <a href="#" class="btn btn-default-2">Состояние заказа</a> -->
+                <?php
+                    Modal::begin([
+                        'id' => 'application',
+                        'header' => '<h4>Оставить заявку</h4>',
+                        'toggleButton' => [
+                            'label' => 'Оставить заявку',
+                            'tag' => 'a',
+                            'class' => 'btn btn-default-3',
+                            'data-target' => '#application',
+                            'href' => Url::toRoute(['/site/contact', 'mode' => 'application']),
+                        ],
+                        'clientOptions' => false
+                    ]);
+                        echo "Loading...";
+                    Modal::end();
+                ?>
+                <?php
+                    Modal::begin([
+                    'id' => 'status-cargo',
+                    'header' => '<h4>Проверить состояние груза</h4>',
+                    'toggleButton' => [
+                        'label' => 'Состояние заказа',
+                        'tag' => 'a',
+                        'class' => 'btn btn-default-2',
+                        'data-target' => '#status-cargo',
+                        'href' => Url::toRoute(['/site/contact', 'mode' => 'cargo']),
+                    ],
+                    'clientOptions' => false,
+                    ]);
+                        echo "Loading...";
+                    Modal::end();
+                ?>
             </div>
             <!-- Menu -->
             <nav class="col-md-9">

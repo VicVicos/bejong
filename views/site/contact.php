@@ -46,8 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
                             <?= $form->field($model, 'contact') ?>
                             <?= $form->field($model, 'email') ?>
-                            <?= $form->field($model, 'address') ?>
-                            <?= $form->field($model, 'body')->textArea(['rows' => 6]) ?>
+                            <?= $form->field($model, 'weight') ?>
+                            <?= $form->field($model, 'width') ?>
+                            <?= $form->field($model, 'length') ?>
+                            <?= $form->field($model, 'height') ?>
+                            <?= $form->field($model, 'type') ?>
 
                         <?php elseif ($mode === 'cargo') : ?>
                             <!-- Проверка состояния груза -->

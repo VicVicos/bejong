@@ -10,13 +10,16 @@ use yii\base\Model;
  */
 class ContactForm extends Model
 {
+    public $weight;
+    public $width;
+    public $length;
+    public $height;
+    public $type;
     public $name;
-    public $contact;
     public $email;
-    public $address;
-    public $body;
+    public $contact;
     public $verifyCode;
-
+    // : вес, ширина, длина, высота, тип груза, имя и контактный телефон
 
     /**
      * @return array the validation rules.
@@ -24,7 +27,7 @@ class ContactForm extends Model
     public function rules()
     {
         return [
-            [['name', 'email', 'address', 'contact', 'body'], 'required'],
+            [['weight', 'width', 'length', 'height', 'type', 'name', 'contact'], 'required'],
             ['email', 'email'],
             ['verifyCode', 'captcha'],
         ];
@@ -36,11 +39,14 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
+            'weight' => 'Вес',
+            'width' => 'Ширина',
+            'length' => 'Длина',
+            'height' => 'Высота',
+            'type' => 'Тип',
             'name' => 'Имя',
             'email' => 'Email',
             'contact' => 'Телефон',
-            'address' => 'Адрес',
-            'body' => 'Сообщение',
             'verifyCode' => 'Verification Code',
         ];
     }
@@ -52,13 +58,19 @@ class ContactForm extends Model
      */
     public function contact()
     {
-        $send = Yii::$app->mailer->compose('body')
-            ->setFrom('developitb@yandex.ru')
+        $send = Yii::$app->mailer->compose('application')
+            ->setFrom(Yii::$app->params['adminEmail'])
             ->setTo($this->email)
             ->setSubject('Регистрация пользователя')
             ->send();
         if ($send) {
-            return true;
+            return Yii::$app->mailer->compose('calc', [
+                'model' => $this
+            ])
+                ->setFrom($this->email)
+                ->setTo(Yii::$app->params['adminEmail'])
+                ->setSubject('Заказ расчёта с сайта')
+                ->send();
         } else {
             return false;
         }

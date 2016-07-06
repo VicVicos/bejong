@@ -60,7 +60,7 @@ class Article extends \yii\db\ActiveRecord
     // Методы работы со статьями
 
     /**
-     * TODO: Получать список из базы
+     * NOTE: Получать список из базы
      * Получаем типы статей
      * @method getType
      * @return array  Типы статей

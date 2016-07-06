@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
+    'adminEmail' => 'developitb@yandex.ru',
     'basePath' => dirname(__DIR__),
     'editor' => [
         'options' => ['rows' => 4],

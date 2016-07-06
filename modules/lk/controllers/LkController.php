@@ -209,7 +209,7 @@ class LkController extends Controller
                 $data = Yii::$app->request->post('Cargo');
                 $order = Html::encode($data['order_status']);
                 $payment = Html::encode($data['payment_cond']);
-                if (Cargo::setStatus($order, $payment, $model)) {
+                if (Cargo::setStatus($order, $payment, $model->id)) {
                     Yii::$app->session->setFlash('success', 'Статус накладной успешно изменнёт.', false);
                 }
                 return $this->render('cargo',[
