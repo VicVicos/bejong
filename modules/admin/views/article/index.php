@@ -42,9 +42,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'filter' => ['article' => 'Статьи','slide' => 'Слайды', 'block'=>'Блоки', 'review' => 'Отзывы', 'page' => 'Страницы'],
                         'options' => ['width' => '125px'],
                     ],
-                    'intro',
-                    'text:ntext',
-                    // 'img:image',
+                    // 'intro',
+                    [
+                        'label' => 'Анонс',
+                        'attribute' => 'intro',
+                        'value' => function ($data) {
+                            $value = mb_substr(strip_tags($data->intro), 0, 250);
+                            return $value;
+                        }
+                    ],
                     [
                         'label' => 'Картинка',
                         'format' => 'raw',
@@ -55,10 +61,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]);
                         },
                     ],
-                    'excerpt',
+                    // 'excerpt',
                     [
                         'header' => '<span class="glyphicon glyphicon-eye-open"></span>',
                         'attribute' => 'status',
+                        'filter' => ['active' => 'Опубликовано', 'disabled' => 'Черновик'],
                         'value' => function($data){
                             return $data->status;
                         },

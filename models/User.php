@@ -1,8 +1,6 @@
 <?php
-
 namespace app\models;
 
-// class User extends \yii\base\Object implements \yii\web\IdentityInterface
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     /**
@@ -12,7 +10,24 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return '{{%user}}';
     }
-
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Имя',
+            'contact' => 'Телефон',
+            'email' => 'Email',
+            'address' => 'Адрес',
+            'password' => 'Пароль',
+            'status' => 'Статус',
+            'created' => 'Зарегестрирован',
+            'role' => 'Права',
+            'id_manager' => 'Менеджер'
+        ];
+    }
     /**
      * @inheritdoc
      */
@@ -45,7 +60,36 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return static::findOne(['email' => $email]);
     }
-
+    /**
+     * Find User by Id
+     * @method findById
+     * @param  [type]   $id [description]
+     * @return [type]       [description]
+     */
+    public static function findById($id)
+    {
+        return static::findOne(['id' => $id]);
+    }
+    /**
+     * GetUser
+     * @method getUser
+     * @return [type]  [description]
+     */
+    public function getUser()
+    {
+        if ($this->user === false) {
+            //Находим пользователя в БД по логину или эл.почте
+            $this->user = User::find()
+                ->andWhere(['email' => $this->email])
+                ->one();
+            //Проверяем права доступа, если нет, то делаем вид,
+            //что пользователь не найден.
+            if (!Yii::$app->user->can('admin', ['admin' => $this->user])) {
+                $this->user = null;
+            }
+        }
+        return $this->user;
+    }
     /**
      * @inheritdoc
      */

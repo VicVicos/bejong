@@ -7,7 +7,9 @@ use app\models\Article;
 use app\models\SearchArticle;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+
 
 /**
  * AdminArticleController implements the CRUD actions for Article model.
@@ -18,18 +20,43 @@ class ArticleController extends Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
+     public function behaviors()
+     {
+         return [
+             'access' => [
+                 'class' => AccessControl::className(),
+                 'only' => ['index', 'create', 'update', 'view'],
+                 'rules' => [
+                     [
+                         'actions' => ['index', 'create', 'view', 'update'],
+                         'allow' => true,
+                         'roles' => ['?'],
+                         'matchCallback' => function () {
+                             return false;
+                         }
+                     ],
+                     [
+                         'actions' => ['index', 'create', 'view', 'update'],
+                         'allow' => true,
+                         'roles' => ['@'],
+                         'matchCallback' => function () {
+                             if (Yii::$app->user->identity->role === 'admin') {
+                                 return true;
+                             } else {
+                                 return false;
+                             }
+                         }
+                     ],
+                 ],
+             ],
+             'verbs' => [
+                 'class' => VerbFilter::className(),
+                 'actions' => [
+                     'logout' => ['post'],
+                 ],
+             ],
+         ];
+     }
     /**
      * Lists all Article models.
      * @return mixed

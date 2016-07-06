@@ -11,8 +11,9 @@ use yii\base\Model;
 class ContactForm extends Model
 {
     public $name;
+    public $contact;
     public $email;
-    public $subject;
+    public $address;
     public $body;
     public $verifyCode;
 
@@ -23,11 +24,8 @@ class ContactForm extends Model
     public function rules()
     {
         return [
-            // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
-            // email has to be a valid email address
+            [['name', 'email', 'address', 'contact', 'body'], 'required'],
             ['email', 'email'],
-            // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];
     }
@@ -38,6 +36,11 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
+            'name' => 'Имя',
+            'email' => 'Email',
+            'contact' => 'Телефон',
+            'address' => 'Адрес',
+            'body' => 'Сообщение',
             'verifyCode' => 'Verification Code',
         ];
     }
@@ -47,18 +50,17 @@ class ContactForm extends Model
      * @param string $email the target email address
      * @return boolean whether the model passes validation
      */
-    public function contact($email)
+    public function contact()
     {
-        if ($this->validate()) {
-            Yii::$app->mailer->compose()
-                ->setTo($email)
-                ->setFrom([$this->email => $this->name])
-                ->setSubject($this->subject)
-                ->setTextBody($this->body)
-                ->send();
-
+        $send = Yii::$app->mailer->compose('body')
+            ->setFrom('developitb@yandex.ru')
+            ->setTo($this->email)
+            ->setSubject('Регистрация пользователя')
+            ->send();
+        if ($send) {
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 }
