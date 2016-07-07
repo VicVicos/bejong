@@ -19,6 +19,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
+            // FIXME: Страница ошибки
             'errorAction' => 'site/error',
         ],
         'mailer' => [
@@ -46,6 +47,13 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                ['class' => 'app\components\SefRule', 'connectionID' => 'db']
+            ]
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

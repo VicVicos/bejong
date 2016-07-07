@@ -30,7 +30,7 @@ class Menu extends Widget {
         $li = '';
         foreach ($menu as $link => $title) {
 
-            $a = Html::a($title, $url->createUrl([$link]));
+            $a = Html::a($title, Url::to([$link]));
             $li .= Html::tag('li', $a);
         }
         $wrpMenu = Html::tag('ul', $li, ['class' => 'nav-menu']);
