@@ -8,6 +8,7 @@ if (!is_null($model->img)) {
 } else {
     $model->img = 'img/air-bg.jpg';
 }
+
 ?>
 <div class="wrp-header-page" style="background-image: url('<?= $model->img ?>')">
     <!-- Шапка -->

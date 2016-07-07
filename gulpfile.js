@@ -39,7 +39,7 @@ gulp.task('css', function() {
     .pipe(cssnano())//Минимизация css
     .pipe(autoprefixer({browsers: ['last 20 versions'],cascade: false}))//Префиксы
     .pipe(rename('styles.min.css'))//Переименовываем выходной файл
-    .pipe(gulp.dest('html/assets/css/'))//куда помещаем лепнину
+    .pipe(gulp.dest('web/css/'))//куда помещаем лепнину
     .pipe(size())
     .pipe(notify("Done!"));//Сообщение о выполнении
 });
@@ -53,7 +53,7 @@ gulp.task('js', function() {
     .pipe(uglify())
     // .pipe(jshint())
     // .pipe(jshint.reporter('default'))
-    .pipe(gulp.dest('html/assets/js/'))
+    .pipe(gulp.dest('web/js/'))
     .pipe(size());
 });
 
@@ -65,7 +65,7 @@ gulp.task('img', function () {
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
-        .pipe(gulp.dest('html/assets/img/'));
+        .pipe(gulp.dest('web/img/'));
 });
 
 // Для работы с html
@@ -94,7 +94,6 @@ gulp.task('clean-img', function () {
 
 // watch2
 gulp.task('watch2', function (){
-    // livereload.listen(8888);
 	// Следить за изменениями в файлах *.* и при изменении запускать задачу default
 	//gulp.watch('dev/css/*.css', ['css'])
     //gulp.watch('dev/images/*', ['img'])

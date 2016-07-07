@@ -1,5 +1,5 @@
 <?php
-// TODO: Напоминание об оплате
+// NOTE: Тестирование уведомлений об оплате
 namespace app\modules\lk\controllers;
 
 use Yii;
@@ -16,6 +16,7 @@ use app\components\pclzip\pclzip;
 use app\models\Cargo;
 use app\models\File;
 use app\models\User;
+use app\models\Mailer;
 use app\models\LoginForm;
 use app\models\RegisterUser;
 /**
@@ -201,27 +202,46 @@ class LkController extends Controller
      */
     public function actionCargo()
     {
-        // $model = new app\models\Cargo();
-        $file = File::findFile(Yii::$app->request->get('user'), Yii::$app->request->get('cargo'));
-        $model = Cargo::findCargoById(Yii::$app->request->get('cargo'));
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate()) {
-                $data = Yii::$app->request->post('Cargo');
-                $order = Html::encode($data['order_status']);
-                $payment = Html::encode($data['payment_cond']);
-                if (Cargo::setStatus($order, $payment, $model->id)) {
-                    Yii::$app->session->setFlash('success', 'Статус накладной успешно изменнёт.', false);
+        if (null !== Yii::$app->request->get('cargo') && null !== Yii::$app->request->get('user')) {
+            $idUser = (int)Yii::$app->request->get('user');
+            $idCargo = (int)Yii::$app->request->get('cargo');
+            $file = File::findFile($idUser, $idCargo);
+            $model = Cargo::findCargoById($idCargo);
+            $mailer = new Mailer();
+            if ($model->load(Yii::$app->request->post())) {
+                // Для смены статуса
+                if ($model->validate()) {
+                    $data = Yii::$app->request->post('Cargo');
+                    $order = Html::encode($data['order_status']);
+                    $payment = Html::encode($data['payment_cond']);
+                    if (Cargo::setStatus($order, $payment, $model->id)) {
+                        Yii::$app->session->setFlash('success', 'Статус накладной успешно изменнёт.', false);
+                    }
                 }
-                return $this->render('cargo',[
-                    'model' => $model,
-                    'file' => $file
-                ]);
+            } elseif ($mailer->load(Yii::$app->request->post())) {
+                // Для расписания отправки
+                $dayData = Yii::$app->request->post('Mailer');
+                $dayData['day'] = (int)$dayData['day'];
+                if (is_int($dayData['day'])) {
+                    if ($mailer->setMailer($idUser, $idCargo, $dayData['day'])) {
+                        Yii::$app->session->setFlash('success', 'Уведомление назначено.', false);
+                    } else {
+                        Yii::$app->session->setFlash('danger', 'Ошибка записи уведомления.', false);
+                    }
+                } else {
+                    Yii::$app->session->setFlash('danger', 'Ошибка записи уведомления.', false);
+                }
+
             }
+            $send = Mailer::getMailer($idUser, $idCargo);
+            return $this->render('cargo',[
+                'model' => $model,
+                'file' => $file,
+                'send' => $send,
+            ]);
+        } else {
+            return $this->redirect('?r=lk/lk/index',302);
         }
-        return $this->render('cargo',[
-            'model' => $model,
-            'file' => $file
-        ]);
     }
     /**
      * Выход из сервиса

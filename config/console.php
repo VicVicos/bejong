@@ -23,6 +23,21 @@ $config = [
             ],
         ],
         'db' => $db,
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@app/mail',
+            // TRUE - send all mails to a file
+            // FALSE - send real emails via 'transport'
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.yandex.ru',
+                'username' => 'developitb',
+                'password' => '6fduecnf06',
+                'port' => '465',
+                'encryption' => 'ssl',
+            ],
+        ],
     ],
     'params' => $params,
     /*

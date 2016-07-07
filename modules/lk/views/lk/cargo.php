@@ -1,4 +1,6 @@
 <?php
+use app\models\Mailer;
+
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -7,6 +9,8 @@ $this->title = "Накладаня " . $model->id_cargo;
 
 $role = Yii::$app->user->identity->role;
 $user = Yii::$app->request->get('user');
+
+$mailer = new Mailer();
 
 $cargo = [];
 foreach ($model as $key => $value) {
@@ -89,21 +93,22 @@ $optionField = ['class' => 'nake-input form-control', 'disabled' => 'disabled'];
             <?php ActiveForm::end(); ?>
         </div>
         <div class="col-md-6">
-            <p class="title">Напомнить произвести оплату</p>
-            <form action="" class="form-horizontal" role="form">
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                        Оплата при получении
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                        Через 10 дней
-                    </label>
-                </div>
-            </form>
+            <?php if ($model->order_status === 'N') : ?>
+                <?php if (empty($send)) : ?>
+                    <?php $form = ActiveForm::begin();?>
+                    <?= $form->field($mailer, 'day')->radioList([
+                        '1' => 'Оплата при получении',
+                        '5' => 'Через 5 дней',
+                        '10' => 'Через 10 дней',
+                        ]) ?>
+                        <button type="submit" class="btn btn-default-2">Сохранить</button>
+                        <?php ActiveForm::end() ?>
+                    <?php else : ?>
+                        <p class="title">Уведомление о платеже запланировано</p>
+                    <?php endif; ?>
+            <?php else : ?>
+                <p class="title">Счёт оплачен</p>
+            <?php endif; ?>
         </div>
     </div>
 </div>

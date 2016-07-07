@@ -1718,7 +1718,6 @@ if (typeof jQuery === 'undefined') {
 +function ($) {
   'use strict';
 
-  // POPOVER PUBLIC CLASS DEFINITION
   // ===============================
 
   var Popover = function (element, options) {
@@ -1737,7 +1736,6 @@ if (typeof jQuery === 'undefined') {
   })
 
 
-  // NOTE: POPOVER EXTENDS tooltip.js
   // ================================
 
   Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype)

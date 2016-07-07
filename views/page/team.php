@@ -30,7 +30,9 @@ $this->title = 'My Yii Application';
     <section class="container">
         <h1>Наша команда</h1>
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia ratione placeat velit, consectetur quaerat quas illum temporibus cumque. Nostrum cum consequuntur similique tempore aliquid quasi iusto voluptatem aliquam, aperiam corrupti.
+            Наша команда - это профессиональные сотрудники, закончившие Вузы РФ и Китая.  Мы набираем только профессионалов в нашу команду. Отличное знание языков: китайский, английский, что позволяет нам общаться с фабриками изготовителя, выезжать на производство. Мы любим свою работу и делаем ее хорошо.
+            <br>
+            Спасибо, что Вы выбрали именно нас, мы знаем, что  у Вас был большой выбор!!!
         </p>
     </section>
 </div>

@@ -3,9 +3,11 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use app\models\Mailer;
 
 // TODO: Упарвление менеджерами
 
@@ -63,6 +65,11 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+        $now = new \DateTime('now');
+        $now = $now->format('Y-m-d');
+        $mail = new Mailer();
+        $data = $mail->findByDate($now);
+        var_dump($data);
         return $this->render('index');
     }
 }
