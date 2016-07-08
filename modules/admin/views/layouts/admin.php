@@ -21,7 +21,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
@@ -39,7 +39,7 @@ AppAsset::register($this);
         <div class="row">
             <div class="col-md-3 logo">
                 <a href="<?=Yii::$app->urlManager->createUrl(["site/index"])?>" title="title">
-                    <img src="img/logo.png" alt="Title">
+                    <img src="/img/logo.png" alt="Title">
                 </a>
             </div>
             <!-- Tools -->

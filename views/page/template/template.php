@@ -4,11 +4,10 @@ use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
 if (!is_null($model->img)) {
-    $model->img = 'img/' . $model->img;
+    $model->img = '/img/' . $model->img;
 } else {
-    $model->img = 'img/air-bg.jpg';
+    $model->img = '/img/air-bg.jpg';
 }
-
 ?>
 <div class="wrp-header-page" style="background-image: url('<?= $model->img ?>')">
     <!-- Шапка -->
@@ -16,7 +15,7 @@ if (!is_null($model->img)) {
         <div class="row">
             <div class="col-md-3 logo">
                 <a href="<?=Yii::$app->urlManager->createUrl(["site/index"])?>" title="title">
-                    <img src="img/logo.png" alt="Title">
+                    <img src="/img/logo.png" alt="Title">
                 </a>
             </div>
             <!-- Tools -->
@@ -65,9 +64,9 @@ if (!is_null($model->img)) {
     </header>
     <section class="container">
         <h1><?= $model->title ?></h1>
-        <p>
+        <div>
             <?= $model->intro ?>
-        </p>
+        </div>
     </section>
 </div>
 <!-- Header -->

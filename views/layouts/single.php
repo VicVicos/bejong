@@ -58,7 +58,7 @@ AppAsset::register($this);
                             'tag' => 'a',
                             'class' => 'btn btn-default-3',
                             'data-target' => '#application',
-                            'href' => Url::toRoute(['/site/contact', 'mode' => 'application']),
+                            'href' => Url::toRoute(['site/contact', 'mode' => 'application']),
                         ],
                         'clientOptions' => false
                     ]);
@@ -74,7 +74,7 @@ AppAsset::register($this);
                         'tag' => 'a',
                         'class' => 'btn btn-default-2',
                         'data-target' => '#status-cargo',
-                        'href' => Url::toRoute(['/site/contact', 'mode' => 'cargo']),
+                        'href' => Url::toRoute(['site/contact', 'mode' => 'cargo']),
                     ],
                     'clientOptions' => false,
                     ]);
@@ -208,7 +208,23 @@ AppAsset::register($this);
         <div class="row reviews">
             <div class="col-md-12">
                 <p class="titleh2">Что люди говорят о нас</p>
-                <a href="#" class="btn btn-default-3">Написать отзыв</a>
+                <!-- <a href="#" class="btn btn-default-3">Написать отзыв</a> -->
+                <?php
+                    Modal::begin([
+                        'id' => 'review',
+                        'header' => '<h4>Написать отзыв</h4>',
+                        'toggleButton' => [
+                            'label' => 'Оставить заявку',
+                            'tag' => 'a',
+                            'class' => 'btn btn-default-3',
+                            'data-target' => '#review',
+                            'href' => Url::toRoute(['site/contact', 'mode' => 'review']),
+                        ],
+                        'clientOptions' => false
+                    ]);
+                        echo "Loading...";
+                    Modal::end();
+                ?>
                 <?= Blocks::widget(['id' => 'review']); ?>
             </div>
         </div>

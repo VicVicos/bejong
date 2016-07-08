@@ -1,10 +1,12 @@
 <?php
 // TODO: Пункт меню Услуги - выпадашка
-// TODO: layots для ошибок
-// TODO: Routing
 // TODO: Вынести переменные данные в настройки
 // TODO: Удалять записи об отправке
 // TODO: Вопрос-ответ
+// TODO: Не доезжают картиночки
+// TODO: Адаптив
+// TODO: Анимация.
+// FIXME: Задания в кесе.
 // FIXME: Порядок в текстах письма
 namespace app\controllers;
 
@@ -15,7 +17,10 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\CargoForm;
+use app\models\ReviewForm;
 use app\models\Cargo;
+
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
@@ -77,12 +82,11 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
-        return $this->redirect('?r=lk/lk/index',302);
+        return $this->redirect(['lk/lk/index'],302);
     }
     public function actionContact()
     {
@@ -91,6 +95,15 @@ class SiteController extends Controller
             $model = new ContactForm();
         } elseif ($mode === 'cargo') {
             $model = new CargoForm();
+        } elseif ($mode === 'review') {
+            $model = new ReviewForm();
+            if ($model->load(Yii::$app->request->post())) {
+                $model->img = UploadedFile::getInstance($model, 'img');
+                if ($model->img) {
+                    $model->img = 'review/' . $model->uploadImg();
+                }
+                $model->setReview();
+            }
         }
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             Yii::$app->session->setFlash('contactFormSubmitted', 'Письмо отправлено.', false);

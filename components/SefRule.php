@@ -17,19 +17,48 @@ class SefRule extends UrlRule
     // *************
 
 	public function createUrl($manager, $route, $params) {
+
         // При главной странице
         // var_dump($manager);
         // var_dump($route);
         // var_dump($params);
-		if ($route == "page/index") {
-			if (isset($params["page"])) return "?page=".$params["page"];
-			else return "";
-		} elseif ($route == "page/about") {
-            // var_dump(1);
-            if (isset($params["page"])) return "?page=".$params["page"];
-			else return "about";
+        switch ($route) {
+            case 'site/index':
+                return "";
+                break;
+            case 'page/about':
+                return 'about';
+                break;
+            case 'page/uslugi':
+                return 'page/uslugi';
+                break;
+            case 'page/services':
+                return 'page/services';
+                break;
+            case 'page/team':
+                return 'page/team';
+                break;
+            case 'page/contacts':
+                return 'page/contacts';
+                break;
+            // default:
+            //     return '';
+            //     break;
         }
-
+        // if (isset($params["mode"])) {
+        //     switch ($params["mode"]) {
+        //         case 'application':
+        //             return 'site/contact/application';
+        //             break;
+        //         case 'cargo':
+        //             return '';
+        //             break;
+        //         default:
+        //             return "site/contact?mode=".$params["mode"];
+        //             break;
+        //     }
+        //
+        // }
         // Перебираем атрибуты в params и убираем последний &
 		// if (count($params)) {
 		// 	$link .= "?";
@@ -85,6 +114,16 @@ class SefRule extends UrlRule
 		}
 		return false;
 	}
+    /**
+     * [getAlias description]
+     * @method getAlias
+     * @param  [type]   $id [description]
+     * @return [type]       [description]
+     */
+    private function getAlias ($id)
+    {
+        return Article::find()->where(['id' => $id])->one();
+    }
 }
 
 ?>

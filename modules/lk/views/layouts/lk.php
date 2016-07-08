@@ -40,7 +40,7 @@ AppAsset::register($this);
         <div class="row">
             <div class="col-md-3 logo">
                 <a href="<?=Yii::$app->urlManager->createUrl(["site/index"])?>" title="title">
-                    <img src="img/logo.png" alt="Title">
+                    <img src="/img/logo.png" alt="Title">
                 </a>
             </div>
             <!-- Tools -->

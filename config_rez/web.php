@@ -19,7 +19,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'lk/lk/error',
+            'errorAction' => 'site/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -46,22 +46,6 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'enableStrictParsing' => false,
-            'rules' => [
-                '/' => 'site/index',
-                'about' => 'page/about',
-                'uslugi' => 'page/uslugi',
-                'services' => 'page/services',
-                'team' => 'page/team',
-                'contacts' => 'page/contacts',
-                // 'application' => 'site/contact',
-                'article' => 'page/page',
-                // ['class' => 'app\components\SefRule', 'connectionID' => 'db']
-            ]
-        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -89,18 +73,17 @@ $config = [
     'language'=>'ru',
     'sourceLanguage'=>'ru',
 ];
+// if (YII_ENV_DEV) {
+//     // configuration adjustments for 'dev' environment
+//     $config['bootstrap'][] = 'debug';
+//     $config['modules']['debug'] = [
+//         'class' => 'yii\debug\Module',
+//     ];
 
-if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
-    ];
-
-    $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
-    ];
-}
+//     $config['bootstrap'][] = 'gii';
+//     $config['modules']['gii'] = [
+//         'class' => 'yii\gii\Module',
+//     ];
+// }
 
 return $config;

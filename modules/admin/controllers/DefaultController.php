@@ -65,11 +65,6 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $now = new \DateTime('now');
-        $now = $now->format('Y-m-d');
-        $mail = new Mailer();
-        $data = $mail->findByDate($now);
-        var_dump($data);
         return $this->render('index');
     }
 }

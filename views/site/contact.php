@@ -36,11 +36,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="alert alert-success">
                     Спасибо! Ваша заявка принята.
                 </div>
+            <?php elseif ($mode === 'review') : ?>
+                <div class="alert alert-success">
+                    Спасибо! Ваш отзыв будет опубликован после проверки модератором.
+                </div>
             <?php endif; ?>
         <?php else: ?>
             <div class="row">
                 <div class="col-md-12">
-                    <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+                    <?php $form = ActiveForm::begin(['id' => 'contact-form', 'options' => ['enctype' => 'multipart/form-data']]); ?>
                         <?php if ($mode === 'application') : ?>
                             <!-- Заявка -->
                             <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
@@ -58,6 +62,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
                             <?= $form->field($model, 'email') ?>
                             <?= $form->field($model, 'idCargo') ?>
+                        <?php elseif ($mode === 'review') : ?>
+                            <?= $form->field($model, 'title')->textInput(['autofocus' => true]) ?>
+                            <?= $form->field($model, 'intro') ?>
+                            <?= $form->field($model, 'text') ?>
+                            <?= $form->field($model, 'img')->fileInput() ?>
                         <?php endif; ?>
                     <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
                       'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',

@@ -27,6 +27,14 @@ class LkController extends Controller
     public $layout = 'lk';
     public $vpass = '';
     public $user = '';
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
     /**
      * ? - гость @ - Авторизованный
      * @method behaviors
@@ -111,7 +119,8 @@ class LkController extends Controller
                     $idInsertCargo = $cargo->setCargo($data);
                     if ($idInsertFile && $idInsertCargo) {
                         Yii::$app->session->setFlash('success', 'Накладная успешно добавлена.', false);
-                        return $this->redirect('?r=lk/lk/index&user=' . $data['id_user'], 302);
+                        // return $this->redirect('index&user=' . $data['id_user'], 302);
+                        return $this->redirect(['index', 'user' => $data['id_user']], 302);
                     } else {
                         Yii::$app->session->setFlash('danger', 'Ошибка добавления накладной.', false);
                     }
@@ -119,14 +128,16 @@ class LkController extends Controller
                     // Обновляем
                     if ($res = $cargo->updateCargo($data, $data['id_user'], $data['id_cargo'])) {
                         Yii::$app->session->setFlash('success', 'Накладная обновлена.', false);
-                        return $this->redirect('?r=lk/lk/index&user=' . $data['id_user'], 302);
+                        // return $this->redirect('index&user=' . $data['id_user'], 302);
+                        return $this->redirect(['index', 'user' => $data['id_user']], 302);
                     } else {
                         Yii::$app->session->setFlash('danger', 'Ошибка обновления накладной или не чего обновлять.', false);
                     }
                 }
             } else {
                 Yii::$app->session->setFlash('success', 'Ошибка загрузки файла.', false);
-                return $this->redirect('?r=lk/lk/index&user=' . $postData['userId'], 302);
+                // return $this->redirect('index&user=' . $postData['userId'], 302);
+                return $this->redirect(['index', 'user' => $postData['userId']], 302);
             }
 
         }
@@ -177,7 +188,7 @@ class LkController extends Controller
                 ]);
                 break;
             default:
-                return $this->redirect('?r=lk/lk/login',302);
+                return $this->redirect('login',302);
                 break;
         }
     }
@@ -240,7 +251,7 @@ class LkController extends Controller
                 'send' => $send,
             ]);
         } else {
-            return $this->redirect('?r=lk/lk/index',302);
+            return $this->redirect('index',302);
         }
     }
     /**
@@ -369,7 +380,7 @@ class LkController extends Controller
                             Yii::$app->user->login($user->findByEmail($model->email), true ? 3600*24*30 : 0);
                         }
                         // Отправить письмо при регистрации
-                        return $this->redirect('?r=lk/lk/index',302);
+                        return $this->redirect('index',302);
                     } else {
                         Yii::$app->getSession()->setFlash('danger', 'Ошибка регистрации');
                     }

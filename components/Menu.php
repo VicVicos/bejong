@@ -21,11 +21,11 @@ class Menu extends Widget {
         $url = new UrlManager();
         $action = '';
         $menu = [
-            'page/about' => 'О компании',
-            'page/uslugi' => 'Услуги',
-            'page/services' => 'Сервис',
-            'page/team' => 'Наша команда',
-            'page/contacts' => 'Контакты'
+            '/page/about' => 'О компании',
+            '/page/uslugi' => 'Услуги',
+            '/page/services' => 'Сервис',
+            '/page/team' => 'Наша команда',
+            '/page/contacts' => 'Контакты'
         ];
         $li = '';
         foreach ($menu as $link => $title) {
