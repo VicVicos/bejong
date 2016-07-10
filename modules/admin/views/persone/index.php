@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
         <p>
-            <?= Html::a('Create Persone', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Создать участника', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
         <?php Pjax::begin(); ?>    <?= GridView::widget([
                 'dataProvider' => $dataProvider,

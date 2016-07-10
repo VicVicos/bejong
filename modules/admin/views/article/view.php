@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'type',
                 'status',
                 'link',
-                'intro',
+                'intro:html',
                 'text:html',
                 [
                     'label' => 'Картинка',

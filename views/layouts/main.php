@@ -4,13 +4,16 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\bootstrap\Modal;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\Settings;
 
 AppAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -55,7 +58,7 @@ AppAsset::register($this);
                             'tag' => 'a',
                             'class' => 'btn btn-default-3',
                             'data-target' => '#application',
-                            'href' => Url::toRoute(['/site/contact', 'mode' => 'application']),
+                            'href' => Url::toRoute(['site/contact', 'mode' => 'application']),
                         ],
                         'clientOptions' => false
                     ]);
@@ -71,7 +74,7 @@ AppAsset::register($this);
                         'tag' => 'a',
                         'class' => 'btn btn-default-2',
                         'data-target' => '#status-cargo',
-                        'href' => Url::toRoute(['/site/contact', 'mode' => 'cargo']),
+                        'href' => Url::toRoute(['site/contact', 'mode' => 'cargo']),
                     ],
                     'clientOptions' => false,
                     ]);
@@ -82,11 +85,11 @@ AppAsset::register($this);
             <!-- Menu -->
             <nav class="col-md-9">
                 <ul class="nav-menu">
+                    <li><a href="<?=Yii::$app->urlManager->createUrl(["admin"])?>">Админка</a></li>
                     <li><a href="<?=Yii::$app->urlManager->createUrl(["admin/article"])?>">Статьи</a></li>
-                    <li><a href="#">Item menu 2</a></li>
-                    <li><a href="#">Item menu 3</a></li>
-                    <li><a href="#">Item menu 4</a></li>
-                    <li><a href="#">Item menu 5</a></li>
+                    <li><a href="<?=Yii::$app->urlManager->createUrl(["admin/persone"])?>">Команда</a></li>
+                    <li><a href="<?=Yii::$app->urlManager->createUrl(["admin/user"])?>">Назначить менеджеров</a></li>
+                    <li><a href="<?=Yii::$app->urlManager->createUrl(["admin/settings"])?>">Настройки</a></li>
                 </ul>
             </nav>
         </div>
@@ -95,43 +98,7 @@ AppAsset::register($this);
         <?php echo $content; ?>
 
 <!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <i class="icon icon-mark"></i>
-                <p class="title">Наш адрес</p>
-                <p>г. Омск, ул. Красный Путь, 80/1</p>
-            </div>
-            <div class="col-md-3">
-                <i class="icon icon-phone"></i>
-                <p class="title">Сотовый телефон</p>
-                <p>+7 913 644 34 22</p>
-            </div>
-            <div class="col-md-3">
-                <i class="icon icon-hours"></i>
-                <p>ПН-ПТ с <strong>10:00</strong> до <strong>19:00</strong></p>
-                <p>СБ <strong>10:00</strong> до <strong>16:00</strong></p>
-            </div>
-            <div class="col-md-3">
-                <i class="icon icon-mail"></i>
-                <p><a href="mailto:primer@mail.ru">mail@primer.com</a></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <p class="copyright">
-                    Copyright &laquo; Cargo &raquo; 2016
-                </p>
-            </div>
-            <div class="col-md-6">
-                <p class="copyright itb">
-                    Создание и продвижение сайта: <a href="http://itb-company.com">ITB-company</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
+<?php require_once Yii::$app->params['basePath'] . '/views/layouts/footer.php' ?>
 <!-- End Body -->
 <?php $this->endBody() ?>
 </body>

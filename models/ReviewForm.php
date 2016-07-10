@@ -26,7 +26,7 @@ class ReviewForm extends Model
     {
         return [
             [['title', 'type', 'status', 'intro', 'text'], 'required'],
-            [['img'], 'image', 'extensions' => 'png, jpg, jpeg'],
+            [['img'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
             ['verifyCode', 'captcha'],
         ];
     }
@@ -82,10 +82,11 @@ class ReviewForm extends Model
     public function uploadImg()
     {
         $path = Yii::$app->params['basePath'];
-
+        var_dump(1);
         if ($this->validate()) {
-            $tempName = substr(base64_encode($this->verifyCode), 0, 10);
-            // var_dump($this->img->name);
+            var_dump(0);
+            $tempName = substr(base64_encode($this->verifyCode . time()), 0, 10);
+            var_dump($tempName);
             $this->img->name = $tempName . $this->img->name;
             if (!file_exists($path . '/web/img/review/')) {
                 mkdir($path . '/web/img/review/', 0775, true);

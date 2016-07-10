@@ -1,0 +1,152 @@
+-- --------------------------------------------------------
+-- Хост:                         127.0.0.1
+-- Версия сервера:               5.5.48 - MySQL Community Server (GPL)
+-- ОС Сервера:                   Win32
+-- HeidiSQL Версия:              9.3.0.4984
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Дамп структуры для таблица bejong_db.bj_article
+CREATE TABLE IF NOT EXISTS `bj_article` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `title` char(255) DEFAULT NULL,
+  `alias` char(255) DEFAULT NULL,
+  `type` set('slide','article','block','review','page') DEFAULT NULL COMMENT 'Тип поста, определяет где отображаться',
+  `status` set('active','disabled') DEFAULT 'disabled',
+  `link` char(250) DEFAULT NULL,
+  `intro` varchar(1200) DEFAULT NULL,
+  `text` mediumtext,
+  `img` char(255) DEFAULT NULL,
+  `excerpt` varchar(1200) DEFAULT NULL COMMENT 'отдельное описание для некоторых постов',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Статьи и материалы';
+
+-- Экспортируемые данные не выделены.
+
+
+-- Дамп структуры для таблица bejong_db.bj_cargo
+CREATE TABLE IF NOT EXISTS `bj_cargo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cargo` char(50) DEFAULT NULL COMMENT 'id Накладной',
+  `id_user` int(11) NOT NULL DEFAULT '0',
+  `destination` char(255) DEFAULT '0' COMMENT 'Пункт назначения',
+  `date_depart` date DEFAULT NULL COMMENT 'Дата отправки',
+  `date_arrival` date DEFAULT NULL COMMENT 'Ориентировочная дата прибытия',
+  `weight` float DEFAULT '0' COMMENT 'Вес',
+  `amount` float DEFAULT '0' COMMENT 'Объём',
+  `places` tinyint(3) unsigned DEFAULT '0' COMMENT 'Мест',
+  `rate` float DEFAULT '0' COMMENT 'Тариф',
+  `cost` float DEFAULT '0' COMMENT 'Цена',
+  `payment_cond` enum('Y','N') DEFAULT 'N' COMMENT 'Состояние оплаты',
+  `order_status` enum('Y','N') DEFAULT 'N' COMMENT 'Состояние заказа',
+  PRIMARY KEY (`id`),
+  KEY `FK_bj_cargo_bj_user` (`id_user`),
+  CONSTRAINT `FK_bj_cargo_bj_user` FOREIGN KEY (`id_user`) REFERENCES `bj_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Накладные';
+
+-- Экспортируемые данные не выделены.
+
+
+-- Дамп структуры для таблица bejong_db.bj_file
+CREATE TABLE IF NOT EXISTS `bj_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL DEFAULT '0',
+  `id_cargo` int(11) NOT NULL,
+  `file_name` char(255) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `FK_bj_file_bj_user` (`id_user`),
+  KEY `FK_bj_file_bj_cargo` (`id_cargo`),
+  CONSTRAINT `FK_bj_file_bj_cargo` FOREIGN KEY (`id_cargo`) REFERENCES `bj_cargo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_bj_file_bj_user` FOREIGN KEY (`id_user`) REFERENCES `bj_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Файлы накладных';
+
+-- Экспортируемые данные не выделены.
+
+
+-- Дамп структуры для таблица bejong_db.bj_mailer
+CREATE TABLE IF NOT EXISTS `bj_mailer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL DEFAULT '0',
+  `id_cargo` int(11) NOT NULL DEFAULT '0',
+  `date_send` date NOT NULL DEFAULT '0000-00-00',
+  PRIMARY KEY (`id`),
+  KEY `FK__bj_user` (`id_user`),
+  KEY `FK__bj_cargo` (`id_cargo`),
+  CONSTRAINT `FK__bj_cargo` FOREIGN KEY (`id_cargo`) REFERENCES `bj_cargo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK__bj_user` FOREIGN KEY (`id_user`) REFERENCES `bj_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Расписание отправки уведомлений.';
+
+-- Экспортируемые данные не выделены.
+
+
+-- Дамп структуры для таблица bejong_db.bj_menu
+CREATE TABLE IF NOT EXISTS `bj_menu` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id menu',
+  `title` char(250) NOT NULL DEFAULT '0' COMMENT 'Имя пункта меню',
+  `alias` char(250) NOT NULL DEFAULT '0' COMMENT 'alias',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `alias` (`alias`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Меню';
+
+-- Экспортируемые данные не выделены.
+
+
+-- Дамп структуры для таблица bejong_db.bj_migration
+CREATE TABLE IF NOT EXISTS `bj_migration` (
+  `version` varchar(180) NOT NULL,
+  `apply_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Экспортируемые данные не выделены.
+
+
+-- Дамп структуры для таблица bejong_db.bj_persone
+CREATE TABLE IF NOT EXISTS `bj_persone` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` char(255) DEFAULT '0',
+  `position` char(255) DEFAULT '0',
+  `text` varchar(21000) DEFAULT '0',
+  `img` char(255) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Команда';
+
+-- Экспортируемые данные не выделены.
+
+
+-- Дамп структуры для таблица bejong_db.bj_settings
+CREATE TABLE IF NOT EXISTS `bj_settings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `key` char(50) DEFAULT NULL,
+  `value` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `key` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Настройки';
+
+-- Экспортируемые данные не выделены.
+
+
+-- Дамп структуры для таблица bejong_db.bj_user
+CREATE TABLE IF NOT EXISTS `bj_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` char(255) DEFAULT '0',
+  `contact` char(255) DEFAULT '0',
+  `email` char(255) DEFAULT '0',
+  `address` varchar(2550) DEFAULT '0',
+  `password` char(255) DEFAULT '0',
+  `status` enum('active','disabled') NOT NULL DEFAULT 'active',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `role` enum('admin','manager','member') NOT NULL DEFAULT 'member',
+  `id_manager` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Таблица юзеров';
+
+-- Экспортируемые данные не выделены.
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

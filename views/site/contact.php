@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php else: ?>
             <div class="row">
                 <div class="col-md-12">
-                    <?php $form = ActiveForm::begin(['id' => 'contact-form', 'options' => ['enctype' => 'multipart/form-data']]); ?>
+                    <?php $form = ActiveForm::begin(['options' => ['id' => 'contact-form', 'enctype' => 'multipart/form-data']]); ?>
                         <?php if ($mode === 'application') : ?>
                             <!-- Заявка -->
                             <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
@@ -55,7 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?= $form->field($model, 'length') ?>
                             <?= $form->field($model, 'height') ?>
                             <?= $form->field($model, 'type') ?>
-
                         <?php elseif ($mode === 'cargo') : ?>
                             <!-- Проверка состояния груза -->
                             <!-- Заявка -->
@@ -65,8 +64,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php elseif ($mode === 'review') : ?>
                             <?= $form->field($model, 'title')->textInput(['autofocus' => true]) ?>
                             <?= $form->field($model, 'intro') ?>
-                            <?= $form->field($model, 'text') ?>
+                            <?= $form->field($model, 'text')->textarea(['style' => 'resize:vertical', 'rows' => '4']) ?>
                             <?= $form->field($model, 'img')->fileInput() ?>
+                            <?// $form->field($model, 'img') ?>
                         <?php endif; ?>
                     <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
                       'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
@@ -84,6 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div><!-- /.modal-content -->
 <?php
+// https://www.lpology.com/code/ajaxuploader/phpdocs.php
 $js = <<<JS
 jQuery('#contact-form').on('beforeSubmit', function(){
     var form = jQuery(this);

@@ -232,43 +232,7 @@ AppAsset::register($this);
 </section>
 <!-- ****** -->
 <!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <i class="icon icon-mark"></i>
-                <p class="title">Наш адрес</p>
-                <p>г. Омск, ул. Красный Путь, 80/1</p>
-            </div>
-            <div class="col-md-3">
-                <i class="icon icon-phone"></i>
-                <p class="title">Сотовый телефон</p>
-                <p>+7 913 644 34 22</p>
-            </div>
-            <div class="col-md-3">
-                <i class="icon icon-hours"></i>
-                <p>ПН-ПТ с <strong>10:00</strong> до <strong>19:00</strong></p>
-                <p>СБ <strong>10:00</strong> до <strong>16:00</strong></p>
-            </div>
-            <div class="col-md-3">
-                <i class="icon icon-mail"></i>
-                <p><a href="mailto:primer@mail.ru">mail@primer.com</a></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <p class="copyright">
-                    Copyright &laquo; Cargo &raquo; 2016
-                </p>
-            </div>
-            <div class="col-md-6">
-                <p class="copyright itb">
-                    Создание и продвижение сайта: <a href="http://itb-company.com">ITB-company</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
+<?php require_once Yii::$app->params['basePath'] . '/views/layouts/footer.php' ?>
 <!-- End Body -->
 <?php $this->endBody() ?>
 </body>
