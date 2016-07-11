@@ -3,10 +3,8 @@ namespace app\components;
 
 use Yii;
 use yii\web\UrlManager;
-// Для подключения потов
 use yii\base\Widget;
 
-// Прочие модели
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -18,23 +16,52 @@ class Menu extends Widget {
      */
 	public function run()
     {
-        $url = new UrlManager();
-        $action = '';
-        $menu = [
-            '/page/about' => 'О компании',
-            '/page/uslugi' => 'Услуги',
-            '/page/services' => 'Сервис',
-            '/page/team' => 'Наша команда',
-            '/page/contacts' => 'Контакты'
-        ];
-        $li = '';
-        foreach ($menu as $link => $title) {
-
-            $a = Html::a($title, Url::to([$link]));
-            $li .= Html::tag('li', $a);
-        }
-        $wrpMenu = Html::tag('ul', $li, ['class' => 'nav-menu']);
+        $wrpMenu = '
+        <ul class="nav-menu">
+            <li>
+                <a href="' . Url::to(['page/about']) . '">О компани</a>
+            </li>
+            <li>
+                <a href="' . Url::to(['page/uslugi']) . '">Услуги</a>
+                <ul>
+                    <li>
+                        <a href="' . Url::to(['page/page', 'id' => 13]) . '">Статья</a>
+                    </li>
+                    <li>
+                        <a href="' . Url::to(['page/page', 'id' => 13]) . '">Новая статья</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="' . Url::to(['page/services']) . '">Сервис</a>
+            </li>
+            <li>
+                <a href="' . Url::to(['page/team']) . '">Наша команда</a>
+            </li>
+            <li>
+                <a href="' . Url::to(['page/contacts']) . '">Контакты</a>
+            </li>
+        </ul>
+        ';
         return $wrpMenu;
 	}
+
+    public function rez ()
+    {
+        // $menu = [
+        //     'page/about' => 'О компании',
+        //     'page/uslugi' => 'Услуги',
+        //     'page/services' => 'Сервис',
+        //     'page/team' => 'Наша команда',
+        //     'page/contacts' => 'Контакты'
+        // ];
+        // $li = '';
+        // foreach ($menu as $link => $title) {
+        //
+        //     $a = Html::a($title, Url::to([$link]));
+        //     $li .= Html::tag('li', $a);
+        // }
+        // $wrpMenu = Html::tag('ul', $li, ['class' => 'nav-menu']);
+    }
 }
 ?>

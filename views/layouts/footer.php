@@ -18,7 +18,7 @@ $rejim_w = Settings::getOption('rejim_w');
             <div class="col-md-3">
                 <i class="icon icon-mark"></i>
                 <p class="title">Наш адрес</p>
-                <p>г. Омск, ул. Красный Путь, 80/1</p>
+                <p><?= $address['value'] ?></p>
             </div>
             <div class="col-md-3">
                 <i class="icon icon-phone"></i>

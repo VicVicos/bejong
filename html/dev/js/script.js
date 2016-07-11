@@ -24,3 +24,7 @@ $('.wrp-header-page h1').each(function(index, el) {
 $('.drop-dl').on('change', function(event) {
     $('#cargoForm').submit();
 });
+// Parent Menu
+$('.nav-menu > li > ul a + ul').each(function(index, el) {
+    $(this).parent('li').addClass('parent');
+});
