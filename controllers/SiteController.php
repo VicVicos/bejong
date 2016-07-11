@@ -1,12 +1,12 @@
 <?php
-// TODO: Пункт меню Услуги - выпадашка
 // TODO: Удалять записи об отправке
 // TODO: Вопрос-ответ
 // TODO: Асинхронная загрузка файлов
 // TODO: Адаптив
 // TODO: Анимация.
 // FIXME: Задания в кесе.
-// FIXME: Порядок в текстах письма
+// FIXME: Порядок в текстах письма.
+// FIXME: Вывод менюшек в массиве и цикле.
 namespace app\controllers;
 
 use Yii;
@@ -17,6 +17,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\CargoForm;
 use app\models\ReviewForm;
+use app\models\Article;
 use app\models\Cargo;
 
 use yii\web\UploadedFile;
@@ -73,7 +74,10 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = Article::getType('tabs');
+        return $this->render('index', [
+            'model' => $model
+        ]);
     }
 
     public function actionLogin()

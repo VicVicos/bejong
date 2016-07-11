@@ -46,8 +46,6 @@ AppAsset::register($this);
             <!-- Tools -->
             <div class="col-md-9 tools">
                 <a href="<?= Yii::$app->urlManager->createUrl(['lk/lk/index']) ?>" class="btn btn-custom"><i class="icon icon-arrow-btn"></i>Личный кабинет</a>
-                <!-- <a href="#" class="btn btn-default-3">Оставить заявку</a>
-                <a href="#" class="btn btn-default-2">Состояние заказа</a> -->
                 <?php
                     Modal::begin([
                         'id' => 'application',

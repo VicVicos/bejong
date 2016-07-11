@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'label' => 'Тип',
                         'attribute' => 'type',
-                        'filter' => ['article' => 'Статьи','slide' => 'Слайды', 'block'=>'Блоки', 'review' => 'Отзывы', 'page' => 'Страницы'],
+                        'filter' => ['article' => 'Статьи','slide' => 'Слайды', 'block'=>'Блоки', 'review' => 'Отзывы', 'page' => 'Страницы','tabs' => 'Табы'],
                         'options' => ['width' => '125px'],
                     ],
                     // 'intro',

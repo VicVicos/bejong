@@ -8,7 +8,7 @@ use dosamigos\tinymce\TinyMce;
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
 /* @var $form yii\widgets\ActiveForm */
-$items = ['article' => 'Статья', 'block' => 'Блок', 'slide' => 'Слайдер', 'review' => 'Отзыв', 'page' => 'Страницы'];
+$items = ['article' => 'Статья', 'block' => 'Блок', 'slide' => 'Слайдер', 'review' => 'Отзыв', 'page' => 'Страницы', 'tabs' => 'Табы'];
 $params = ['prompt' => 'Выберите тип...'];
 
 $status = ['active' => 'Опубликовано', 'disabled' => 'Не опубликовано'];

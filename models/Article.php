@@ -65,9 +65,9 @@ class Article extends \yii\db\ActiveRecord
      * @method getType
      * @return array  Типы статей
      */
-    public function getType()
+    public static function getType($type)
     {
-        // SHOW COLUMNS FROM bj_article
+        return static::find()->where(['type' => $type])->all();
 
     }
     /**
