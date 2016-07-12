@@ -64,9 +64,11 @@ if (!is_null($model->img)) {
     </header>
     <section class="container">
         <h1><?= $model->title ?></h1>
-        <div>
-            <?= $model->intro ?>
-        </div>
+        <?php if ($model->type !== 'tabs'): ?>
+            <div>
+                <?= $model->intro ?>
+            </div>
+        <?php endif; ?>
     </section>
 </div>
 <!-- Header -->

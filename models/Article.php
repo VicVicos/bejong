@@ -33,8 +33,8 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text'], 'string'],
-            [['title', 'alias', 'intro', 'link', 'img', 'excerpt'], 'string', 'max' => 255],
+            [['text', 'intro'], 'string'],
+            [['title', 'alias', 'link', 'img', 'excerpt'], 'string', 'max' => 255],
             [['type', 'status'], 'string'],
         ];
     }

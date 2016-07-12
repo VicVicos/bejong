@@ -13,7 +13,7 @@ $j = 1;
 <section class="wrp-services">
     <div class="container">
         <div class="row services">
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-6">
                 <p class="titleh2">Наш сервис</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod voluptate modi provident tenetur at maiores ipsa nulla ducimus laudantium sunt architecto, quisquam rem delectus cum totam porro, velit nemo nobis!</p>
                 <ul class="elems">
@@ -27,7 +27,7 @@ $j = 1;
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 col-sm-6">
                 <div class="tab-content">
                     <?php foreach ($model as $key => $item) : ?>
                         <?php

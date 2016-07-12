@@ -1,5 +1,6 @@
 <?php
 // NOTE: Тестирование уведомлений об оплате
+// FIXME: Проверка на дату полей даты отправки и приёма
 namespace app\modules\lk\controllers;
 
 use Yii;
@@ -416,25 +417,25 @@ class LkController extends Controller
     {
         $data = [];
         $data['id_user'] = $id;
-        $cell = $excel->getActiveSheet()->getCell('H6');
+        $cell = $excel->getActiveSheet()->getCell('H4');
         $data['id_cargo'] = $cell->getValue();
-        $cell = $excel->getActiveSheet()->getCell('E12');
+        $cell = $excel->getActiveSheet()->getCell('E10');
         $data['destination'] = $cell->getValue();
-        $cell = $excel->getActiveSheet()->getCell('Q11');
+        $cell = $excel->getActiveSheet()->getCell('Q9');
         $InvDate = $cell->getValue();
         $data['date_depart'] = date('d.m.Y', \PHPExcel_Shared_Date::ExcelToPHP($InvDate));
-        $cell = $excel->getActiveSheet()->getCell('Q12');
+        $cell = $excel->getActiveSheet()->getCell('Q10');
         $InvDate = $cell->getValue();
         $data['date_arrival'] = date('d.m.Y', \PHPExcel_Shared_Date::ExcelToPHP($InvDate));
-        $cell = $excel->getActiveSheet()->getCell('M14');
+        $cell = $excel->getActiveSheet()->getCell('M12');
         $data['weight'] = $cell->getValue();
-        $cell = $excel->getActiveSheet()->getCell('K14');
+        $cell = $excel->getActiveSheet()->getCell('K12');
         $data['amount'] = $cell->getValue();
-        $cell = $excel->getActiveSheet()->getCell('E14');
+        $cell = $excel->getActiveSheet()->getCell('E12');
         $data['places'] = $cell->getValue();
-        $cell = $excel->getActiveSheet()->getCell('O14');
+        $cell = $excel->getActiveSheet()->getCell('O12');
         $data['rate'] = $cell->getValue();
-        $cell = $excel->getActiveSheet()->getCell('F31');
+        $cell = $excel->getActiveSheet()->getCell('F29');
         $data['cost'] = $cell->getCalculatedValue();
         return $data;
     }

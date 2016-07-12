@@ -41,13 +41,13 @@ AppAsset::register($this);
     <!-- Шапка -->
     <header class="container">
         <div class="row">
-            <div class="col-md-3 logo">
+            <div class="col-xs-3 logo">
                 <a href="<?=Yii::$app->urlManager->createUrl(["site/index"])?>" title="title">
                     <img src="img/logo.png" alt="Title">
                 </a>
             </div>
             <!-- Tools -->
-            <div class="col-md-9 tools">
+            <div class="col-xs-9 tools">
                 <a href="<?= Yii::$app->urlManager->createUrl(["lk/lk/index"]) ?>" class="btn btn-custom"><i class="icon icon-arrow-btn"></i>Личный кабинет</a>
                 <?php
                     Modal::begin([
@@ -85,6 +85,9 @@ AppAsset::register($this);
             <!-- Menu -->
             <nav class="col-md-9">
                 <?= Menu::widget(); ?>
+            </nav>
+            <nav class="hidden-sm">
+                <?php require_once Yii::$app->params['basePath'] . '/views/layouts/mmenu.php' ?>
             </nav>
         </div>
     </header>

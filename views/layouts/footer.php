@@ -15,12 +15,12 @@ $rejim_w = Settings::getOption('rejim_w');
 <footer>
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <i class="icon icon-mark"></i>
                 <p class="title">Наш адрес</p>
                 <p><?= $address['value'] ?></p>
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <i class="icon icon-phone"></i>
                 <p class="title">Сотовый телефон</p>
                 <div>
@@ -29,7 +29,7 @@ $rejim_w = Settings::getOption('rejim_w');
                     </p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <i class="icon icon-hours"></i>
                 <div>
                     <?= $rejim_b['value'] ?>
@@ -38,7 +38,7 @@ $rejim_w = Settings::getOption('rejim_w');
                     <p>СБ <strong>10:00</strong> до <strong>16:00</strong></p> -->
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <i class="icon icon-mail"></i>
                 <div>
                     <p><a href="mailto:<?= $email['value'] ?>"><?= $email['value'] ?></a></p>
@@ -46,12 +46,12 @@ $rejim_w = Settings::getOption('rejim_w');
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <p class="copyright">
                     Copyright &laquo; Cargo &raquo; 2016
                 </p>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <p class="copyright itb">
                     Создание и продвижение сайта: <a href="http://itb-company.com">ITB-company</a>
                 </p>

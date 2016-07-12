@@ -86,7 +86,7 @@ class Cargo extends \yii\db\ActiveRecord
             'amount' => !empty($data['amount']) ? $data['amount'] : 0,
             'places' => !empty($data['places']) ? $data['places'] : 0,
             'rate' => !empty($data['rate']) ? $data['rate'] : 0,
-            'cost' => !empty($date['cost']) ? $data['cost'] : 0
+            'cost' => !empty($data['cost']) ? $data['cost'] : 0
         ])->execute();
     }
     /**

@@ -52,7 +52,7 @@ class Blocks extends Widget {
                 $a = Html::a('Подробнее', Url::to(['page/page', 'id' => $post->link]), ['class' => 'btn btn-default-1']);
                 $content = Html::tag('div', $title . $text . $a);
 
-                $elem .= Html::tag('div', $img . $content, ['class' => 'col-md-6']);
+                $elem .= Html::tag('div', $img . $content, ['class' => 'col-sm-6']);
             }
             return Html::tag('div', $elem, ['class'=>'row types']);
         } else {
@@ -101,12 +101,12 @@ class Blocks extends Widget {
                 }
                 $img = Html::tag('img', null, ['src' => $post->img, 'alt' => $post->title, 'title' => $post->title]);
                 $wrpImg = Html::tag('div', $img, ['class' => 'img-circle']);
-                $wrpImg = Html::tag('div', $wrpImg, ['class' => 'col-md-3']);
+                $wrpImg = Html::tag('div', $wrpImg, ['class' => 'col-sm-3']);
                 // Content
                 $title = Html::tag('div', $post->title, ['class' => 'title']);
                 $position = Html::tag('div', $post->intro, ['class' => 'position']);
                 $text = Html::tag('div', $post->text, ['class' => 'text']);
-                $content = Html::tag('div', $title . $position . $text, ['class' => 'col-md-7']);
+                $content = Html::tag('div', $title . $position . $text, ['class' => 'col-sm-7']);
 
                 $elem .= Html::tag('div', $wrpImg . $content, ['class' => 'row review']);
             }

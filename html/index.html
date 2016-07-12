@@ -26,13 +26,13 @@
     <!-- Шапка -->
     <header class="container">
         <div class="row">
-            <div class="col-md-3 logo">
+            <div class="col-xs-3 logo">
                 <a href="/html/index.html" title="title">
                     <img src="assets/img/logo.png" alt="Title">
                 </a>
             </div>
             <!-- Tools -->
-            <div class="col-md-9 tools">
+            <div class="col-xs-9 tools">
                 <a href="/html/lk.html" class="btn btn-custom"><i class="icon icon-arrow-btn"></i>Личный кабинет</a>
                 <a href="#" class="btn btn-default-3" data-toggle="modal" data-target="#application">Оставить заявку</a>
                 <a href="#" class="btn btn-default-2" data-toggle="modal" data-target="#status_cargo">Состояние заказа</a>
@@ -87,6 +87,29 @@
                     <li><a href="#">Item menu 5</a></li>
                 </ul>
             </nav>
+            <!-- MMenu -->
+            <div class="col-sm-12 hidden-desctop">
+                <nav id="w0" class="navbar-default navbar" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button aria-expanded="true" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w0-collapse"><span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="/">Yii Navbar</a>
+                        </div>
+                        <div style="" aria-expanded="true" id="w0-collapse" class="navbar-collapse collapse in">
+                            <ul id="w1" class="navbar-nav navbar-right nav">
+                                <li><a href="/site/#">Главная</a></li>
+                                <li><a href="/site/#">About</a></li>
+                                <li><a href="/site/#">Обратная связь</a></li>
+                                <li><a href="/site/#" data-method="post">Выйти ()</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
         </div>
     </header>
     <!-- Slider -->
@@ -118,7 +141,7 @@
 <!-- Типы перевозки -->
 <section class="container">
     <div class="row types">
-        <div class="col-md-6">
+        <div class="col-sm-6">
             <img src="assets/img/img_01.jpg" alt="img" title="img">
             <div>
                 <p class="title first-bold">Воздушные перевозки</p>
@@ -130,7 +153,7 @@
                 <a href="#" class="btn btn-default-1">Подробнее</a>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
             <img src="assets/img/img_02.jpg" alt="img" title="img">
             <div>
                 <p class="title first-bold">Морские перевозки</p>
@@ -142,7 +165,7 @@
                 <a href="#" class="btn btn-default-1">Подробнее</a>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
             <img src="assets/img/img_03.jpg" alt="img" title="img">
             <div>
                 <p class="title first-bold">Наземные перевозки</p>
@@ -154,7 +177,7 @@
                 <a href="#" class="btn btn-default-1">Подробнее</a>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
             <img src="assets/img/img_04.jpg" alt="img" title="img">
             <div>
                 <p class="title first-bold">&laquo;Таобао&raquo;</p>
@@ -173,7 +196,7 @@
 <section class="wrp-services">
     <div class="container">
         <div class="row services">
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-6">
                 <p class="titleh2">Наш сервис</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod voluptate modi provident tenetur at maiores ipsa nulla ducimus laudantium sunt architecto, quisquam rem delectus cum totam porro, velit nemo nobis!</p>
                 <ul class="elems">
@@ -182,11 +205,17 @@
                     <li><a href="#tab3" data-toggle="tab">Материал</a></li>
                 </ul>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 col-sm-6">
                 <div class="tab-content">
-                  <div class="tab-pane active" id="tab1"><p>1Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, qui    a molestiae. Quo numquam molestiae maxime alias deleniti obcaeca    ti? Vitae soluta temporibus incidunt, perspiciatis odio a vero minus molestias blanditiis commodi.</p></div>
+                  <div class="tab-pane active" id="tab1">
+                      <p>1Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, qui    a molestiae. Quo numquam molestiae maxime alias deleniti obcaeca    ti? Vitae soluta temporibus incidunt, perspiciatis odio a vero minus molestias blanditiis commodi.</p>
+                      <p>1Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, qui    a molestiae. Quo numquam molestiae maxime alias deleniti obcaeca    ti? Vitae soluta temporibus incidunt, perspiciatis odio a vero minus molestias blanditiis commodi.</p>
+                      <p>1Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, qui    a molestiae. Quo numquam molestiae maxime alias deleniti obcaeca    ti? Vitae soluta temporibus incidunt, perspiciatis odio a vero minus molestias blanditiis commodi.</p>
+                      <p>1Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, qui    a molestiae. Quo numquam molestiae maxime alias deleniti obcaeca    ti? Vitae soluta temporibus incidunt, perspiciatis odio a vero minus molestias blanditiis commodi.</p>
+                  </div>
 
-                  <div class="tab-pane" id="tab2"><p>2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit velit facere aliquid magni quaerat nulla ratione quia hic debitis at praesentium, provident veniam quasi cupiditate ad quae, doloremque nemo illo?</p></div>
+                  <div class="tab-pane" id="tab2"><p>2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit velit facere aliquid magni quaerat nulla ratione quia hic debitis at praesentium, provident veniam quasi cupiditate ad quae, doloremque nemo illo?</p>
+                  </div>
 
                   <div class="tab-pane" id="tab3"><p>3Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem soluta fugit alias rem iure amet odio nemo, quo possimus asperiores voluptatem quia neque, eveniet enim nihil dignissimos dolor sit sapiente.</p></div>
                 </div>
@@ -314,24 +343,24 @@
                 <a href="#" class="btn btn-default-3">Написать отзыв</a>
                 <div class="slick-reviews">
                     <div class="review row">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <div class="img-circle">
                                 <img src="assets/img/tablo.jpg" alt="face">
                             </div>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-sm-7">
                             <p class="title">Член партии</p>
                             <p class="position">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non dolor earum hic, consequuntur eaque totam.</p>
                             <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam itaque corporis illum veniam expedita alias, quia praesentium consectetur consequuntur officiis eligendi saepe voluptatem, maiores quos, ipsa minus, possimus illo architecto!</p>
                         </div>
                     </div>
                     <div class="review row">
-                        <div class="col-md-3">
+                        <div class="col-sm-3">
                             <div class="img-circle">
                                 <img src="assets/img/tablo.jpg" alt="face">
                             </div>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-sm-7">
                             <p class="title">Член партии</p>
                             <p class="position">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non dolor earum hic, consequuntur eaque totam.</p>
                             <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam itaque corporis illum veniam expedita alias, quia praesentium consectetur consequuntur officiis eligendi saepe voluptatem, maiores quos, ipsa minus, possimus illo architecto!</p>
@@ -347,33 +376,33 @@
 <footer>
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <i class="icon icon-mark"></i>
                 <p class="title">Наш адрес</p>
                 <p>г. Омск, ул. Красный Путь, 80/1</p>
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <i class="icon icon-phone"></i>
                 <p class="title">Сотовый телефон</p>
                 <p>+7 913 644 34 22</p>
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <i class="icon icon-hours"></i>
                 <p>ПН-ПТ с <strong>10:00</strong> до <strong>19:00</strong></p>
                 <p>СБ <strong>10:00</strong> до <strong>16:00</strong></p>
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <i class="icon icon-mail"></i>
                 <p><a href="mailto:primer@mail.ru">mail@primer.com</a></p>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-xs-6">
                 <p class="copyright">
                     Copyright &laquo; Cargo &raquo; 2016
                 </p>
             </div>
-            <div class="col-md-6">
+            <div class="col-xs-6">
                 <p class="copyright itb">
                     Создание и продвижение сайта: <a href="http://itb-company.com">ITB-company</a>
                 </p>
