@@ -90,12 +90,15 @@ class Blocks extends Widget {
     }
     private function review ()
     {
-        $posts = Article::find()->where(['type' => 'review', 'status' => 'active'])->all();
+        $posts = Article::find()->where(['type' => 'review', 'status' => 'active'])->orderBy('id DESC')->all();
         if (is_object($posts[0])) {
             $elem = '';
             foreach ($posts as $post) {
-                $post->img = 'img/' . $post->img;
-                // img
+                if ($post->img) {
+                    $post->img = 'img/' . $post->img;
+                } else {
+                    $post->img = 'http://fakeimg.pl/290x290/?text=No_Foto';
+                }
                 $img = Html::tag('img', null, ['src' => $post->img, 'alt' => $post->title, 'title' => $post->title]);
                 $wrpImg = Html::tag('div', $img, ['class' => 'img-circle']);
                 $wrpImg = Html::tag('div', $wrpImg, ['class' => 'col-md-3']);

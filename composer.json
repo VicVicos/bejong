@@ -25,7 +25,8 @@
         "yiisoft/yii2-swiftmailer": "*",
         "phpoffice/phpexcel": "dev-develop",
         "2amigos/yii2-ckeditor-widget": "~1.0",
-        "2amigos/yii2-tinymce-widget": "~1.1"
+        "2amigos/yii2-tinymce-widget": "~1.1",
+        "skeeks/yii2-widget-simpleajaxuploader": "*"
     },
     "config": {
         "process-timeout": 1800
@@ -52,5 +53,8 @@
             "npm-asset-library": "vendor/npm",
             "bower-asset-library": "vendor/bower"
         }
+    },
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "dev-master"
     }
 }

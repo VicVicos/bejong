@@ -2,10 +2,13 @@
 
 /* @var $this yii\web\View */
 
+use yii\helpers\Url;
+
 $this->title = 'Beijing Zhong';
 
 $i = 1;
 $j = 1;
+
 ?>
 <section class="wrp-services">
     <div class="container">
@@ -27,15 +30,29 @@ $j = 1;
             <div class="col-md-8">
                 <div class="tab-content">
                     <?php foreach ($model as $key => $item) : ?>
-                        <?php if ($j == 1): ?>
+                        <?php
+                            if ($item->link) {
+                                $typeLink = (int)$item->link;
+                                if ($typeLink) {
+                                    $link =  Url::to(['page/page', 'id' => $item->link]);
+                                } else {
+                                    $link = $item->link;
+                                }
+                            } else {
+                                $link = false;
+                            }
+                        ?>
+                        <?php if ($j == 1) : ?>
                             <div class="tab-pane active" id="tab<?= $j ?>">
-                                <?= $item->text ?>
-                            </div>
+                                <?= $item->intro ?>
                         <?php else : ?>
                             <div class="tab-pane" id="tab<?= $j ?>">
-                                <?= $item->text ?>
-                            </div>
+                                <?= $item->intro ?>
                         <?php endif; ?>
+                            <?php if ($link) : ?>
+                                <a class="btn btn-default-2" href="<?= $link ?>">Подробнее</a>
+                            <?php endif; ?>
+                            </div>
                         <?php $j++ ?>
                     <?php endforeach; ?>
                 </div>

@@ -25,7 +25,7 @@ class Menu extends Widget {
                 <a href="' . Url::to(['page/uslugi']) . '">Услуги</a>
                 <ul>
                     <li>
-                        <a href="' . Url::to(['page/page', 'id' => 13]) . '">Статья</a>
+                        <a href="' . Url::to(['page/page', 'id' => 13]) . '">Статьяи</a>
                     </li>
                     <li>
                         <a href="' . Url::to(['page/page', 'id' => 13]) . '">Новая статья</a>
