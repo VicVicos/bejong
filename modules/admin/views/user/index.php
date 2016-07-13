@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 
@@ -11,6 +12,8 @@ use app\models\User;
 
 $this->title = 'Участники';
 $this->params['breadcrumbs'][] = $this->title;
+
+$manager = ArrayHelper::map(User::find()->where(['role' => 'manager'])->all(), 'id_manager', 'id');
 ?>
     <section class="container">
         <h1><?= Html::encode($this->title) ?></h1>
@@ -47,10 +50,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     // 'id_manager',
                     [
                         'label' => 'Менеджер',
+                        'attribute' => 'id_manager',
                         'value' => function($data){
                             $name = User::findOne($data->id_manager);
                             return $data->id_manager . ':' . $name->name;
                         },
+                        'filter' => $manager,
                     ],
 
                     ['class' => 'yii\grid\ActionColumn'],
