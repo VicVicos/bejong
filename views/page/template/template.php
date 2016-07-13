@@ -2,12 +2,17 @@
 use app\components\Menu;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use dosamigos\tinymce\TinyMce;
+use app\models\QuestionForm;
 
 if (!is_null($model->img)) {
     $model->img = '/img/' . $model->img;
 } else {
     $model->img = '/img/air-bg.jpg';
 }
+
 ?>
 <div class="wrp-header-page" style="background-image: url('<?= $model->img ?>')">
     <!-- Шапка -->
@@ -76,10 +81,34 @@ if (!is_null($model->img)) {
 <div class="container">
     <div class="row page">
         <div class="col-md-12">
+            <?php
+                foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+                    echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
+                }
+            ?>
             <article>
                 <?= $model->text ?>
             </article>
         </div>
+        <?php if ($form) : ?>
+            <div class="question-form col-md-12">
+                <h3>Не нашли интересующий вас вопрос? Вы можите задать его.</h3>
+                <?php $form = ActiveForm::begin(); ?>
+                <div class="col-md-6">
+                    <?= $form->field($elem, 'name')->textInput(['autofocus' => true]) ?>
+                </div>
+                <div class="col-md-6">
+                    <?= $form->field($elem, 'email') ?>
+                </div>
+                <div class="col-md-12">
+                    <?= $form->field($elem, 'question')->textarea();?>
+                </div>
+                <div class="form-group col-md-12">
+                    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
+                </div>
+                <?php ActiveForm::end(); ?>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 <!-- Content -->

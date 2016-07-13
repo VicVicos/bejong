@@ -57,7 +57,7 @@ $config = [
                 'services' => 'page/services',
                 'team' => 'page/team',
                 'contacts' => 'page/contacts',
-                // 'application' => 'site/contact',
+                'question' => 'page/question',
                 'article' => 'page/page',
                 // ['class' => 'app\components\SefRule', 'connectionID' => 'db']
             ]

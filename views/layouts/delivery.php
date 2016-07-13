@@ -1,6 +1,9 @@
+<?php
+use yii\helpers\Url;
+?>
 <section class="container delivery">
     <div class="row">
-        <a href="#" class="btn btn-default-3">Вопрос-ответ</a>
+        <a href="<?= Url::to(['page/question', 'id' => 45])?>" class="btn btn-default-3">Вопрос-ответ</a>
         <div class="col-md-12 jd">
             <p class="titleh2">Ж/д доставка</p>
             <img src="img/jd.png" alt="avia">

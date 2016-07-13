@@ -11,6 +11,7 @@ use app\models\LoginForm;
 use app\models\Article;
 use app\models\Persone;
 use app\models\ContactForm;
+use app\models\QuestionForm;
 
 class PageController extends Controller
 {
@@ -64,7 +65,7 @@ class PageController extends Controller
         $idPage = Yii::$app->request->get('id');
         $model = Article::findOne(['id' => $idPage]);
         return $this->render('page', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
     /**
@@ -125,7 +126,11 @@ class PageController extends Controller
             'model' => $model,
         ]);
     }
-
+    /**
+     * [actionLogin description]
+     * @method actionLogin
+     * @return [type]      [description]
+     */
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -140,14 +145,22 @@ class PageController extends Controller
             'model' => $model,
         ]);
     }
-
+    /**
+     * [actionLogout description]
+     * @method actionLogout
+     * @return [type]       [description]
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
 
         return $this->goHome();
     }
-
+    /**
+     * [actionContact description]
+     * @method actionContact
+     * @return [type]        [description]
+     */
     public function actionContact()
     {
         $model = new ContactForm();
@@ -160,5 +173,28 @@ class PageController extends Controller
             'model' => $model,
         ]);
     }
-
+    public function actionQuestion()
+    {
+        if (Yii::$app->request->get('id') === '45') {
+            $elem = new QuestionForm();
+            $idPage = Yii::$app->request->get('id');
+            $model = Article::findOne(['id' => $idPage]);
+            $form = true;
+            if ($elem->load(Yii::$app->request->post())) {
+                if ($elem->contact()) {
+                    $form = false;
+                    Yii::$app->session->setFlash('success', 'Ваш вопрос был отправлен. Скоро наши специалисты ответят Вам.', false);
+                } else {
+                    Yii::$app->session->setFlash('danger', 'Ошибка отправления сообщения.', false);
+                }
+            }
+            return $this->render('page', [
+                'model' => $model,
+                'form' => $form,
+                'elem' => $elem
+            ]);
+        } else {
+            return $this->redirect(['site/index'],302);
+        }
+    }
 }

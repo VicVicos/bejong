@@ -15,7 +15,7 @@ $j = 1;
         <div class="row services">
             <div class="col-md-4 col-sm-6">
                 <p class="titleh2">Наш сервис</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod voluptate modi provident tenetur at maiores ipsa nulla ducimus laudantium sunt architecto, quisquam rem delectus cum totam porro, velit nemo nobis!</p>
+                <p>Наша миссия в логистических услугах - быстро, качественно , в срок с минимальными издержками обработать и доставить груз до места назначения. Мы заинтересованы в построении долгосрочных и взаимовыгодных отношений со своими клиентами и партнёрами.</p>
                 <ul class="elems">
                     <?php foreach ($model as $key => $item) : ?>
                         <?php if ($i == 1): ?>

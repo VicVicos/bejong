@@ -86,9 +86,9 @@ AppAsset::register($this);
             <nav class="col-md-9">
                 <?= Menu::widget(); ?>
             </nav>
-            <nav class="hidden-sm">
+            <div class="col-sm-12 hidden-desctop">
                 <?php require_once Yii::$app->params['basePath'] . '/views/layouts/mmenu.php' ?>
-            </nav>
+            </div>
         </div>
     </header>
     <!-- Slider -->
@@ -113,7 +113,6 @@ AppAsset::register($this);
         <div class="row reviews">
             <div class="col-md-12">
                 <p class="titleh2">Что люди говорят о нас</p>
-                <!-- <a href="#" class="btn btn-default-3">Написать отзыв</a> -->
                 <?php
                     Modal::begin([
                         'id' => 'review',
