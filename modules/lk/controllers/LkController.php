@@ -374,7 +374,7 @@ class LkController extends Controller
                     // Отправить письмо при регистрации
                     if (is_int($res)) {
                         Yii::$app->session->setFlash('success', 'Регистрация прошла успешно.', false);
-                        $this->sendMail($user['email']);
+                        $this->sendMail($user);
                         // Авторизуем если не менеджер
                         if (!Yii::$app->user->identity) {
                             $user = new User();
@@ -405,11 +405,13 @@ class LkController extends Controller
      * Отправка письма при регистрации
      * @return [type] [description]
      */
-    public function sendMail ($to)
+    public function sendMail ($user)
     {
-        Yii::$app->mailer->compose('body')
+        Yii::$app->mailer->compose('register', [
+            'model' => $user
+        ])
             ->setFrom('developitb@yandex.ru')
-            ->setTo($to)
+            ->setTo($user['email'])
             ->setSubject('Регистрация пользователя')
             ->send();
     }

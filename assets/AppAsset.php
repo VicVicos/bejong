@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/vendor/slick.min.js',
+        'js/vendor/TweenMax.min.js',
         // 'js/vendor/bootstrap.min.js',
         'js/script.min.js'
     ];

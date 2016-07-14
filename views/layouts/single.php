@@ -86,13 +86,13 @@ AppAsset::register($this);
             <nav class="col-md-9">
                 <?= Menu::widget(); ?>
             </nav>
-            <div class="col-sm-12 hidden-desctop">
-                <?php require_once Yii::$app->params['basePath'] . '/views/layouts/mmenu.php' ?>
-            </div>
+            <!-- <div class="col-sm-12 hidden-desctop">
+                /mmenu.php
+            </div> -->
         </div>
     </header>
     <!-- Slider -->
-    <section class="container">
+    <section class="hidden-mobile-xl">
         <?= Blocks::widget(['id' => 'slide']); ?>
     </section>
 </div>

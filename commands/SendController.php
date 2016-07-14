@@ -26,9 +26,15 @@ use app\models\Mailer;
                 ->setSubject('Уведомление о платеже')
                 ->send();
                 if ($res) {
+                    // Удалить запись в БД
+                    $mail->deleteDate($item['id_user'], $item['date_send']);
                     echo "Send?";
                 } else {
-                    echo "((";
+                    Yii::$app->mailer->compose('erroradmin',['data' => $item])
+                        ->setFrom(Yii::$app->params['adminEmail'])
+                        ->setTo(Yii::$app->params['adminEmail'])
+                        ->setSubject('Ошибка отправки сообщений cron')
+                        ->send();
                 }
             }
         } else {

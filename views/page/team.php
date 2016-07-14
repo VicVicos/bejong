@@ -74,7 +74,7 @@ $this->title = 'My Yii Application';
     <div class="row page">
         <?php foreach ($model as $key => $item): ?>
             <?php $item->img = '/img/' . $item->img; ?>
-            <div class="col-md-3">
+            <div class="col-md-3 team">
                 <figure>
                     <p class="v-text"><?= Html::tag('img', null, ['src' => $item->img, 'alt' => $item->name, 'title' => $item->name]); ?></p>
                     <figcaption>

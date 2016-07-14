@@ -89,21 +89,4 @@ class RegisterUser extends \yii\db\ActiveRecord
             'id_manager' => $user['id_manager']
         ])->execute();
     }
-    /**
-     * [beforeSave description]
-     * @method beforeSave
-     * @param  [type]     $insert [description]
-     * @return [type]             [description]
-     */
-    // public function beforeSave($insert)
-    // {
-    //     $user = Yii::$app->request->post();
-    //     if (parent::beforeSave($insert)) {
-    //         // ...custom code here...
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
 }

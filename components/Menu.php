@@ -45,23 +45,5 @@ class Menu extends Widget {
         ';
         return $wrpMenu;
 	}
-
-    public function rez ()
-    {
-        // $menu = [
-        //     'page/about' => 'О компании',
-        //     'page/uslugi' => 'Услуги',
-        //     'page/services' => 'Сервис',
-        //     'page/team' => 'Наша команда',
-        //     'page/contacts' => 'Контакты'
-        // ];
-        // $li = '';
-        // foreach ($menu as $link => $title) {
-        //
-        //     $a = Html::a($title, Url::to([$link]));
-        //     $li .= Html::tag('li', $a);
-        // }
-        // $wrpMenu = Html::tag('ul', $li, ['class' => 'nav-menu']);
-    }
 }
 ?>

@@ -19,8 +19,8 @@ $this->title = "Управление участниками";
         <div class="col-md-6">
             <p class="title">Пользователь</p>
             <?php if (!empty($member)) : ?>
-                <?php foreach ($member[0] as $key => $item): ?>
-                    <p><?= Html::a($item, Url::to(['/lk/lk/index', 'user' => $item], true));?></p>
+                <?php foreach ($member as $key => $item): ?>
+                    <p><?= Html::a($item['id'], Url::to(['/lk/lk/index', 'user' => $item['id']], true));?></p>
                 <?php endforeach; ?>
             <?php else : ?>
                 <p>

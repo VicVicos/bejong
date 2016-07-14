@@ -1,0 +1,52 @@
+.wrp-reviews
+    height: 650px;
+    background-image: url('../img/bg-reviews.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    .reviews
+        > div
+            a
+                position: absolute;
+                top: 50px;
+                right: 40px;
+    .review
+        margin-top: 80px;
+        .img-circle
+            width: 275px;
+            height: 275px;
+            border-radius: 50%;
+            overflow: hidden;
+        .title
+            font-size: 24px;
+        .position
+            font-style: italic;
+            font-size: 14px;
+        .text
+            font-size: 15px;
+            font-weight: 700;
+            max-height: 130px;
+            overflow: hidden;
+    .titleh2
+        width: 38%;
+        font-size: 50px;
+        display: inline-block;
+    .slick-reviews
+        .slick-arrow
+            border-radius: 50%;
+            border: 3px solid orangeBG;
+            top: 75%;
+            background-color: rgba(0, 0, 0, 0.4);
+            height: 75px;
+            width: 75px;
+            &.slick-prev
+                left: 300px;
+                background-position: -298px -428px;
+            &.slick-next
+                background-position: -253px -428px;
+                right: 690px;
+            &:hover
+                background-color: orangeBG;
+                &.slick-prev
+                    background-position: -300px -375px;
+                &.slick-next
+                    background-position: -252px -372px;

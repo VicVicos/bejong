@@ -75,4 +75,9 @@ class Mailer extends \yii\db\ActiveRecord
             ->where(['mail.date_send' => $now]);
             return $query->all();
     }
+
+    public function deleteDate ($id, $now)
+    {
+        Yii::$app->db->createCommand()->delete('{{%mailer}}', ['id_user' => $id, 'date_send' => $now])->execute();
+    }
 }
