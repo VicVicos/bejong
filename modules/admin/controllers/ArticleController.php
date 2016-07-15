@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-
+use skeeks\widget\simpleajaxuploader\backend\FileUpload;
 
 /**
  * AdminArticleController implements the CRUD actions for Article model.
@@ -71,7 +71,23 @@ class ArticleController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionUpload()
+    {
+        if (Yii::$app->request->isAjax) {
+            $upload_dir = Yii::$app->params['basePath'] . '/web/img/uploads/';
+            var_dump($upload_dir);
+            $valid_extensions = array('gif', 'png', 'jpeg', 'jpg');
 
+            $Upload = new FileUpload('uploadfile');
+            $result = $Upload->handleUpload($upload_dir, $valid_extensions);
+
+            if (!$result) {
+                echo json_encode(array('success' => false, 'msg' => $Upload->getErrorMsg()));
+            } else {
+                echo json_encode(array('success' => true, 'file' => $Upload->getFileName()));
+            }
+        }
+    }
     /**
      * Displays a single Article model.
      * @param integer $id
@@ -148,5 +164,9 @@ class ArticleController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = ($action->id !== "upload");
+        return parent::beforeAction($action);
     }
 }
