@@ -2,8 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\bootstrap\Button;
 // use dosamigos\ckeditor\CKEditor;
 use dosamigos\tinymce\TinyMce;
+use skeeks\widget\simpleajaxuploader\Widget;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
@@ -24,6 +26,28 @@ $paramsStatus = ['prompt' => 'Статус...'];
         </div>
         <div class="col-md-6">
             <?= $form->field($model, 'img')->textInput(['maxlength' => true]) ?>
+            <?php
+                echo Button::widget([
+                    'label' => 'Primary',
+                    'options' => [
+                        'id' => 'upload-btn',
+                        'class' => 'btn-lg btn-primary',
+                        'style' => 'margin:5px'
+                    ]
+                ]);
+            ?>
+            <?= Widget::widget([
+                      "clientOptions" => [
+                        "button" => "upload-btn",
+                        "url" => "/img/upload",
+                        "name" => "uploadfile",
+                        "progressUrl" => 'uploadProgress.php',
+                        "responseType" => 'json',
+                        "allowedExtensions" => ['jpg', 'jpeg', 'png', 'gif'],
+                        "maxSize" => 1024
+                    ]
+                ]);
+            ?>
         </div>
         <div class="col-md-4">
             <?= $form->field($model, 'type')->dropDownList($items,$params); ?>
@@ -45,5 +69,4 @@ $paramsStatus = ['prompt' => 'Статус...'];
             <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
     <?php ActiveForm::end(); ?>
-
 </div>

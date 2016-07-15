@@ -1,7 +1,13 @@
 .slider
     height: 485px;
     position: relative;
-.slick-slide
+    overflow: hidden;
+    .slick-list
+        height: 100%;
+    .slick-track
+        height: 100%;
+    .slick-slide
+        padding: 0 7%;
     .slick-content
         width: 45%;
         display: inline-block;
@@ -37,16 +43,16 @@
     color: rgba(0, 0, 0, 0);
     background-image: url('../img/sprite.png');
     &.slick-prev
-        left: -70px;
+        left: 30px;
         background-position: -313px -385px;
     &.slick-next
         background-position: -264px -383px;
-        right: -70px;
-.slider
-    *
-        position: relative;
+        right: 30px;
     .slick-slide
         padding: 0 8%;
+        top: 0;
+.absolute
+    position: absolute;
 #title-1
     top: 100px;
     opacity: 0;
@@ -58,6 +64,7 @@
     opacity: 0;
 #sudno
     top: 350px;
+    right: 0;
     opacity: 0;
 #title-2
     top: 100px;
@@ -73,6 +80,21 @@
     left: -650px;
     opacity: 0;
 #cloud
-    right: -950px;
+    right: -1350px;
     top: 0px;
     position: absolute;
+#auto
+    top: 223px;
+    left: 100px;
+    opacity: 0;
+#gruz
+    top: 223px;
+    left: -700px;
+    opacity: 0;
+#guarantee
+    top: 50px;
+    left: 100px;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: rotate(0);
+    transform-origin: 0 0;

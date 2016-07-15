@@ -78,18 +78,30 @@ $html = <<<EOL
             <a id="link-1" href="{$posts['0']->link}" class="btn btn-default-1">Подробнее</a>
         </div>
         <div class="slick-img">
-            <img id="sudno" src="img/{$posts[0]->img}" alt="{$posts[0]->title}" title="{$posts[0]->title}">
+            <img id="sudno" class="absolute" src="img/{$posts[0]->img}" alt="{$posts[0]->title}" title="{$posts[0]->title}">
         </div>
     </div>
     <div class="col-md-12 slick-elem slide-2">
         <div class="slick-content">
             <p id="title-2" class="title">{$posts['1']->title}</p>
-            <p id="text-2">{$posts['1']->intro}</p>
+            <div id="text-2">{$posts['1']->intro}</div>
             <a id="link-2" href="{$posts['1']->link}" class="btn btn-default-1">Подробнее</a>
         </div>
         <div class="slick-img">
-            <img id="cloud" src="img/slider/clouds2.png" alt="{$posts[1]->title}" title="{$posts[1]->title}">
-            <img id="air" src="img/{$posts[1]->img}" alt="{$posts[1]->title}" title="{$posts[1]->title}">
+            <img id="cloud" class="absolute" src="img/slider/clouds.png" alt="{$posts['1']->title}" title="{$posts['1']->title}">
+            <img id="air" class="absolute" src="img/{$posts['1']->img}" alt="{$posts['1']->title}" title="{$posts['1']->title}">
+        </div>
+    </div>
+    <div class="col-md-12 slick-elem slide-3">
+        <div class="slick-content">
+            <p id="title-3" class="title">{$posts['2']->title}</p>
+            <div id="text-3">{$posts['2']->intro}</div>
+            <a id="link-3" href="{$posts['2']->link}" class="btn btn-default-1">Подробнее</a>
+        </div>
+        <div class="slick-img">
+            <img id="auto" class="absolute" src="img/slider/truck_2.png" alt="{$posts['2']->title}" title="{$posts['2']->title}">
+            <img id="gruz" class="absolute" src="img/slider/truck_1.png" alt="{$posts['2']->title}" title="{$posts['2']->title}">
+            <img id="guarantee" class="absolute" src="img/slider/guarantee.png" alt="{$posts['2']->title}" title="{$posts['2']->title}">
         </div>
     </div>
 </div>
