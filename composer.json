@@ -26,8 +26,8 @@
         "phpoffice/phpexcel": "dev-develop",
         "2amigos/yii2-ckeditor-widget": "~1.0",
         "2amigos/yii2-tinymce-widget": "~1.1",
-        "skeeks/yii2-widget-simpleajaxuploader": "*",
-        "2amigos/yii2-file-upload-widget": "~1.0"
+        "costa-rico/yii2-images": "dev-master",
+        "kartik-v/yii2-widget-fileinput": "@dev"
     },
     "config": {
         "process-timeout": 1800

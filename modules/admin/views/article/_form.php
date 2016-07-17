@@ -3,36 +3,25 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\bootstrap\Button;
+use yii\bootstrap\Progress;
 use yii\helpers\Url;
 // use dosamigos\ckeditor\CKEditor;
 use dosamigos\tinymce\TinyMce;
-// use skeeks\widget\simpleajaxuploader\Widget;
-// use skeeks\widget\simpleajaxuploader\backend\FileUpload;
+use kartik\file\FileInput;
 
 /* https://github.com/2amigos/yii2-file-upload-widget */
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
 /* @var $form yii\widgets\ActiveForm */
+
 $items = ['article' => 'Статья', 'block' => 'Блок', 'slide' => 'Слайдер', 'review' => 'Отзыв', 'page' => 'Страницы', 'tabs' => 'Табы'];
 $params = ['prompt' => 'Выберите тип...'];
 
 $status = ['active' => 'Опубликовано', 'disabled' => 'Не опубликовано'];
 $paramsStatus = ['prompt' => 'Статус...'];
-// echo Widget::widget([
-//         "clientOptions" => [
-//             "button" => "upload-btn",
-//             "url" => Url::toRoute(['upload']),
-//             "name" => 'uploadfile',
-//             "progressUrl" => "uploadProgress.php",
-//             "hoverClass" => 'ui-state-hover',
-//             "focusClass" => 'ui-state-focus',
-//             "disabledClass" => 'ui-state-disabled',
-//             "onComplete" => "function(filename, response) {if (!response) {alert(filename + 'upload failed');return false;}"
-//         ]
-//     ]);
 ?>
     <div class="article-form">
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin(['id' => 'article', 'options' => ['enctype' => 'multipart/form-data']]); ?>
         <div class="col-md-12">
             <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
         </div>
@@ -40,35 +29,39 @@ $paramsStatus = ['prompt' => 'Статус...'];
             <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-6">
-            <div class="col-md-6">
-                <?= $form->field($model, 'img')->textInput(['maxlength' => true]) ?>
-            </div>
-            <div class="col-md-6">
-
-                <?php
-
-                ?>
-
-                <?php
-                // echo Button::widget([
-                //     'label' => 'Primary',
-                //     'options' => [
-                //         'id' => 'upload-btn',
-                //         'class' => 'btn-lg btn-primary',
-                //         'style' => 'margin:5px'
-                //     ]
-                // ]);
-                ?>
-
-            </div>
-        </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'type')->dropDownList($items,$params); ?>
-        </div>
-        <div class="col-md-4">
             <?= $form->field($model, 'status')->dropDownList($status,$paramsStatus); ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-12">
+            <?= $form->field($model, 'fileImage')->widget(FileInput::classname(), [
+                'name' => 'Выбрать',
+                'options' => ['accept' => 'images/*'],
+                'pluginOptions' => [
+                    'uploadUrl' => Url::to(['upload']),
+                    'maxFileCount' => 1,
+                    'allowedFileExtensions' => ['jpg', 'png', 'gif'],
+                    'uploadAsync' => true,
+                    'initialPreview'=>[
+                        "/img/" . $model->img,
+                        ],
+                    'initialPreviewAsData'=>true,
+                    'initialPreviewConfig' => [
+                        ['caption' => $model->img, 'size' => $model->getFileSize($model->img)]
+                    ],
+                    'browseClass' => 'btn btn-success',
+                    'uploadClass' => 'btn btn-info',
+                    'removeClass' => 'btn btn-danger',
+                    'browseClass' => 'btn btn-primary',
+                    'showCancel' => true,
+                    'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
+                    'browseLabel' =>  'Выбрать'
+                ]
+            ]); ?>
+            <?= $form->field($model, 'img')->textInput(['style' => 'display:none']) ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'type')->dropDownList($items,$params); ?>
+        </div>
+        <div class="col-md-6">
             <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-12">

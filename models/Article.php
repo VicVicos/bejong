@@ -19,6 +19,7 @@ use Yii;
  */
 class Article extends \yii\db\ActiveRecord
 {
+    public $fileImage;
     /**
      * @inheritdoc
      */
@@ -83,6 +84,17 @@ class Article extends \yii\db\ActiveRecord
         if (parent::beforeSave($insert)) {
             // ...custom code here...
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getFileSize($name)
+    {
+        $puthFile = Yii::$app->params['basePath'] . '/web/img/upload/' . $name;
+        if (file_exists($puthFile)) {
+            return false;
+            // return filesize($name);
         } else {
             return false;
         }

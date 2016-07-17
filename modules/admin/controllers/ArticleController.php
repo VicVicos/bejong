@@ -5,6 +5,7 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\models\Article;
 use app\models\SearchArticle;
+use yii\web\UploadedFile;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
@@ -71,23 +72,7 @@ class ArticleController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    public function actionUpload()
-    {
-        if (Yii::$app->request->isAjax) {
-            $upload_dir = Yii::$app->params['basePath'] . '/web/img/uploads/';
-            var_dump($upload_dir);
-            $valid_extensions = array('gif', 'png', 'jpeg', 'jpg');
 
-            $Upload = new FileUpload('uploadfile');
-            $result = $Upload->handleUpload($upload_dir, $valid_extensions);
-
-            if (!$result) {
-                echo json_encode(array('success' => false, 'msg' => $Upload->getErrorMsg()));
-            } else {
-                echo json_encode(array('success' => true, 'file' => $Upload->getFileName()));
-            }
-        }
-    }
     /**
      * Displays a single Article model.
      * @param integer $id
@@ -126,17 +111,48 @@ class ArticleController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->view->registerCssFile('/css/article.css');
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+            // return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
         }
     }
+    /**
+     * [actionUpload description]
+     * @return [type] [description]
+     */
+    public function actionUpload ()
+    {
+        if (Yii::$app->request->isAjax) {
+            $fileImage = UploadedFile::getInstanceByName('Article[fileImage]');
 
+            $directory = \Yii::getAlias(Yii::$app->params['basePath'] . '/web/img/');
+            if (!is_dir($directory)) {
+                mkdir($directory);
+            }
+
+            if ($fileImage) {
+                $uid = substr(uniqid(time(), true), -8);
+                $fileName = $fileImage->name;
+                $filePath = $directory . $fileName;
+                if ($fileImage->saveAs($filePath)) {
+                    $path = '/img/' . $fileName;
+                    $fileImage = $fileName;
+                    $res = ['name' => $fileImage];
+                    return json_encode($res);
+                } else {
+                    return false;
+                }
+            }
+        }
+    }
     /**
      * Deletes an existing Article model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
