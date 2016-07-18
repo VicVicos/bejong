@@ -56,6 +56,20 @@
             font-weight: 700;
             &:hover, &:focus, &:visited
                 text-decoration: none;
+                color: yellowBG;
+            &::after
+                content: '';
+                display: inline-block;
+                background-image: url('../img/sprite.png');
+                background-repeat: no-repeat;
+                width: 23px;
+                height: 14px;
+                background-position: -105px -451px;
+                position: relative;
+                top: -3px;
+                left: 0px;
+                opacity: 0;
+                transition: opacity ease-out 0.3s, left ease-out 0.3s;
         &.active
             a
                 color: yellowBG;
@@ -70,6 +84,7 @@
                     position: relative;
                     top: -3px;
                     left: 15px;
+                    opacity: 1;
 .pilles
     div
         position: relative;
