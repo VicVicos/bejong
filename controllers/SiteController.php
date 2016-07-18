@@ -1,9 +1,9 @@
 <?php
-// TODO: Асинхронная загрузка файлов
 // TODO: Анимация.
 // FIXME: Задания в кесе.
 // FIXME: Порядок в текстах письма.
 // FIXME: Вывод менюшек в массиве и цикле. Меню из базы.
+// FIXME: Вывод форм после отправки. Конфликт.
 namespace app\controllers;
 
 use Yii;
@@ -93,21 +93,27 @@ class SiteController extends Controller
         $mode = Yii::$app->request->get('mode');
         if ($mode === 'application') {
             $model = new ContactForm();
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                Yii::$app->session->setFlash('contactFormApplication', 'Письмо отправлено.', false);
+                $result = $model->contact();
+            }
         } elseif ($mode === 'cargo') {
             $model = new CargoForm();
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                Yii::$app->session->setFlash('contactFormCargo', 'Письмо отправлено.', false);
+                $result = $model->contact();
+            }
         } elseif ($mode === 'review') {
             $model = new ReviewForm();
-            if ($model->load(Yii::$app->request->post())) {
-                $model->img = UploadedFile::getInstance($model, 'img');
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                Yii::$app->session->setFlash('contactFormReview', 'Письмо отправлено.', false);
+                $result = $model->contact();
+                $model->img = UploadedFile::getInstanceByName('ReviewForm[img]');
                 if ($model->img) {
-                    $model->img = 'review/' . $model->uploadImg();
+                    $model->img = 'review/' . $model->uploadImg($model);
                 }
                 $model->setReview();
             }
-        }
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            Yii::$app->session->setFlash('contactFormSubmitted', 'Письмо отправлено.', false);
-            $result = $model->contact();
         }
         return $this->renderAjax('contact', [
             'model' => $model,
@@ -115,6 +121,31 @@ class SiteController extends Controller
             'result' => $result
         ]);
     }
+    // public function actionUpload()
+    // {
+    //     if (Yii::$app->request->isAjax) {
+    //         $fileImage = UploadedFile::getInstanceByName('ReviewForm[img]');
+    //
+    //         $directory = \Yii::getAlias(Yii::$app->params['basePath'] . '/web/img/review/');
+    //         if (!is_dir($directory)) {
+    //             mkdir($directory);
+    //         }
+    //
+    //         if ($fileImage) {
+    //             $uid = substr(uniqid(time(), true), -8);
+    //             $fileName = $fileImage->name;
+    //             $filePath = $directory . $fileName;
+    //             if ($fileImage->saveAs($filePath)) {
+    //                 $path = '/img/' . $fileName;
+    //                 $fileImage = $fileName;
+    //                 $res = ['name' => $fileImage];
+    //                 return json_encode($res);
+    //             } else {
+    //                 return false;
+    //             }
+    //         }
+    //     }
+    // }
     public function actionLogout()
     {
         Yii::$app->user->logout();

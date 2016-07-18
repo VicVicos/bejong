@@ -39,6 +39,4 @@ $('.page .team').height(maxheight);
 
 $('#article').on('click', '.fileinput-remove-button', function(event) {
     $('#article-img').val('');
-    console.log(0);
 });
-console.log(0);

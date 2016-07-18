@@ -114,10 +114,10 @@ class ArticleController extends Controller
         $this->view->registerCssFile('/css/article.css');
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-            // return $this->redirect(['view', 'id' => $model->id]);
+            // return $this->render('update', [
+            //     'model' => $model,
+            // ]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,

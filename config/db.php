@@ -1,5 +1,5 @@
 <?php
-// 
+//
 // return [
 //     'class' => 'yii\db\Connection',
 //     'dsn' => 'mysql:host=itb-dev.ru;dbname=bejong',

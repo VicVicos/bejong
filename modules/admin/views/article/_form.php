@@ -19,6 +19,30 @@ $params = ['prompt' => 'Выберите тип...'];
 
 $status = ['active' => 'Опубликовано', 'disabled' => 'Не опубликовано'];
 $paramsStatus = ['prompt' => 'Статус...'];
+$arrayUpload = [
+    'name' => 'Выбрать',
+    'options' => ['accept' => 'images/*'],
+    'pluginOptions' => [
+        'uploadUrl' => Url::to(['upload']),
+        'maxFileCount' => 1,
+        'allowedFileExtensions' => ['jpg', 'png', 'gif'],
+        'uploadAsync' => true,
+        'initialPreview'=>[
+            "/img/" . $model->img,
+            ],
+        'initialPreviewAsData'=>true,
+        'initialPreviewConfig' => [
+            ['caption' => $model->img, 'size' => $model->getFileSize($model->img)]
+        ],
+        'browseClass' => 'btn btn-success',
+        'uploadClass' => 'btn btn-info',
+        'removeClass' => 'btn btn-danger',
+        'browseClass' => 'btn btn-primary',
+        'showCancel' => true,
+        'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
+        'browseLabel' =>  'Выбрать'
+    ]
+];
 ?>
     <div class="article-form">
         <?php $form = ActiveForm::begin(['id' => 'article', 'options' => ['enctype' => 'multipart/form-data']]); ?>
@@ -32,30 +56,7 @@ $paramsStatus = ['prompt' => 'Статус...'];
             <?= $form->field($model, 'status')->dropDownList($status,$paramsStatus); ?>
         </div>
         <div class="col-md-12">
-            <?= $form->field($model, 'fileImage')->widget(FileInput::classname(), [
-                'name' => 'Выбрать',
-                'options' => ['accept' => 'images/*'],
-                'pluginOptions' => [
-                    'uploadUrl' => Url::to(['upload']),
-                    'maxFileCount' => 1,
-                    'allowedFileExtensions' => ['jpg', 'png', 'gif'],
-                    'uploadAsync' => true,
-                    'initialPreview'=>[
-                        "/img/" . $model->img,
-                        ],
-                    'initialPreviewAsData'=>true,
-                    'initialPreviewConfig' => [
-                        ['caption' => $model->img, 'size' => $model->getFileSize($model->img)]
-                    ],
-                    'browseClass' => 'btn btn-success',
-                    'uploadClass' => 'btn btn-info',
-                    'removeClass' => 'btn btn-danger',
-                    'browseClass' => 'btn btn-primary',
-                    'showCancel' => true,
-                    'browseIcon' => '<i class="glyphicon glyphicon-camera"></i> ',
-                    'browseLabel' =>  'Выбрать'
-                ]
-            ]); ?>
+            <?= $form->field($model, 'fileImage')->widget(FileInput::classname(), $arrayUpload); ?>
             <?= $form->field($model, 'img')->textInput(['style' => 'display:none']) ?>
         </div>
         <div class="col-md-6">
