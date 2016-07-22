@@ -44,7 +44,7 @@ $i = 0;
                 <?= Html::a('Загрузить накладную', Url::to(['/lk/lk/upload', 'user' => $model['id']]), ['class' => 'btn btn-lk']);?>
             <?php else : ?>
             <?php endif; ?>
-            <p class="title">Номера накладных</p>
+            <p class="title">Мои грузы</p>
             <?php foreach ($cargo as $key => $item) : ?>
                 <p><?= Html::a($item->id_cargo, Url::to(['/lk/lk/cargo', 'user' => $model['id'], 'cargo' => $cargo[$i]->id]));?><?= ($item->payment_cond === 'Y') ? 'Отправлено' : 'Не отправлено' ?></p>
                 <?php $i++; ?>

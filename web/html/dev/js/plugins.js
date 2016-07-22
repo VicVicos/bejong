@@ -44,8 +44,12 @@
   $.fn.bigFirstWord = function() {
     var str = this.text();
     var splited = str.split(' ');
-    var replaced = str.split(splited[0]).join('<span class="big">' + splited[0] + '</span>');
-    this.html(replaced);
+    console.log(splited[0].length);
+    if (splited[0].length > 1) {
+        var replaced = str.split(splited[0]).join('<span class="big">' + splited[0] + '</span>');
+        this.html(replaced);
+    }
+    return;
   };
 })(jQuery);
 $("#article-fileimage").on('filebatchpreupload', function(event, data, id, index) {

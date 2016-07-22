@@ -133,12 +133,6 @@ animateSlide3.add([TweenMax.to($('#title-3'), .5 * speed, {
         opacity: 1,
         delay: 1,
         ease: Power1.easeIn
-    }), TweenMax.to($('#guarantee'), 1.5 * speed, {
-        opacity: 1,
-        delay: 0,
-        ease: Bounce.easeOut,
-        rotation:30,
-        scaleX:0.8
     }), TweenMax.to($('#auto'), 1.5 * speed, {
         left: 650,
         opacity: 0,
