@@ -28,6 +28,7 @@
         cursor: default;
     .d-item
         margin-top: 50px;
+        height: 160px;
         > div
             margin-right: 145px;
             display: inline-block;
@@ -35,6 +36,7 @@
             width: 100px;
             border-radius: 50%;
             position: relative;
+            float: left;
             span
                 &::after
                     content: attr(data-day);
@@ -94,6 +96,11 @@
                     margin-bottom: 0;
                     &.title
                         font-size: 14px;
+                        white-space: nowrap;
+                        display: block;
+                        position: relative;
+                        width: 160px;
+                        left: -29%;
 .jd
     h2
         + img
