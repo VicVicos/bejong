@@ -43,7 +43,7 @@ $j = 1;
                             }
                         ?>
                         <?php if ($j == 1) : ?>
-                            <div class="tab-pane fade active" id="tab<?= $j ?>">
+                            <div class="tab-pane active" id="tab<?= $j ?>">
                                 <?= $item->intro ?>
                         <?php else : ?>
                             <div class="tab-pane fade" id="tab<?= $j ?>">

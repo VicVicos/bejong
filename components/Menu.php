@@ -22,18 +22,55 @@ class Menu extends Widget {
                 <a href="' . Url::to(['page/about']) . '">О компани</a>
             </li>
             <li>
-                <a href="' . Url::to(['page/uslugi']) . '">Услуги</a>
+                <a href="#">Услуги</a>
                 <ul>
                     <li>
-                        <a href="' . Url::to(['page/page', 'id' => 13]) . '">Статьяи</a>
+                        <a href="' . Url::to(['page/page', 'id' => 13]) . '">Воздушные перевозки</a>
                     </li>
                     <li>
-                        <a href="' . Url::to(['page/page', 'id' => 13]) . '">Новая статья</a>
+                        <a href="' . Url::to(['page/page', 'id' => 15]) . '">Морские перевозки</a>
+                    </li>
+					<li>
+                        <a href="' . Url::to(['page/page', 'id' => 14]) . '">Наземные перевозки</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="' . Url::to(['page/services']) . '">Сервис</a>
+                <a href="#">Сервис</a>
+				<ul>
+                    <li>
+                        <a href="' . Url::to(['page/page', 'id' => 20]) . '">Консолидация товара</a>
+                    </li>
+                    <li>
+                        <a href="' . Url::to(['page/page', 'id' => 21]) . '">Упаковка</a>
+						<ul>
+                    <li>
+                        <a href="' . Url::to(['page/page', 'id' => 26]) . '">Жесткая упаковка</a>
+                    </li>
+                    <li>
+                        <a href="' . Url::to(['page/page', 'id' => 27]) . '">Жесткий короб</a>
+                    </li>
+					<li>
+                        <a href="' . Url::to(['page/page', 'id' => 28]) . '">Воздушно-пузырьковая пленка</a>
+                    </li>
+					<li>
+                        <a href="' . Url::to(['page/page', 'id' => 29]) . '">Картонная коробка</a>
+                    </li>
+					<li>
+                        <a href="' . Url::to(['page/page', 'id' => 30]) . '">Мешок</a>
+                    </li>
+                </ul>
+                    </li>
+					<li>
+                        <a href="' . Url::to(['page/page', 'id' => 22]) . '">Услуги переводчика</a>
+                    </li>
+					<li>
+                        <a href="' . Url::to(['page/page', 'id' => 23]) . '">Выезд на фабрику</a>
+                    </li>
+					<li>
+                        <a href="' . Url::to(['page/page', 'id' => 24]) . '">Встреча в аэропорту</a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a href="' . Url::to(['page/team']) . '">Наша команда</a>
@@ -45,5 +82,23 @@ class Menu extends Widget {
         ';
         return $wrpMenu;
 	}
+
+    public function rez ()
+    {
+        // $menu = [
+        //     'page/about' => 'О компании',
+        //     'page/uslugi' => 'Услуги',
+        //     'page/services' => 'Сервис',
+        //     'page/team' => 'Наша команда',
+        //     'page/contacts' => 'Контакты'
+        // ];
+        // $li = '';
+        // foreach ($menu as $link => $title) {
+        //
+        //     $a = Html::a($title, Url::to([$link]));
+        //     $li .= Html::tag('li', $a);
+        // }
+        // $wrpMenu = Html::tag('ul', $li, ['class' => 'nav-menu']);
+    }
 }
 ?>
