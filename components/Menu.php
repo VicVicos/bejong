@@ -19,7 +19,7 @@ class Menu extends Widget {
         $wrpMenu = '
         <ul class="nav-menu">
             <li>
-                <a href="' . Url::to(['page/about']) . '">О компани</a>
+                <a href="' . Url::to(['page/about']) . '">О компании</a>
             </li>
             <li>
                 <a href="#">Услуги</a>

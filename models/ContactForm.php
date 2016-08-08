@@ -27,7 +27,7 @@ class ContactForm extends Model
     public function rules()
     {
         return [
-            [['weight', 'width', 'length', 'height', 'type', 'name', 'contact'], 'required'],
+            [['name', 'email'], 'required'],
             ['email', 'email'],
             ['verifyCode', 'captcha'],
         ];
@@ -43,7 +43,7 @@ class ContactForm extends Model
             'width' => 'Ширина',
             'length' => 'Длина',
             'height' => 'Высота',
-            'type' => 'Тип',
+            'type' => 'Наименование товара',
             'name' => 'Имя',
             'email' => 'Email',
             'contact' => 'Телефон',

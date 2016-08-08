@@ -8,6 +8,7 @@ return [
         'language' => 'ru',
         'clientOptions' => [
             'automatic_uploads' => true,
+            'valid_elements' => '*[*]',
             'plugins' => [
                 "advlist autolink lists link charmap print preview anchor",
                 "searchreplace visualblocks code fullscreen",

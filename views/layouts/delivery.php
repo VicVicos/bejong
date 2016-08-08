@@ -7,7 +7,7 @@ use yii\helpers\Url;
         <div class="col-md-12 jd">
             <p class="titleh2">Ж/д доставка</p>
             <img src="img/jd.png" alt="avia">
-            <div><p class="sroki">Сроки поставки 5-8 дней</p></div>
+            <div><p class="sroki">Сроки поставки 18-21 день</p></div>
             <div class="row">
                 <div class="col-md-12 d-item">
                     <div>
