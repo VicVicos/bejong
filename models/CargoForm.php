@@ -10,8 +10,8 @@ use yii\base\Model;
  */
 class CargoForm extends Model
 {
-    public $name;
-    public $email;
+    public $name = '';
+    public $email = '';
     public $idCargo;
     public $verifyCode;
 
@@ -22,7 +22,7 @@ class CargoForm extends Model
     public function rules()
     {
         return [
-            [['name', 'email', 'idCargo'], 'required'],
+            [['idCargo'], 'required'],
             ['email', 'email'],
             ['verifyCode', 'captcha'],
         ];
@@ -60,5 +60,10 @@ class CargoForm extends Model
         } else {
             return false;
         }
+    }
+
+    public static function getStatus ($id)
+    {
+        return Cargo::find()->where(['id_cargo' => $id])->one();
     }
 }

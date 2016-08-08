@@ -41,9 +41,30 @@ $arrayUpload = [
             <?php if (Yii::$app->session->hasFlash('contactFormCargo') && $mode === 'cargo') : ?>
                 <div class="alert alert-success">
                     Результат проверки.
+                    <?php
+                    switch ($status->order_status) {
+                        case 'nosend':
+                            $stt = 'не отправлен';
+                            break;
+                        case 'send':
+                            $stt = 'отправлен';
+                            break;
+                        case 'border':
+                            $stt = 'на границе';
+                            break;
+                        case 'ready':
+                            $stt = 'готов к выдаче';
+                            break;
+                        default:
+                            $stt = 'не найден';
+                            break;
+                    }
+                    ?>
                 </div>
-                Груз: <?= ($status->payment_cond === 'Y') ? 'отправлен' : 'не отправлен' ?><br>
-                Зайдите в <a href="<?= Url::to(['lk/lk/index']) ?>">личный кабинет</a> для подробностей.
+                Товар: <?= $status->id_cargo ?> <?= $stt ?><br>
+                <?php if ($status !== null) : ?>
+                    Зайдите в <a href="<?= Url::to(['lk/lk/index']) ?>">личный кабинет</a> для подробностей.
+                <?php endif; ?>
             <?php elseif (Yii::$app->session->hasFlash('contactFormApplication') || $mode === 'application') : ?>
                 <div class="alert alert-success">
                     Спасибо! Ваша заявка принята.
@@ -53,7 +74,7 @@ $arrayUpload = [
                     Спасибо! Ваш отзыв будет опубликован после проверки модератором.
                 </div>
             <?php endif; ?>
-        <?php else: ?>
+        <?php else : ?>
             <div class="row">
                 <div class="col-md-12">
                     <?php $form = ActiveForm::begin(['id' => 'contact-form', 'options' => ['name' => 'megaform', 'enctype' => 'multipart/form-data']]); ?>
@@ -70,8 +91,8 @@ $arrayUpload = [
                         <?php elseif ($mode === 'cargo') : ?>
                             <!-- Проверка состояния груза -->
                             <!-- Заявка -->
-                            <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-                            <?= $form->field($model, 'email') ?>
+                            <? //$form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+                            <? //$form->field($model, 'email') ?>
                             <?= $form->field($model, 'idCargo') ?>
                         <?php elseif ($mode === 'review') : ?>
                             <?= $form->field($model, 'title')->textInput(['autofocus' => true]) ?>
@@ -126,18 +147,6 @@ jQuery('#contact-form [type="submit"]').on('click', function(e){
     });
 
 });
-// jQuery('#contact-form').on('beforeSubmit', function(){
-//     var form = jQuery(this);
-//     jQuery.post(
-//         form.attr("action"),
-//         form.serialize()
-//     )
-//     .done(function(result) {
-//         form.parents('.site-contact').replaceWith(result);
-//     })
-//     .fail(function() {});
-//     return false;
-// })
 JS;
 $this->registerJs($js);
 ?>

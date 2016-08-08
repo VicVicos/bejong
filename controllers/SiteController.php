@@ -89,6 +89,7 @@ class SiteController extends Controller
         }
         return $this->redirect(['lk/lk/index'],302);
     }
+
     public function actionContact()
     {
         $mode = Yii::$app->request->get('mode');
@@ -98,11 +99,14 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('contactFormApplication', 'Письмо отправлено.', false);
                 $result = $model->contact();
             }
+            $status = '';
         } elseif ($mode === 'cargo') {
             $model = new CargoForm();
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
                 Yii::$app->session->setFlash('contactFormCargo', 'Письмо отправлено.', false);
-                $result = $model->contact();
+                // $result = $model->contact();
+                $result = true;
+                $status = $model->getStatus($model->idCargo);
             }
         } elseif ($mode === 'review') {
             $model = new ReviewForm();
@@ -115,38 +119,16 @@ class SiteController extends Controller
                 }
                 $model->setReview();
             }
+            $status = '';
         }
         return $this->renderAjax('contact', [
             'model' => $model,
             'mode' => $mode,
+            'status' => $status,
             'result' => $result
         ]);
     }
-    // public function actionUpload()
-    // {
-    //     if (Yii::$app->request->isAjax) {
-    //         $fileImage = UploadedFile::getInstanceByName('ReviewForm[img]');
-    //
-    //         $directory = \Yii::getAlias(Yii::$app->params['basePath'] . '/web/img/review/');
-    //         if (!is_dir($directory)) {
-    //             mkdir($directory);
-    //         }
-    //
-    //         if ($fileImage) {
-    //             $uid = substr(uniqid(time(), true), -8);
-    //             $fileName = $fileImage->name;
-    //             $filePath = $directory . $fileName;
-    //             if ($fileImage->saveAs($filePath)) {
-    //                 $path = '/img/' . $fileName;
-    //                 $fileImage = $fileName;
-    //                 $res = ['name' => $fileImage];
-    //                 return json_encode($res);
-    //             } else {
-    //                 return false;
-    //             }
-    //         }
-    //     }
-    // }
+
     public function actionLogout()
     {
         Yii::$app->user->logout();
