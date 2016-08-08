@@ -1,7 +1,7 @@
 <?php
 use app\components\Menu;
 
-$this->title = 'My Yii Application';
+$this->title = $model->title;
 
 require_once __DIR__ . '/template/template.php';
 ?>

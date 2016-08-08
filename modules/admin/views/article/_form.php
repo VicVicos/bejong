@@ -57,7 +57,7 @@ $arrayUpload = [
         </div>
         <div class="col-md-12">
             <?= $form->field($model, 'fileImage')->widget(FileInput::classname(), $arrayUpload); ?>
-            <?= $form->field($model, 'img')->textInput(['style' => 'display:none']) ?>
+            <?= $form->field($model, 'img')->textInput() ?>
         </div>
         <div class="col-md-6">
             <?= $form->field($model, 'type')->dropDownList($items,$params); ?>

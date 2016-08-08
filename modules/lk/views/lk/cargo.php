@@ -16,9 +16,8 @@ $cargo = [];
 foreach ($model as $key => $value) {
         $cargo[] = $value;
 }
+
 unset($cargo['0'], $cargo['2']);
-$cargo['11'] = $cargo['11'] === 'Y' ? 'Оплаченео' : 'Не оплачено';
-$cargo['12'] = $cargo['12'] === 'Y' ? 'Отправлено' : 'Не отправлено';
 
 $optionField = ['class' => 'nake-input form-control', 'disabled' => 'disabled'];
 ?>
@@ -84,8 +83,13 @@ $optionField = ['class' => 'nake-input form-control', 'disabled' => 'disabled'];
                             <td><?= $form->field($model, 'places')->input('text', $optionField) ?></td>
                             <td><?= $form->field($model, 'rate')->input('text', $optionField) ?></td>
                             <td><?= $form->field($model, 'cost')->input('text', $optionField) ?></td>
-                            <td><?= $form->field($model, 'order_status')->dropDownList(['Y' => 'Оплачено', 'N' => 'Не оплачено'], ['class' => 'drop-dl form-control']) ?></td>
-                            <td><?= $form->field($model, 'payment_cond')->dropDownList(['Y' => 'Отправлен', 'N' => 'Не отправлен'], ['class' => 'drop-dl form-control']) ?></td>
+                            <td><?= $form->field($model, 'payment_cond')->dropDownList(['Y' => 'Оплачено', 'N' => 'Не оплачено'], ['class' => 'drop-dl form-control']) ?></td>
+                            <td><?= $form->field($model, 'order_status')->dropDownList([
+                                'nosend' => 'Не отправлено',
+                                'send' => 'Отправлен',
+                                'border' => 'На границе',
+                                'ready' => 'Готов к выдаче'
+                            ], ['class' => 'drop-dl form-control']) ?></td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

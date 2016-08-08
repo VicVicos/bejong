@@ -55,9 +55,9 @@ class RegisterUser extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'ФИО',
-            'contact' => 'Телефоон',
+            'contact' => 'Телефон',
             'email' => 'Email',
-            'address' => 'Адрес',
+            'address' => 'Адрес доставки груза',
             'password' => 'Password',
             'vpass' => 'Повтор пароля',
             'status' => 'Статус',

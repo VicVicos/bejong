@@ -14,42 +14,42 @@ use yii\helpers\Url;
                         <img src="img/container.png" alt="alt">
                         <span data-day="2" data-count="дня"></span>
                         <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
+                            <p class="title">Пекин.</p>
+                            <p>Загрузка товара и подготовка товара к отправке.</p>
                         </div>
                     </div>
                     <div>
                         <img src="img/f-paravoz.png" alt="alt">
-                        <span data-day="3-5" data-count="дней"></span>
+                        <span data-day="4" data-count="дней"></span>
                         <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
+                            <p class="title">Урумчи.</p>
+                            <p>Отправка товара с Пекина до Урумчи.</p>
                         </div>
                     </div>
                     <div>
                         <img src="img/ycik.png" alt="alt">
                         <span data-day="1" data-count="день"></span>
                         <div class="item-content">
-                            <p class="title">Таможня КНР</p>
-                            <p>Небльшой текст описания пункта</p>
+                            <p class="title">Таможня (КНР).</p>
+                            <p>Досмотр на томожне.</p>
                             <i class="flag flag-kndr"></i>
                         </div>
                     </div>
                     <div>
                         <img src="img/ycik.png" alt="alt">
-                        <span data-day="2" data-count="дня"></span>
+                        <span data-day="3-5" data-count="дня"></span>
                         <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
+                            <p class="title">Томожня (Казахстан).</p>
+                            <p>Проверка товара на таможне в Алма-Ате.</p>
                             <i class="flag flag-kz"></i>
                         </div>
                     </div>
                     <div>
                         <img src="img/cremle.png" alt="alt">
-                        <span data-day="2" data-count="дня"></span>
+                        <span data-day="5-7" data-count="дня"></span>
                         <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
+                            <p class="title">Отправка до Москвы.</p>
+                            <p>Доставка товара в Москву.</p>
                         </div>
                     </div>
                 </div>
@@ -65,25 +65,25 @@ use yii\helpers\Url;
                         <img src="img/container.png" alt="alt">
                         <span data-day="2" data-count="дня"></span>
                         <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
+                            <p class="title">Пекин.</p>
+                            <p>Загрузка товара на борт самолёта.</p>
                         </div>
                     </div>
                     <div>
                         <img src="img/f-avia.png" alt="alt">
-                        <span data-day="2" data-count="дня"></span>
+                        <span data-day="1-2" data-count="дня"></span>
                         <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
-                            <i class="flag flag-kndr"></i>
+                            <p class="title">Россия.</p>
+                            <p>Отправка товара в Россию.</p>
+                            <i class="flag flag-rus"></i>
                         </div>
                     </div>
                     <div>
-                        <img src="img/f-avia.png" alt="alt">
-                        <span data-day="2" data-count="дня"></span>
+                        <img src="img/ycik.png" alt="alt">
+                        <span data-day="1-2" data-count="дня"></span>
                         <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
+                            <p class="title">Томожня.</p>
+                            <p>Прохождение таможенных очисток.</p>
                             <i class="flag flag-rus"></i>
                         </div>
                     </div>
@@ -91,8 +91,8 @@ use yii\helpers\Url;
                         <img src="img/cremle.png" alt="alt">
                         <span data-day="2" data-count="дня"></span>
                         <div class="item-content">
-                            <p class="title">Пекин</p>
-                            <p>Небльшой текст описания пункта</p>
+                            <p class="title">Доставка.</p>
+                            <p>Прибытие товара в Москву.</p>
                         </div>
                     </div>
                 </div>
