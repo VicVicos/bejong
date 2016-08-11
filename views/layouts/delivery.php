@@ -39,7 +39,7 @@ use yii\helpers\Url;
                         <img src="img/ycik.png" alt="alt">
                         <span data-day="3-5" data-count="дня"></span>
                         <div class="item-content">
-                            <p class="title">Томожня (Казахстан).</p>
+                            <p class="title">Таможня (Казахстан).</p>
                             <p>Проверка товара на таможне в Алма-Ате.</p>
                             <i class="flag flag-kz"></i>
                         </div>
@@ -82,7 +82,7 @@ use yii\helpers\Url;
                         <img src="img/ycik.png" alt="alt">
                         <span data-day="1-2" data-count="дня"></span>
                         <div class="item-content">
-                            <p class="title">Томожня.</p>
+                            <p class="title">Таможня.</p>
                             <p>Прохождение таможенных очисток.</p>
                             <i class="flag flag-rus"></i>
                         </div>
