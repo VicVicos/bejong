@@ -10,6 +10,8 @@ use app\models\RegisterUser;
 /* @var $model app\models\RegisterUser */
 /* @var $form ActiveForm */
 
+$this->title = 'Регистрация нового пользователя';
+
 if (isset(Yii::$app->user->identity->id)) {
     $id_manager = Yii::$app->user->identity->id;
     $add = 'Добавить пользователя';

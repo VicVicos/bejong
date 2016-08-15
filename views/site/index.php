@@ -4,7 +4,7 @@
 
 use yii\helpers\Url;
 
-$this->title = 'Beijing Zhong';
+$this->title = 'Dragon-cargo';
 
 $i = 1;
 $j = 1;

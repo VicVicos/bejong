@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\models\SearchPersone */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Persones';
+$this->title = 'Команда';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
     <section class="container">

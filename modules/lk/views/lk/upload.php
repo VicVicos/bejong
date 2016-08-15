@@ -7,6 +7,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model app\models\File */
 /* @var $form ActiveForm */
+$this->title = 'Загрузить накладную';
 $id = Yii::$app->request->get('user');
 ?>
     <section class="container">

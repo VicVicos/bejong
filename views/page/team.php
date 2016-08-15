@@ -6,7 +6,7 @@ use app\components\Menu;
 use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = $model->title;
 ?>
 <div class="wrp-header-page" style="background-image: url('/img/air-bg.jpg')">
     <!-- Шапка -->

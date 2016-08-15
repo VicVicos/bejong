@@ -3,6 +3,7 @@ use app\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
 $user = Yii::$app->user->identity;
+$this->title = 'Личный кабинет участника';
 $i = 0;
 ?>
 <section class="container">
