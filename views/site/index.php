@@ -46,11 +46,21 @@ $j = 1;
                             <div class="tab-pane active" id="tab<?= $j ?>">
                                 <?php
                                 $item->intro .= '<div class="pilles">
-                                <div><i class="icon icon-avia"></i><p><a href="' . Url::to(['page/page', 'id' => 13]) . '">Воздушные перевозки</p></a></div>
-                                <div><i class="icon icon-water"></i><p><a href="' . Url::to(['page/page', 'id' => 15]) . '">Морские перевозки</a></p></div>
-                                <div><i class="icon icon-avto"></i><p><a href="' . Url::to(['page/page', 'id' => 14]) . '">Наземные перевозки</a></p></div>
-                                <div><i class="icon icon-gruz"></i><p><a href="' . Url::to(['page/page', 'id' => 21]) . '">Контейнеры</a></p></div>
-                                <div><i class="icon icon-manager"></i><p><a href="' . Url::to(['page/page', 'id' => 24]) . '">Услуги экспедитора</a></p></div></div>';
+                                <div>
+                                <i class="icon icon-avia"></i><p><a href="' . Url::to(['page/page', 'id' => 13]) . '">Воздушные перевозки</a></p>
+                                </div>
+                                <div>
+                                <i class="icon icon-water"></i><p><a href="' . Url::to(['page/page', 'id' => 15]) . '">Морские перевозки</a></p>
+                                </div>
+                                <div>
+                                <i class="icon icon-avto"></i><p><a href="' . Url::to(['page/page', 'id' => 14]) . '">Наземные перевозки</a></p>
+                                </div>
+                                <div>
+                                <i class="icon icon-gruz"></i><p><a href="' . Url::to(['page/page', 'id' => 21]) . '">Контейнеры</a></p>
+                                </div>
+                                <div>
+                                <i class="icon icon-manager"></i><p><a href="' . Url::to(['page/page', 'id' => 24]) . '">Услуги экспедитора</a></p></div>
+                                </div>';
                                 ?>
                                 <?= $item->intro ?>
                         <?php else : ?>

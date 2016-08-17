@@ -1,6 +1,7 @@
 <?php
 // NOTE: Тестирование уведомлений об оплате
 // FIXME: Проверка на дату полей даты отправки и приёма
+// FIXME: Удаление пробелов при добавлении данных в базу, актуально для накладной
 namespace app\modules\lk\controllers;
 
 use Yii;
@@ -113,14 +114,16 @@ class LkController extends Controller
                 $objPHPExcel = new \PHPExcel();
                 $excel = \PHPExcel_IOFactory::load($path . $fileName);
                 $data = $this->parseXlsx($excel, $postData['userId']);
+
                 $find = $cargo->findCargo($data['id_user'], $data['id_cargo']);
                 if (is_null($find)) {
                     // Добавляем новые
-                    $idInsertFile = $model->setFile($postData['userId'], $fileName);
                     $idInsertCargo = $cargo->setCargo($data);
+                    $insertId = Yii::$app->db->getLastInsertID();
+                    $idInsertFile = $model->setFile($postData['userId'], $insertId, $fileName);
+
                     if ($idInsertFile && $idInsertCargo) {
                         Yii::$app->session->setFlash('success', 'Накладная успешно добавлена.', false);
-                        // return $this->redirect('index&user=' . $data['id_user'], 302);
                         return $this->redirect(['index', 'user' => $data['id_user']], 302);
                     } else {
                         Yii::$app->session->setFlash('danger', 'Ошибка добавления накладной.', false);
@@ -129,7 +132,6 @@ class LkController extends Controller
                     // Обновляем
                     if ($res = $cargo->updateCargo($data, $data['id_user'], $data['id_cargo'])) {
                         Yii::$app->session->setFlash('success', 'Накладная обновлена.', false);
-                        // return $this->redirect('index&user=' . $data['id_user'], 302);
                         return $this->redirect(['index', 'user' => $data['id_user']], 302);
                     } else {
                         Yii::$app->session->setFlash('danger', 'Ошибка обновления накладной или не чего обновлять.', false);
@@ -137,7 +139,6 @@ class LkController extends Controller
                 }
             } else {
                 Yii::$app->session->setFlash('success', 'Ошибка загрузки файла.', false);
-                // return $this->redirect('index&user=' . $postData['userId'], 302);
                 return $this->redirect(['index', 'user' => $postData['userId']], 302);
             }
 
@@ -400,7 +401,33 @@ class LkController extends Controller
             'model' => $model,
         ]);
     }
-
+    /**
+     * TODO: Удаление накладной
+     * Обработка и удаление накладной
+     * @method actionDeleteCargo
+     * @return bool Удалили?
+     */
+    public function actionDeleteCargo () {
+        if (Yii::$app->request->post()) {
+            $cargo = new Cargo();
+            $file = new File();
+            $idCargo = Yii::$app->request->get('cargo');
+            $idUser = Yii::$app->request->get('user');
+            // $userChild = User::findById($idUser);
+            // $cargoData = $cargo->findById($idUser);
+            $resDelFile = $file->delFile($idUser, $idCargo);
+            if ($resDelFile) {
+                if ($cargo->delCargo($idUser, $idCargo)) {
+                    Yii::$app->getSession()->setFlash('success', 'Накладная успешно удалена');
+                } else {
+                    Yii::$app->getSession()->setFlash('danger', 'Ошибка удаления накладной');
+                }
+            } else {
+                Yii::$app->getSession()->setFlash('danger', 'Ошибка удаления накладной');
+            }
+            return $this->redirect(['index', 'user' => $idUser], 302);
+        }
+    }
     /**
      * Отправка письма при регистрации
      * @return [type] [description]

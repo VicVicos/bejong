@@ -40,7 +40,7 @@ $optionField = ['class' => 'nake-input form-control', 'disabled' => 'disabled'];
     </div>
     <div class="row lk">
         <div class="col-md-12">
-            <?= Html::a('Скачать накладную' , '/web/xlsxfile/'. $file->id_user . '/' . $file->file_name, ['class' => 'btn btn-lk']); ?>
+            <?= Html::a('Скачать накладную' , '/xlsxfile/'. $file->id_user . '/' . $file->file_name, ['class' => 'btn btn-lk']); ?>
             <?php $form = ActiveForm::begin([
                 'id' => 'cargoForm',
                 'fieldConfig' => [
@@ -97,7 +97,7 @@ $optionField = ['class' => 'nake-input form-control', 'disabled' => 'disabled'];
             <?php ActiveForm::end(); ?>
         </div>
         <div class="col-md-6">
-            <?php if ($model->order_status === 'N') : ?>
+            <?php if ($model->payment_cond === 'N') : ?>
                 <?php if (empty($send)) : ?>
                     <?php $form = ActiveForm::begin();?>
                     <?= $form->field($mailer, 'day')->radioList([

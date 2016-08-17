@@ -66,10 +66,11 @@ class File extends \yii\db\ActiveRecord
      * @param  [type]  $id       [description]
      * @param  [type]  $fileName [description]
      */
-    public function setFile($id, $fileName)
+    public function setFile($id, $idCargo, $fileName)
     {
         return Yii::$app->db->createCommand()->insert('{{%file}}', [
             'id_user' => $id,
+            'id_cargo' => $idCargo,
             'file_name' => $fileName,
         ])->execute();
     }
@@ -85,12 +86,35 @@ class File extends \yii\db\ActiveRecord
     }
     /**
      * Поиск файлов
-     * @method findFile
+     * @method findFiles
      * @param  [type]   $email [description]
      * @return [type]          [description]
      */
     public static function findFiles($id_cargo, $id_user)
     {
         return static::findAll(['id_user' => $id_user, 'id_cargo' => $id_cargo]);
+    }
+    /**
+     * Удаление файла и записи в БД
+     * @method delFile
+     * @param  int  $idUser  id user'a
+     * @param  int  $idCargo id cargo
+     * @return bool          статус удаления накладной
+     */
+    public function delFile($idUser, $idCargo)
+    {
+        $fileName = $this->findFile($idUser, $idCargo);
+        $filePath = Yii::$app->params['basePath'] . '/web/xlsxfile/' . $idUser . '/' . $fileName->file_name;
+        if (file_exists($filePath)) {
+            if (unlink($filePath)) {
+                return $this->delRecord($idUser, $idCargo);
+            }
+        } else {
+            return false;
+        }
+    }
+    public function delRecord ($idUser, $idCargo)
+    {
+        return Yii::$app->db->createCommand()->delete('{{%file}}', ['id_user' => $idUser, 'id_cargo' => $idCargo])->execute();
     }
 }

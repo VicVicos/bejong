@@ -135,8 +135,24 @@ class Cargo extends \yii\db\ActiveRecord
             'cost' => !empty($data['cost']) ? $data['cost'] : 0,
         ], ['id_user' => $id, 'id_cargo' => $idCargo])->execute();
     }
+    /**
+     * Изменение статуса накладной
+     * @method setStatus
+     * @param  [type]    $order   [description]
+     * @param  [type]    $payment [description]
+     * @param  [type]    $id      [description]
+     */
     public static function setStatus ($order, $payment, $id)
     {
         return Yii::$app->db->createCommand()->update('{{%cargo}}', ['order_status' => $order, 'payment_cond' => $payment], "id = {$id}")->execute();
+    }
+    /**
+     * Удаление накладной
+     * @method delCargo
+     * @return [type]   [description]
+     */
+    public function delCargo($idUser, $idCargo)
+    {
+        return Yii::$app->db->createCommand()->delete('{{%cargo}}', ['id_user' => $idUser, 'id' => $idCargo])->execute();
     }
 }

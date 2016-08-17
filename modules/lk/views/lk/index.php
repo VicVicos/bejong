@@ -47,8 +47,33 @@ $i = 0;
             <?php endif; ?>
             <p class="title">Мои грузы</p>
             <?php foreach ($cargo as $key => $item) : ?>
-                <p><?= Html::a($item->id_cargo, Url::to(['/lk/lk/cargo', 'user' => $model['id'], 'cargo' => $cargo[$i]->id]));?><?= ($item->payment_cond === 'Y') ? 'Отправлено' : 'Не отправлено' ?></p>
-                <?php $i++; ?>
+                <?php
+                    switch ($item->order_status) {
+                        case 'send':
+                            $order_status = 'Отправлен';
+                            break;
+                        case 'border':
+                            $order_status = 'На границе';
+                            break;
+                        case 'ready':
+                            $order_status = 'Готов к выдаче';
+                            break;
+                        default:
+                            $order_status = 'Не отправлен';
+                            break;
+                    }
+                ?>
+                <p>
+                    <?= Html::a($item->id_cargo, Url::to(['/lk/lk/cargo', 'user' => $model['id'], 'cargo' => $cargo[$i]->id]));?><?= $order_status ?>
+                    <?php echo Html::a(
+                        '<span class="glyphicon glyphicon-trash"></span>',
+                        ['delete-cargo', 'cargo' => $item->id, 'user' => $model['id']],
+                        [
+                            'data' => ['confirm' => 'Удалить накладную?', 'method' => 'post'],
+                            'class' => 'center'
+                        ]
+                    ) ?>
+                </p>
             <?php endforeach; ?>
         </div>
     </div>
