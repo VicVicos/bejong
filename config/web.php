@@ -9,7 +9,7 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'jklhdljKLfskJH2389',
+            'cookieValidationKey' => 'jklhdl89',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -29,9 +29,9 @@ $config = [
             'useFileTransport' => false,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.yandex.ru',
-                'username' => 'developitb',
-                'password' => '6fduecnf06',
+                'host' => 'smtp..ru',
+                'username' => '',
+                'password' => '',
                 'port' => '465',
                 'encryption' => 'ssl',
             ],
