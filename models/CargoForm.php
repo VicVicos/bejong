@@ -50,12 +50,12 @@ class CargoForm extends Model
     {
         $user = User::find()->where(['email' => $this->email])->one();
         $status = Cargo::find()->where(['id_cargo' => $this->idCargo, 'id_user' => $user->id])->one();
-        $send = Yii::$app->mailer->compose('cargo', ['model' => $this])
-            ->setFrom(Yii::$app->params['adminEmail'])
-            ->setTo($this->email)
-            ->setSubject('Проверка груза' . $this->idCargo)
-            ->send();
-        if ($send && $status) {
+        // $send = Yii::$app->mailer->compose('cargo', ['model' => $this])
+        //     ->setFrom(Yii::$app->params['adminEmail'])
+        //     ->setTo($this->email)
+        //     ->setSubject('Проверка груза' . $this->idCargo)
+        //     ->send();
+        if ($status) {
             return $status;
         } else {
             return false;

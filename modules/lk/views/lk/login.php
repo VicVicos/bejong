@@ -17,9 +17,13 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <!-- lk row -->
 <div class="container">
-
+    <?php
+    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+        echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
+    }
+    ?>
     <div class="row lk">
-        <a class="link link-default" href="#back">Вернуться назад</a>
+        <a class="link link-default" href="/">Вернуться назад</a>
         <div class="col-md-12">
             <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
@@ -33,10 +37,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'email')->textInput(['autofocus' => true, 'placeholder' => 'Ваш email']); ?>
 
                 <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Введите пароль']) ?>
-
-                <?= $form->field($model, 'rememberMe')->checkbox([
-                    'template' => "<div class=\"checkbox col-md-6\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-                ]) ?>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'rememberMe')->checkbox([
+                        'template' => "{input} {label}<div class=\"col-lg-8\">{error}</div>",
+                        'label' => 'Запомнить меня'
+                        ]) ?>
+                </div>
+                <div class="col-md-6">
+                    <a href="<?= Yii::$app->urlManager->createUrl(['lk/lk/restore']) ?>">Забыли пароль?</a>
+                </div>
                 <div class="form-group col-md-12">
                     <?= Html::submitButton('Войти', ['class' => 'btn btn-default-2', 'name' => 'login-button']) ?>
                 </div>

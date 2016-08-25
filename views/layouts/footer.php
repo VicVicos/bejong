@@ -34,8 +34,6 @@ $rejim_w = Settings::getOption('rejim_w');
                 <div>
                     <?= $rejim_b['value'] ?>
                     <?= $rejim_w['value'] ?>
-                    <!-- <p>ПН-ПТ с <strong>10:00</strong> до <strong>19:00</strong></p>
-                    <p>СБ <strong>10:00</strong> до <strong>16:00</strong></p> -->
                 </div>
             </div>
             <div class="col-sm-3">

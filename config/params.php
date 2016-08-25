@@ -2,6 +2,7 @@
 
 return [
     'adminEmail' => 'developitb@yandex.ru',
+    'sendEmail' => 'developitb@yandex.ru',
     'basePath' => dirname(__DIR__),
     'editor' => [
         'options' => ['rows' => 4],

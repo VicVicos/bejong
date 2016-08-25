@@ -173,12 +173,18 @@ class PageController extends Controller
             'model' => $model,
         ]);
     }
+    /**
+     * Страница с вопрос-ответ
+     * @method actionQuestion
+     * @return raw
+     */
     public function actionQuestion()
     {
-        if (Yii::$app->request->get('id') === '45') {
+        $model = Article::findOne(['id' => 45]);
+        if (Yii::$app->request->get('id') === '45' && is_object($model)) {
             $elem = new QuestionForm();
             $idPage = Yii::$app->request->get('id');
-            $model = Article::findOne(['id' => $idPage]);
+
             $form = true;
             if ($elem->load(Yii::$app->request->post())) {
                 if ($elem->contact()) {
@@ -194,7 +200,7 @@ class PageController extends Controller
                 'elem' => $elem
             ]);
         } else {
-            return $this->redirect(['site/index'],302);
+            return $this->redirect(['lk/lk/error'],302);
         }
     }
 }

@@ -28,6 +28,7 @@ class ContactForm extends Model
     {
         return [
             [['name', 'email'], 'required'],
+            [['weight', 'width', 'length', 'height', 'type', 'name', 'contact'], 'string'],
             ['email', 'email'],
             ['verifyCode', 'captcha'],
         ];
@@ -61,14 +62,14 @@ class ContactForm extends Model
         $send = Yii::$app->mailer->compose('application')
             ->setFrom(Yii::$app->params['adminEmail'])
             ->setTo($this->email)
-            ->setSubject('Регистрация пользователя')
+            ->setSubject('Спасибо за обращение!')
             ->send();
         if ($send) {
             return Yii::$app->mailer->compose('calc', [
                 'model' => $this
             ])
-                ->setFrom($this->email)
-                ->setTo(Yii::$app->params['adminEmail'])
+                ->setFrom(Yii::$app->params['adminEmail'])
+                ->setTo(Yii::$app->params['sendEmail'])
                 ->setSubject('Заказ расчёта с сайта')
                 ->send();
         } else {

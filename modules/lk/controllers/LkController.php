@@ -1,5 +1,6 @@
 <?php
-// NOTE: Тестирование уведомлений об оплате
+// TODO: Сброс пароля, тестирование - проблема с релиректом после сброса.
+// TODO: Раз в сутки очищать значения полей hash в таблице user
 // FIXME: Проверка на дату полей даты отправки и приёма
 // FIXME: Удаление пробелов при добавлении данных в базу, актуально для накладной
 namespace app\modules\lk\controllers;
@@ -47,7 +48,7 @@ class LkController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'manager', 'ddoc', 'updoc', 'register', 'login', 'logout'],
+                'only' => ['index', 'manager', 'ddoc', 'updoc', 'register', 'login', 'logout', 'restore'],
                 'rules' => [
                     [
                         'actions' => ['manager', 'ddoc', 'updoc', 'register', 'login', 'logout'],
@@ -58,7 +59,7 @@ class LkController extends Controller
                         }
                     ],
                     [
-                        'actions' => ['index', 'register', 'login'],
+                        'actions' => ['index', 'register', 'login', 'restore'],
                         'allow' => true,
                         'roles' => ['?'],
                         'matchCallback' => function () {
@@ -265,6 +266,100 @@ class LkController extends Controller
     {
         Yii::$app->user->logout();
         return $this->goHome();
+    }
+    public function actionRestore()
+    {
+        $model = new User();
+        $email = Yii::$app->request->get('email');
+        $hash = Yii::$app->request->get('hash');
+        $tempUser = $model->findForRestore($hash);
+        $postData = Yii::$app->request->post();
+        // Смена пароля
+        if (Yii::$app->request->get('restore') && $tempUser->email === $email && $tempUser->hash === $hash) {
+            return $this->restore($email, $hash);
+        }
+        // Запрос на сброс пароля поступил
+        if (Yii::$app->request->post()) {
+            return $this->queryRestore($model);
+        }
+        // Вывод формы на сброс
+        return $this->render('restore', [
+            'model' => $model,
+            'regim' => 1
+        ]);
+    }
+    /**
+     * Действия для сброса пароля
+     * @method restore
+     * @param  email  $email
+     * @param  hash  $hash
+     * @return raw        view
+     */
+    public function restore($email, $hash)
+    {
+        $model = new RegisterUser();
+        $postData = Yii::$app->request->post('RegisterUser');
+        if ($postData) {
+            if ($postData['password'] !== $postData['vpass']) {
+                Yii::$app->session->setFlash('danger', 'Пароли должны совпадать.', false);
+                return $this->viewRestore($model, $email, $hash);
+            }
+            $resultRestore = RegisterUser::restorePassword($postData['password'], $postData['email'], $postData['hash']);
+            // var_dump($resultRestore);
+            if ($resultRestore) {
+                Yii::$app->session->setFlash('success', 'Пароль успешно сброшен.', false);
+                // Здесь! TODO: Перенаправление на другой action
+                return $this->redirect(['/lk/lk/index'],302);
+            } else {
+                Yii::$app->session->setFlash('danger', 'Ошибка сброса пароля.', false);
+            }
+            $model = new LoginForm();
+            return $this->render('login', [
+                'model' => $model,
+            ]);
+        }
+        return $this->viewRestore($model, $email, $hash);
+    }
+    /**
+     * Запрос на восставноление пароля
+     * @method queryRestore
+     * @param  object       $model User()
+     * @return raw          view
+     */
+    public function queryRestore($model)
+    {
+        $data = Yii::$app->request->post('User');
+        if ($model = $model->findByEmail($data['email'])) {
+            if ($model->setHash($model->id, $model->email, $model->password)) {
+                if ($model->sendEmailRestore($user->email, $model->hash)) {
+                    Yii::$app->session->setFlash('success', 'Вам было отправлено письмо.', false);
+                } else {
+                    Yii::$app->session->setFlash('danger', 'Ошибка отправки сообщения!', false);
+                }
+            } else {
+                Yii::$app->session->setFlash('danger', 'Ошибка ввода данных!', false);
+            }
+        } else {
+            Yii::$app->session->setFlash('danger', 'Указанного email не существует.', false);
+        }
+        return $this->render('restore', [
+            'model' => $model,
+            'regim' => 1
+        ]);
+    }
+    /**
+     * Отображение вида сброса пароля
+     * @method viewRestore
+     * @return [type]      [description]
+     */
+    public function viewRestore ($model, $email, $hash)
+    {
+        return $this->render('restore', [
+            'model' => $model,
+            'email' => $email,
+            'hash' => $hash,
+            'regim' => 2
+        ]);
     }
     //
     public function getUser()

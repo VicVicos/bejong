@@ -105,9 +105,11 @@ class File extends \yii\db\ActiveRecord
     {
         $fileName = $this->findFile($idUser, $idCargo);
         $filePath = Yii::$app->params['basePath'] . '/web/xlsxfile/' . $idUser . '/' . $fileName->file_name;
-        if (file_exists($filePath)) {
+        if (file_exists($filePath) && is_file($filePath)) {
             if (unlink($filePath)) {
                 return $this->delRecord($idUser, $idCargo);
+            } else {
+                return false;
             }
         } else {
             return false;

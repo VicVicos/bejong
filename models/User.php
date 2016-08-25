@@ -1,14 +1,32 @@
 <?php
 namespace app\models;
+use Yii;
 
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+    private $hash;
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return '{{%user}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['id', 'name', 'contact','email'], 'required'],
+            [['id'], 'integer'],
+            [['id'], 'unique', 'targetAttribute' => ['id']],
+            [['email'], 'unique', 'targetAttribute' => ['email']],
+            [['name'], 'string', 'max'=>55],
+            [['email'],'email']
+            // 'unique'
+        ];
     }
     /**
      * @inheritdoc
@@ -59,6 +77,17 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function findByEmail($email)
     {
         return static::findOne(['email' => $email]);
+    }
+    /**
+     * Поиск юзера для сброса пароля
+     * @method findByForRestore
+     * @param  str           $email
+     * @param  str           $hash
+     * @return object||bool  Объект с данными юзера или false
+     */
+    public static function findForRestore($hash)
+    {
+        return static::findOne(['hash' => $hash]);
     }
     /**
      * Find User by Id
@@ -123,5 +152,49 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
         return $this->password === $password;
+    }
+    /**
+     * Получение hash для восстановления пароля
+     * @method getHash
+     * @return [type]  [description]
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+    /**
+     * Установка hash
+     * @method setHash
+     * @param  [type]  $id       [description]
+     * @param  [type]  $email    [description]
+     * @param  [type]  $password [description]
+     */
+    public function setHash($id, $email, $password)
+    {
+        $this->hash = md5($email . $password . time());
+        return Yii::$app->db->createCommand()->update('{{%user}}', [
+            'hash' => $this->hash,
+        ], ['id' => $id])->execute();
+    }
+    /**
+     * Отправка сообщения при запросе о смене пароля
+     * @method sendEmailRestore
+     * @return bool
+     */
+    public function sendEmailRestore()
+    {
+        $send = Yii::$app->mailer->compose('restore', [
+            'hash' => $this->hash,
+            'email' => $this->email
+        ])
+            ->setFrom(Yii::$app->params['adminEmail'])
+            ->setTo($this->email)
+            ->setSubject('Запрос на восстановление пароля')
+            ->send();
+        if ($send) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

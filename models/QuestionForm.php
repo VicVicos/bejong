@@ -49,7 +49,7 @@ class QuestionForm extends Model
     {
         if (Yii::$app->mailer->compose('question', ['model' => $this])
             ->setFrom(Yii::$app->params['adminEmail'])
-            ->setTo(Yii::$app->params['adminEmail'])
+            ->setTo(Yii::$app->params['sendEmail'])
             ->setSubject('Вопрос от ' . $this->name)
             ->send()) {
                 return true;

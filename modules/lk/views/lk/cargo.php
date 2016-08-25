@@ -102,7 +102,7 @@ $optionField = ['class' => 'nake-input form-control', 'disabled' => 'disabled'];
                     <?php $form = ActiveForm::begin();?>
                     <?= $form->field($mailer, 'day')->radioList([
                         '1' => 'Оплата при получении',
-                        '5' => 'Через 5 дней',
+                        '3' => 'Через 3 дней',
                         '10' => 'Через 10 дней',
                         ]) ?>
                         <button type="submit" class="btn btn-default-2">Сохранить</button>

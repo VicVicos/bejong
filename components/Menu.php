@@ -19,19 +19,19 @@ class Menu extends Widget {
         $wrpMenu = '
         <ul class="nav-menu">
             <li>
-                <a href="' . Url::to(['page/about']) . '">О компании</a>
+                <a href="' . Url::to(['/page/about']) . '">О компании</a>
             </li>
             <li>
                 <a href="#">Услуги</a>
                 <ul>
                     <li>
-                        <a href="' . Url::to(['page/page', 'id' => 13]) . '">Воздушные перевозки</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 13]) . '">Воздушные перевозки</a>
                     </li>
                     <li>
-                        <a href="' . Url::to(['page/page', 'id' => 15]) . '">Морские перевозки</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 15]) . '">Морские перевозки</a>
                     </li>
 					<li>
-                        <a href="' . Url::to(['page/page', 'id' => 14]) . '">Наземные перевозки</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 14]) . '">Наземные перевозки</a>
                     </li>
                 </ul>
             </li>
@@ -39,44 +39,44 @@ class Menu extends Widget {
                 <a href="#">Сервис</a>
 				<ul>
                     <li>
-                        <a href="' . Url::to(['page/page', 'id' => 20]) . '">Консолидация товара</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 20]) . '">Консолидация товара</a>
                     </li>
                     <li>
-                        <a href="' . Url::to(['page/page', 'id' => 21]) . '">Упаковка</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 21]) . '">Упаковка</a>
 						<ul>
                     <li>
-                        <a href="' . Url::to(['page/page', 'id' => 26]) . '">Жесткая упаковка</a>
+                        <a href="' . Url::to(['//page/page', 'id' => 26]) . '">Жесткая упаковка</a>
                     </li>
                     <li>
-                        <a href="' . Url::to(['page/page', 'id' => 27]) . '">Жесткий короб</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 27]) . '">Жесткий короб</a>
                     </li>
 					<li>
-                        <a href="' . Url::to(['page/page', 'id' => 28]) . '">Воздушно-пузырьковая пленка</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 28]) . '">Воздушно-пузырьковая пленка</a>
                     </li>
 					<li>
-                        <a href="' . Url::to(['page/page', 'id' => 29]) . '">Картонная коробка</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 29]) . '">Картонная коробка</a>
                     </li>
 					<li>
-                        <a href="' . Url::to(['page/page', 'id' => 30]) . '">Мешок</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 30]) . '">Мешок</a>
                     </li>
                 </ul>
                     </li>
 					<li>
-                        <a href="' . Url::to(['page/page', 'id' => 22]) . '">Услуги переводчика</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 22]) . '">Услуги переводчика</a>
                     </li>
 					<li>
-                        <a href="' . Url::to(['page/page', 'id' => 23]) . '">Выезд на фабрику</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 23]) . '">Выезд на фабрику</a>
                     </li>
 					<li>
-                        <a href="' . Url::to(['page/page', 'id' => 24]) . '">Встреча в аэропорту</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 24]) . '">Встреча в аэропорту</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="' . Url::to(['page/team']) . '">Наша команда</a>
+                <a href="' . Url::to(['/page/team']) . '">Наша команда</a>
             </li>
             <li>
-                <a href="' . Url::to(['page/contacts']) . '">Контакты</a>
+                <a href="' . Url::to(['/page/contacts']) . '">Контакты</a>
             </li>
         </ul>
         ';

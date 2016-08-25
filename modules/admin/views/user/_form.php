@@ -16,7 +16,7 @@ $items = ArrayHelper::map($manager,'id','email');
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="col-md-4">
-        <?= $form->field($model, 'id')->textInput(['disabled' => 'disabled']) ?>
+        <?= $form->field($model, 'id')->textInput() ?>
     </div>
     <div class="col-md-4">
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>

@@ -54,7 +54,7 @@ class ReviewForm extends Model
     {
         $send = Yii::$app->mailer->compose('review')
             ->setFrom(Yii::$app->params['adminEmail'])
-            ->setTo(Yii::$app->params['adminEmail'])
+            ->setTo(Yii::$app->params['sendEmail'])
             ->setSubject('Новый отзыв с сайта')
             ->send();
         if ($send) {

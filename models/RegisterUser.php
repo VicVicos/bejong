@@ -58,7 +58,7 @@ class RegisterUser extends \yii\db\ActiveRecord
             'contact' => 'Телефон',
             'email' => 'Email',
             'address' => 'Адрес доставки груза',
-            'password' => 'Password',
+            'password' => 'Пароль',
             'vpass' => 'Повтор пароля',
             'status' => 'Статус',
             'created' => 'Зарегестрирован',
@@ -88,5 +88,30 @@ class RegisterUser extends \yii\db\ActiveRecord
             'address' => $user['address'],
             'id_manager' => $user['id_manager']
         ])->execute();
+    }
+    /**
+     * Сброс пароля
+     * @method restorePassword
+     * @param  str          $password [description]
+     * @param  str          $email    [description]
+     * @param  str          $hash     [description]
+     * @return bool                   [description]
+     */
+    public function restorePassword ($password, $email, $hash)
+    {
+        $user = new User();
+        $user = $user->findForRestore($hash);
+        if (is_object($user)) {
+            $options = [
+                'cost' => 12,
+                'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+            ];
+            $password = password_hash($password, PASSWORD_BCRYPT);
+            $user->password = $password;
+            $user->hash = null;
+            return $user->save();
+        } else {
+            return false;
+        }
     }
 }

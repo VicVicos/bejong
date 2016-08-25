@@ -3,3 +3,4 @@ runtime/*
 tests/*
 vendor/*
 web/xlsxfile
+config/web.php

@@ -38,7 +38,7 @@ use app\models\Mailer;
                 }
             }
         } else {
-
+            echo "Not data.";
         }
      }
  }
