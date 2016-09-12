@@ -42,19 +42,13 @@ class CargoForm extends Model
     }
 
     /**
-     * Sends an email to the specified email address using the information collected by this model.
-     * @param string $email the target email address
-     * @return boolean whether the model passes validation
+     * Отправка данных при запросе статуса накладной
+     * @return str|bool
      */
     public function contact()
     {
         $user = User::find()->where(['email' => $this->email])->one();
         $status = Cargo::find()->where(['id_cargo' => $this->idCargo, 'id_user' => $user->id])->one();
-        // $send = Yii::$app->mailer->compose('cargo', ['model' => $this])
-        //     ->setFrom(Yii::$app->params['adminEmail'])
-        //     ->setTo($this->email)
-        //     ->setSubject('Проверка груза' . $this->idCargo)
-        //     ->send();
         if ($status) {
             return $status;
         } else {

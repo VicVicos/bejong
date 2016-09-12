@@ -165,7 +165,25 @@ class LkController extends Controller
         } else {
             $route = 'other';
         }
-        switch ($route) {
+        switch ($role) {
+            case 'admin':
+                if ($idUser = Yii::$app->request->get('user')) {
+                    $userChild = User::findById($idUser);
+                    $cargo = Cargo::findById($userChild->id);
+                    return $this->render('index', [
+                        'model' => $userChild,
+                        'cargo' => $cargo,
+                        'file' => $file,
+                        'manager' => true
+                    ]);
+                } else {
+                    $member = $this->getAllMember();
+                    return $this->render('manager', [
+                        'model' => $model,
+                        'member' => $member
+                    ]);
+                }
+                break;
             case 'manager':
                 if ($idUser = Yii::$app->request->get('user')) {
                     $userChild = User::findById($idUser);
@@ -305,7 +323,6 @@ class LkController extends Controller
                 return $this->viewRestore($model, $email, $hash);
             }
             $resultRestore = RegisterUser::restorePassword($postData['password'], $postData['email'], $postData['hash']);
-            // var_dump($resultRestore);
             if ($resultRestore) {
                 Yii::$app->session->setFlash('success', 'Пароль успешно сброшен.', false);
                 // Здесь! TODO: Перенаправление на другой action
@@ -347,11 +364,7 @@ class LkController extends Controller
             'regim' => 1
         ]);
     }
-    /**
-     * Отображение вида сброса пароля
-     * @method viewRestore
-     * @return [type]      [description]
-     */
+
     public function viewRestore ($model, $email, $hash)
     {
         return $this->render('restore', [
@@ -378,6 +391,18 @@ class LkController extends Controller
         return Yii::$app->user->identity->role;
     }
 
+    public function getAllMember()
+    {
+        $id = Yii::$app->user->identity->id;
+        $user = new User();
+        return (new Query())
+            ->select('id')
+            ->from('{{%user}}')
+            ->orderBy('id')
+            ->where('id!=:id', [':id' => $id])
+            ->all();
+    }
+
     public function getMember ($id)
     {
         $user = new User();
@@ -387,10 +412,7 @@ class LkController extends Controller
             ->where('id_manager=:id', [':id' => $id])
             ->all();
     }
-    /**
-     * Если пользователь управленец
-     * @return boolean [description]
-     */
+
     public function isManager ()
     {
         $role = $this->getRole();
@@ -510,7 +532,7 @@ class LkController extends Controller
             $idUser = Yii::$app->request->get('user');
             // $userChild = User::findById($idUser);
             // $cargoData = $cargo->findById($idUser);
-            $resDelFile = $file->delFile($idUser, $idCargo);
+            $resDelFile = $file->delFileAndRecord($idUser, $idCargo);
             if ($resDelFile) {
                 if ($cargo->delCargo($idUser, $idCargo)) {
                     Yii::$app->getSession()->setFlash('success', 'Накладная успешно удалена');
@@ -545,12 +567,19 @@ class LkController extends Controller
         $data['id_cargo'] = $cell->getValue();
         $cell = $excel->getActiveSheet()->getCell('E10');
         $data['destination'] = $cell->getValue();
+
         $cell = $excel->getActiveSheet()->getCell('Q9');
-        $InvDate = $cell->getValue();
-        $data['date_depart'] = date('d.m.Y', \PHPExcel_Shared_Date::ExcelToPHP($InvDate));
+        $data['date_depart'] = date("d.m.Y", strtotime($cell->getValue()));
+        if ($data['date_depart'] == '01.01.1970') {
+            $data['date_depart'] = $cell->getValue();
+            $data['date_depart'] = date('d.m.Y', \PHPExcel_Shared_Date::ExcelToPHP($data['date_depart']));
+        }
         $cell = $excel->getActiveSheet()->getCell('Q10');
-        $InvDate = $cell->getValue();
-        $data['date_arrival'] = date('d.m.Y', \PHPExcel_Shared_Date::ExcelToPHP($InvDate));
+        $data['date_arrival'] = date("d.m.Y", strtotime($cell->getValue()));
+        if ($data['date_arrival'] == '01.01.1970') {
+            $data['date_arrival'] = $cell->getValue();
+            $data['date_arrival'] = date('d.m.Y', \PHPExcel_Shared_Date::ExcelToPHP($data['date_arrival']));
+        }
         $cell = $excel->getActiveSheet()->getCell('M12');
         $data['weight'] = $cell->getValue();
         $cell = $excel->getActiveSheet()->getCell('K12');

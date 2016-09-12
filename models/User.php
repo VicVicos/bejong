@@ -46,17 +46,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'id_manager' => 'Менеджер'
         ];
     }
-    /**
-     * @inheritdoc
-     */
+
     public static function findIdentity($id)
     {
         return static::findOne(['id' => $id]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function findIdentityByAccessToken($token, $type = null)
     {
         foreach (self::$users as $user) {
@@ -68,33 +63,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return null;
     }
 
-    /**
-     * Finds user by email
-     *
-     * @param string $username
-     * @return static|null
-     */
     public static function findByEmail($email)
     {
         return static::findOne(['email' => $email]);
     }
-    /**
-     * Поиск юзера для сброса пароля
-     * @method findByForRestore
-     * @param  str           $email
-     * @param  str           $hash
-     * @return object||bool  Объект с данными юзера или false
-     */
+
     public static function findForRestore($hash)
     {
         return static::findOne(['hash' => $hash]);
     }
-    /**
-     * Find User by Id
-     * @method findById
-     * @param  [type]   $id [description]
-     * @return [type]       [description]
-     */
+
     public static function findById($id)
     {
         return static::findOne(['id' => $id]);

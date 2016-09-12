@@ -84,36 +84,20 @@ class File extends \yii\db\ActiveRecord
     {
         return static::findOne(['id_user' => $id_user, 'id_cargo' => $id_cargo]);
     }
-    /**
-     * Поиск файлов
-     * @method findFiles
-     * @param  [type]   $email [description]
-     * @return [type]          [description]
-     */
     public static function findFiles($id_cargo, $id_user)
     {
         return static::findAll(['id_user' => $id_user, 'id_cargo' => $id_cargo]);
     }
-    /**
-     * Удаление файла и записи в БД
-     * @method delFile
-     * @param  int  $idUser  id user'a
-     * @param  int  $idCargo id cargo
-     * @return bool          статус удаления накладной
-     */
-    public function delFile($idUser, $idCargo)
+    public function delFileAndRecord($idUser, $idCargo)
     {
         $fileName = $this->findFile($idUser, $idCargo);
         $filePath = Yii::$app->params['basePath'] . '/web/xlsxfile/' . $idUser . '/' . $fileName->file_name;
         if (file_exists($filePath) && is_file($filePath)) {
-            if (unlink($filePath)) {
-                return $this->delRecord($idUser, $idCargo);
-            } else {
+            if (!unlink($filePath)) {
                 return false;
             }
-        } else {
-            return false;
         }
+        return $this->delRecord($idUser, $idCargo);
     }
     public function delRecord ($idUser, $idCargo)
     {

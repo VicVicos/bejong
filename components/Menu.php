@@ -76,6 +76,9 @@ class Menu extends Widget {
                 <a href="' . Url::to(['/page/team']) . '">Наша команда</a>
             </li>
             <li>
+                <a href="' . Url::to(['/page/jobs']) . '">Вакансии</a>
+            </li>
+            <li>
                 <a href="' . Url::to(['/page/contacts']) . '">Контакты</a>
             </li>
         </ul>

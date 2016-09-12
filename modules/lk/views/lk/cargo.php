@@ -16,7 +16,6 @@ $cargo = [];
 foreach ($model as $key => $value) {
         $cargo[] = $value;
 }
-
 unset($cargo['0'], $cargo['2']);
 
 $optionField = ['class' => 'nake-input form-control', 'disabled' => 'disabled'];

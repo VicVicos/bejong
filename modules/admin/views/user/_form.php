@@ -54,6 +54,7 @@ $items = ArrayHelper::map($manager,'id','email');
     <div class="col-md-12">
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::a('Отмена', ['index', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
         </div>
     </div>
     <?php ActiveForm::end(); ?>

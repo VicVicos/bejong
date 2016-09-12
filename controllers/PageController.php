@@ -55,11 +55,6 @@ class PageController extends Controller
     {
         return $this->render('index');
     }
-    /**
-     * Статьи
-     * @method actionPage
-     * @return [type]     [description]
-     */
     public function actionPage()
     {
         $idPage = Yii::$app->request->get('id');
@@ -68,11 +63,6 @@ class PageController extends Controller
             'model' => $model
         ]);
     }
-    /**
-     * About
-     * @method actionAbout
-     * @return [type]      [description]
-     */
     public function actionAbout()
     {
         $model = Article::findOne(['id' => 9]);
@@ -80,11 +70,13 @@ class PageController extends Controller
             'model' => $model,
         ]);
     }
-    /**
-     * Contacts
-     * @method action
-     * @return [type]     [description]
-     */
+    public function actionJobs()
+    {
+        $model = Article::findOne(['id' => 40]);
+        return $this->render('jobs', [
+            'model' => $model,
+        ]);
+    }
     public function actionContacts()
     {
         $idPage = Yii::$app->request->get('id');
@@ -93,11 +85,6 @@ class PageController extends Controller
             'model' => $model,
         ]);
     }
-    /**
-     * Services
-     * @method actionServices
-     * @return [type]         [description]
-     */
     public function actionServices()
     {
         $idPage = Yii::$app->request->get('id');
@@ -113,11 +100,6 @@ class PageController extends Controller
             'model' => $model,
         ]);
     }
-    /**
-     * Uslugi
-     * @method actionUslugi
-     * @return [type]       [description]
-     */
     public function actionUslugi()
     {
         $idPage = Yii::$app->request->get('id');
@@ -126,11 +108,6 @@ class PageController extends Controller
             'model' => $model,
         ]);
     }
-    /**
-     * [actionLogin description]
-     * @method actionLogin
-     * @return [type]      [description]
-     */
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -145,22 +122,12 @@ class PageController extends Controller
             'model' => $model,
         ]);
     }
-    /**
-     * [actionLogout description]
-     * @method actionLogout
-     * @return [type]       [description]
-     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
 
         return $this->goHome();
     }
-    /**
-     * [actionContact description]
-     * @method actionContact
-     * @return [type]        [description]
-     */
     public function actionContact()
     {
         $model = new ContactForm();

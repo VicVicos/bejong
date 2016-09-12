@@ -31,6 +31,11 @@ $i = 0;
                     <p><strong>Эл. почта</strong><?= $model['email'] ?></p>
                     <p><strong>Адрес</strong><?= $model['address'] ?></p>
                 </div>
+                <?php
+                    if (Yii::$app->user->identity->role === 'admin') {
+                        echo Html::a('Редактировать пользователя', ['/admin/user/update', 'id' => $model['id']]);
+                    }
+                ?>
             <?php else : ?>
                 <div>
                     <p><strong>ФИО</strong><?= $user->name ?></p>
@@ -64,7 +69,7 @@ $i = 0;
                     }
                 ?>
                 <p>
-                    <?= Html::a($item->id_cargo, Url::to(['/lk/lk/cargo', 'user' => $model['id'], 'cargo' => $cargo[$i]->id]));?><?= $order_status ?>
+                    <?= Html::a($item->id_cargo, Url::to(['/lk/lk/cargo', 'user' => $model['id'], 'cargo' => $item->id]));?><?= $order_status ?>
                     <?php echo Html::a(
                         '<span class="glyphicon glyphicon-trash"></span>',
                         ['delete-cargo', 'cargo' => $item->id, 'user' => $model['id']],
