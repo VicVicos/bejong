@@ -15,6 +15,9 @@ $this->title = "Управление участниками";
         <div class="col-md-6">
             <p class="title"><?= $model->name ?></p>
             <a class="btn btn-default-4" href="<?= Url::to(['/lk/lk/register', 'add-user' => Yii::$app->user->identity->id]) ?>">Добавить клиента</a>
+            <?php if (Yii::$app->user->identity->role === 'admin') : ?>
+                <a class="btn btn-default-4" href="<?= Url::to(['/lk/lk/index', 'all-user' => 1]) ?>">Все участники</a>
+            <?php endif; ?>
         </div>
         <div class="col-md-6">
             <p class="title">Пользователь</p>

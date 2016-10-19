@@ -33,6 +33,12 @@ class Menu extends Widget {
 					<li>
                         <a href="' . Url::to(['/page/page', 'id' => 14]) . '">Наземные перевозки</a>
                     </li>
+					<li>
+                        <a href="' . Url::to(['/page/page', 'id' => 54]) . '">Доставка груза без минимального ограничения по весу</a>
+                    </li>
+					<li>
+                        <a href="' . Url::to(['/page/page', 'id' => 58]) . '">Официальное таможенное оформление</a>
+                    </li>
                 </ul>
             </li>
             <li>
@@ -45,7 +51,7 @@ class Menu extends Widget {
                         <a href="' . Url::to(['/page/page', 'id' => 21]) . '">Упаковка</a>
 						<ul>
                     <li>
-                        <a href="' . Url::to(['//page/page', 'id' => 26]) . '">Жесткая упаковка</a>
+                        <a href="' . Url::to(['/page/page', 'id' => 26]) . '">Жесткая упаковка</a>
                     </li>
                     <li>
                         <a href="' . Url::to(['/page/page', 'id' => 27]) . '">Жесткий короб</a>
@@ -69,6 +75,9 @@ class Menu extends Widget {
                     </li>
 					<li>
                         <a href="' . Url::to(['/page/page', 'id' => 24]) . '">Встреча в аэропорту</a>
+                    </li>
+					<li>
+                        <a href="' . Url::to(['/page/page', 'id' => 52]) . '">Логистика</a>
                     </li>
                 </ul>
             </li>

@@ -4,8 +4,9 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 use app\models\LoginForm;
 use app\models\Article;
@@ -58,10 +59,18 @@ class PageController extends Controller
     public function actionPage()
     {
         $idPage = Yii::$app->request->get('id');
-        $model = Article::findOne(['id' => $idPage]);
-        return $this->render('page', [
-            'model' => $model
-        ]);
+        try {
+            $model = Article::findOne(['id' => $idPage]);
+            if (is_object($model)) {
+                return $this->render('page', [
+                    'model' => $model
+                ]);
+            } else {
+                throw new NotFoundHttpException('Страница не найдена');
+            }
+        } catch (Exception $e) {
+
+        }
     }
     public function actionAbout()
     {
@@ -72,7 +81,7 @@ class PageController extends Controller
     }
     public function actionJobs()
     {
-        $model = Article::findOne(['id' => 40]);
+        $model = Article::findOne(['id' => 53]);
         return $this->render('jobs', [
             'model' => $model,
         ]);

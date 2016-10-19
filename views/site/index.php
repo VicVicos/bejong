@@ -56,7 +56,7 @@ $j = 1;
                                 <i class="icon icon-avto"></i><p><a href="' . Url::to(['page/page', 'id' => 14]) . '">Наземные перевозки</a></p>
                                 </div>
                                 <div>
-                                <i class="icon icon-gruz"></i><p><a href="' . Url::to(['page/page', 'id' => 21]) . '">Контейнеры</a></p>
+                                <i class="icon icon-gruz"></i><p><a href="' . Url::to(['page/page', 'id' => 21]) . '">Упаковка</a></p>
                                 </div>
                                 <div>
                                 <i class="icon icon-manager"></i><p><a href="' . Url::to(['page/page', 'id' => 24]) . '">Услуги экспедитора</a></p></div>

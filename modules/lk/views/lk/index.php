@@ -62,6 +62,8 @@ $i = 0;
                             break;
                         case 'ready':
                             $order_status = 'Готов к выдаче';
+                        case 'received':
+                            $order_status = 'Товар получен';
                             break;
                         default:
                             $order_status = 'Не отправлен';

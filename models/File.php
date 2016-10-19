@@ -88,6 +88,7 @@ class File extends \yii\db\ActiveRecord
     {
         return static::findAll(['id_user' => $id_user, 'id_cargo' => $id_cargo]);
     }
+
     public function delFileAndRecord($idUser, $idCargo)
     {
         $fileName = $this->findFile($idUser, $idCargo);
@@ -99,6 +100,7 @@ class File extends \yii\db\ActiveRecord
         }
         return $this->delRecord($idUser, $idCargo);
     }
+
     public function delRecord ($idUser, $idCargo)
     {
         return Yii::$app->db->createCommand()->delete('{{%file}}', ['id_user' => $idUser, 'id_cargo' => $idCargo])->execute();

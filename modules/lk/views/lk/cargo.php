@@ -82,12 +82,13 @@ $optionField = ['class' => 'nake-input form-control', 'disabled' => 'disabled'];
                             <td><?= $form->field($model, 'places')->input('text', $optionField) ?></td>
                             <td><?= $form->field($model, 'rate')->input('text', $optionField) ?></td>
                             <td><?= $form->field($model, 'cost')->input('text', $optionField) ?></td>
-                            <td><?= $form->field($model, 'payment_cond')->dropDownList(['Y' => 'Оплачено', 'N' => 'Не оплачено'], ['class' => 'drop-dl form-control']) ?></td>
+                            <td><?= $form->field($model, 'payment_cond')->dropDownList(['Y' => 'Оплачено', 'N' => 'Не оплачено', 'P' => 'Оплата при получении'], ['class' => 'drop-dl form-control']) ?></td>
                             <td><?= $form->field($model, 'order_status')->dropDownList([
                                 'nosend' => 'Не отправлено',
                                 'send' => 'Отправлен',
                                 'border' => 'На границе',
-                                'ready' => 'Готов к выдаче'
+                                'ready' => 'Готов к выдаче',
+                                'received' => 'Товар получен'
                             ], ['class' => 'drop-dl form-control']) ?></td>
                         </tr>
                     <?php endif; ?>
@@ -110,7 +111,7 @@ $optionField = ['class' => 'nake-input form-control', 'disabled' => 'disabled'];
                         <p class="title">Уведомление о платеже запланировано</p>
                     <?php endif; ?>
             <?php else : ?>
-                <p class="title">Счёт оплачен</p>
+                <p class="title"><?= ($model->payment_cond === 'Y') ? 'Счёт оплачен' : 'Оплата при получении' ?></p>
             <?php endif; ?>
         </div>
     </div>

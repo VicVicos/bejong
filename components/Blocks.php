@@ -75,7 +75,7 @@ $html = <<<EOL
         <div class="slick-content">
             <p id="title-1" class="title">{$posts['0']->title}</p>
             <p id="text-1">{$posts['0']->intro}</p>
-            <a id="link-1" href="{$posts['0']->link}" class="btn btn-default-1">Подробнее</a>
+            <!-- <a id="link-1" href="{$posts['0']->link}" class="btn btn-default-1">Подробнее</a> -->
         </div>
         <div class="slick-img">
             <img id="sudno" class="absolute" src="img/{$posts[0]->img}" alt="{$posts[0]->title}" title="{$posts[0]->title}">
@@ -85,7 +85,6 @@ $html = <<<EOL
         <div class="slick-content">
             <p id="title-2" class="title">{$posts['1']->title}</p>
             <div id="text-2">{$posts['1']->intro}</div>
-            <a id="link-2" href="{$posts['1']->link}" class="btn btn-default-1">Подробнее</a>
         </div>
         <div class="slick-img">
             <img id="cloud" class="absolute" src="img/slider/clouds.png" alt="{$posts['1']->title}" title="{$posts['1']->title}">
@@ -96,7 +95,6 @@ $html = <<<EOL
         <div class="slick-content">
             <p id="title-3" class="title">{$posts['2']->title}</p>
             <div id="text-3">{$posts['2']->intro}</div>
-            <a id="link-3" href="{$posts['2']->link}" class="btn btn-default-1">Подробнее</a>
         </div>
         <div class="slick-img">
             <img id="auto" class="absolute" src="img/slider/truck_2.png" alt="{$posts['2']->title}" title="{$posts['2']->title}">

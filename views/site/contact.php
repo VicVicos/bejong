@@ -11,7 +11,7 @@ if ($mode === 'application') {
 } elseif ($mode === 'cargo') {
     $this->title = 'Проверить состояние груза';
 } else {
-    $this->title = 'Обртаная связь';
+    $this->title = 'Обратная связь';
 }
 $this->params['breadcrumbs'][] = $this->title;
 $arrayUpload = [

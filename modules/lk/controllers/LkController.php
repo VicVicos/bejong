@@ -177,7 +177,9 @@ class LkController extends Controller
                         'manager' => true
                     ]);
                 } else {
-                    $member = $this->getAllMember();
+                    if (Yii::$app->request->get('all-user')) {
+                        $member = $this->getAllMember();
+                    }
                     return $this->render('manager', [
                         'model' => $model,
                         'member' => $member
@@ -221,7 +223,11 @@ class LkController extends Controller
     public function actionManager()
     {
         $model = $this->getUser();
-        $member = $this->getMember($model->id);
+        if (Yii::$app->user->identity->role === 'admin') {
+            $member = $this->getAllMember();
+        } else {
+            $member = $this->getMember($model->id);
+        }
         return $this->render('manager', [
             'model' => $model,
             'member' => $member
@@ -247,7 +253,7 @@ class LkController extends Controller
                     $order = Html::encode($data['order_status']);
                     $payment = Html::encode($data['payment_cond']);
                     if (Cargo::setStatus($order, $payment, $model->id)) {
-                        Yii::$app->session->setFlash('success', 'Статус накладной успешно изменнёт.', false);
+                        Yii::$app->session->setFlash('success', 'Статус накладной успешно изменён.', false);
                     }
                 }
             } elseif ($mailer->load(Yii::$app->request->post())) {
@@ -399,7 +405,7 @@ class LkController extends Controller
             ->select('id')
             ->from('{{%user}}')
             ->orderBy('id')
-            ->where('id!=:id', [':id' => $id])
+            ->where('id!=:id AND role!=:role', [':id' => $id, ':role' => 'manager'])
             ->all();
     }
 

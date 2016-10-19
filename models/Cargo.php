@@ -129,10 +129,22 @@ class Cargo extends \yii\db\ActiveRecord
             'cost' => !empty($data['cost']) ? $data['cost'] : 0,
         ], ['id_user' => $id, 'id_cargo' => $idCargo])->execute();
     }
+
     public static function setStatus ($order, $payment, $id)
     {
+        Cargo::deleteRecordFromMailer($id, $payment);
         return Yii::$app->db->createCommand()->update('{{%cargo}}', ['order_status' => $order, 'payment_cond' => $payment], "id = {$id}")->execute();
     }
+
+    public static function deleteRecordFromMailer($idRecord, $payStatus) {
+        if ($payStatus !== "N") {
+            Yii::$app->db->createCommand()->delete('{{%mailer}}', ['id_cargo' => $idRecord])->execute();
+            return true;
+        } else {
+            return;
+        }
+    }
+
     public function delCargo($idUser, $idCargo)
     {
         return Yii::$app->db->createCommand()->delete('{{%cargo}}', ['id_user' => $idUser, 'id' => $idCargo])->execute();

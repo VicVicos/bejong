@@ -7,5 +7,5 @@
 <p>
     Ваш логин: <?= $model['email'] ?><br>
     Ваш пароль: <?= $model['pass'] ?><br>
-    С уважением, "dragon-cargo"
+    С уважением, "<a href="http://dragon-cargo.ru/" target="_blank">dragon-cargo</a>"
 </p>
